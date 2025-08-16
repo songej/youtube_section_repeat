@@ -1,6 +1,6 @@
 # Privacy Policy
 
-- Effective Date: 2025-08-14
+- Effective Date: 2025-08-16
 - Version: 1.2.0
 
 Our Promise: We do not collect, store, or share any of your personal data. Everything happens on your computer.
@@ -61,7 +61,7 @@ You have full control over the data stored by this Extension.
     2.  Clicking this button will safely remove the oldest section data from your storage.
 
 -   To Remove All Data and Settings:
-    1.  Uninstalling the Extension will automatically and permanently remove all of its locally stored data.
+    1.  Uninstalling the Extension will automatically and permanently remove all of its locally stored data. (This is the only step needed for most users. The synced privacy key will no longer have any effect.)
     2.  The synced privacy key can be cleared from your Google Account by navigating to `chrome://sync`, but this is an advanced step and typically not necessary.
 
 ## 6. Data Security
