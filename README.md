@@ -1,6 +1,6 @@
 # Section Repeat for YouTube™
 
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.1.0-green.svg)](https://github.com/songej/youtube_section_loop/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.0-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.2.0-green.svg)](https://github.com/songej/youtube_section_loop/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.0-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/pppgnfkfeciopablcbkjdohiknebahkc)
 
 > Project Status: 🟢 Active | Type: 🧩 Chrome Browser Extension
 
@@ -8,7 +8,7 @@
 
 **The ultimate tool for musicians, dancers, language learners, and anyone who needs to master specific parts of a video.**
 
-Section Repeat for YouTube™ is a browser extension engineered to enhance practice and learning efficiency on the YouTube platform. It provides a keyboard-driven interface for precise slicing and repeating of video segments. It enables A-B repeat style practice by looping user-defined clips, prioritizing a streamlined, mouse-free experience for music, dance, and language learning.
+Section Repeat for YouTube™ is a browser extension engineered to enhance practice and learning efficiency on the YouTube platform. It provides a keyboard-driven interface for slicing and repeating of video segments. It enables A-B repeat style practice by looping user-defined clips, prioritizing a streamlined, mouse-free experience for music, dance, and language learning.
 
 ---
 
@@ -39,7 +39,7 @@ This extension is built on three core principles:
 ### Installation
 
 **1. From the Chrome Web Store (Recommended)**
--   [Install Here](https://chromewebstore.google.com/)
+-   [Install Here](https://chromewebstore.google.com/detail/pppgnfkfeciopablcbkjdohiknebahkc)
 
 **2. Manual Installation (for Developers)**
 <details>
@@ -54,8 +54,8 @@ This extension is built on three core principles:
 ### Quick Start
 
 1. **Make a section**: Press `S` to start, `E` to end.
-2. **Chain sections**: Press `E` again to instantly add the next section.
-3. **Repeat & navigate**: Press `R` to repeat, then `A` / `D` to jump between sections.
+2. **Chain sections**: Press `E` again to add the next section.
+3. **Repeat & Navigate**: Press `R` to repeat. Press `A` or `D` to jump between sections.
 
 ### Basic Usage
 
