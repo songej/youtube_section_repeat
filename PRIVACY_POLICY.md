@@ -1,7 +1,7 @@
 # Privacy Policy
 
-- Effective Date: 2025-08-16
-- Version: 1.2.0
+- Effective Date: 2025-08-18
+- Version: 1.2.2
 
 Our Promise: We do not collect, store, or share any of your personal data. Everything happens on your computer.
 
