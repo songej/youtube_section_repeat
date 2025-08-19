@@ -1,6 +1,6 @@
 # Section Repeat for YouTube™
 
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.2.0-green.svg)](https://github.com/songej/youtube_section_loop/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.0-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/pppgnfkfeciopablcbkjdohiknebahkc)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.2.1-green.svg)](https://github.com/songej/youtube_section_loop/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.1-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc)
 
 > Project Status: 🟢 Active | Type: 🧩 Chrome Browser Extension
 
@@ -39,7 +39,7 @@ This extension is built on three core principles:
 ### Installation
 
 **1. From the Chrome Web Store (Recommended)**
--   [Install Here](https://chromewebstore.google.com/detail/pppgnfkfeciopablcbkjdohiknebahkc)
+-   [Install Here](https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc)
 
 **2. Manual Installation (for Developers)**
 <details>
