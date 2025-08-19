@@ -1,6 +1,6 @@
 # Section Repeat for YouTube™
 
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://github.com/songej/youtube_section_repeat/LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.2.2-green.svg)](https://github.com/songej/youtube_section_loop/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.1-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://github.com/songej/youtube_section_repeat/blob/main/LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.2.2-green.svg)](https://github.com/songej/youtube_section_loop/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.2-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc)
 
 > Project Status: 🟢 Active | Type: 🧩 Chrome Browser Extension
 
@@ -102,7 +102,7 @@ This extension is built on three core principles:
 -   **Author**: Eunjeong Song ([Homepage](https://songej.com) / [LinkedIn](https://www.linkedin.com/in/songej))
 -   **Source Code**: https://github.com/songej/youtube_section_loop
 -   **Privacy & Legal**:
-    -   **Privacy Policy**: [Read our Privacy Policy](https://github.com/songej/youtube_section_repeat/PRIVACY_POLICY.md)
-    -   **License**: This project is licensed under the [PolyForm Noncommercial License 1.0.0](https://github.com/songej/youtube_section_repeat/LICENSE). This software may be used, copied, modified, and distributed for noncommercial purposes only.
+    -   **Privacy Policy**: [Read our Privacy Policy](https://github.com/songej/youtube_section_repeat/blob/main/PRIVACY_POLICY.md)
+    -   **License**: This project is licensed under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/). This software may be used, copied, modified, and distributed for noncommercial purposes only.
     -   **Disclaimer**: Section Repeat for YouTube™ is an independent project and is not officially associated with YouTube or Google LLC. "YouTube" is a trademark of Google LLC.
 -   **Acknowledgements**: Icon by [khulqi Rosyid](https://www.iconfinder.com/khulqi-rosyid) from IconFinder ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
