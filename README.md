@@ -1,6 +1,6 @@
 # Section Repeat for YouTube™
 
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://github.com/songej/youtube_section_repeat/blob/main/LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.2.2-green.svg)](https://github.com/songej/youtube_section_repeat/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.2-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://github.com/songej/youtube_section_repeat/blob/main/LICENSE) [![Release Version](https://img.shields.io/badge/version-v1.2.3-green.svg)](https://github.com/songej/youtube_section_repeat/releases) [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-v1.2.3-blue.svg?logo=google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc)
 
 > Project Status: 🟢 Active | Type: 🧩 Chrome Browser Extension
 
