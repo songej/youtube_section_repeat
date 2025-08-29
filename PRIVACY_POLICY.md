@@ -1,7 +1,13 @@
+---
+layout: default
+title: Privacy Policy
+permalink: /privacy
+---
+
 # Privacy Policy
 
-- Effective Date: 2025-08-18
-- Version: 1.2.2
+- Effective Date: 2025-08-29
+- Version: 1.2.6
 
 Our Promise: We do not collect, store, or share any of your personal data. Everything happens on your computer.
 
@@ -15,7 +21,7 @@ This Privacy Policy explains how the “Section Repeat for YouTube™” Chrome 
 We are committed to a zero-collection policy. We do not collect, store, sell, or share any of your personal data. This includes, but is not limited to:
 
 -   Personal identifiers (e.g., name, email, IP address).
--   Your Browse history or user activity on any website.
+-   Your browser history or user activity on any website.
 -   Your YouTube viewing history.
 -   Device information, advertising IDs, analytics, or crash reports.
 
@@ -85,3 +91,9 @@ We may update this Privacy Policy from time to time. When we do, we will update 
 If you have any questions about this Privacy Policy, please contact:
 - Name: Eunjeong Song
 - Email: songej.dev@gmail.com
+
+## Limited Use
+The data this extension stores locally is used only to provide the features described (e.g., saving your section timestamps). It is never used for advertising, profiling, sale, or shared with third parties, in line with the Chrome Web Store User Data Policy.
+
+---
+[← Back to Home](/)
