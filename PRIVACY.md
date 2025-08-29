@@ -21,7 +21,7 @@ This Privacy Policy explains how the “Section Repeat for YouTube™” Chrome 
 We are committed to a zero-collection policy. We do not collect, store, sell, or share any of your personal data. This includes, but is not limited to:
 
 -   Personal identifiers (e.g., name, email, IP address).
--   Your Browse history or user activity on any website.
+-   Your browser history or user activity on any website.
 -   Your YouTube viewing history.
 -   Device information, advertising IDs, analytics, or crash reports.
 
@@ -95,4 +95,5 @@ If you have any questions about this Privacy Policy, please contact:
 ## Limited Use
 The data this extension stores locally is used only to provide the features described (e.g., saving your section timestamps). It is never used for advertising, profiling, sale, or shared with third parties, in line with the Chrome Web Store User Data Policy.
 
+---
 [← Back to Home](/)
