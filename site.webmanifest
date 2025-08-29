@@ -1,0 +1,14 @@
+{
+  "name": "Section Repeat for YouTube™",
+  "short_name": "Section Repeat",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff0000",
+  "icons": [
+    { "src": "/assets/icon-48.png",  "sizes": "48x48",   "type": "image/png" },
+    { "src": "/assets/icon-128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "/assets/icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
