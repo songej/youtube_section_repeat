@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Icons & manifest -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Theme / SEO -->
+  <meta name="theme-color" content="#ff0000">
+  <meta name="description" content="A–B repeat and multi-section loops for YouTube™. Practice faster with keyboard shortcuts.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Section Repeat for YouTube™">
+  <meta property="og:description" content="A–B repeat and multi-section loops for YouTube™. Practice faster with keyboard shortcuts.">
+  <meta property="og:image" content="https://sectionrepeat.com/assets/og.png">
+  <meta property="og:url" content="https://sectionrepeat.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>{{ page.title | default: "Section Repeat for YouTube™" }}</title>
+
+  <!-- Simple styles -->
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: #111827;
+      background: #fff;
+    }
+    .container { max-width: 880px; margin: 0 auto; padding: 24px; }
+
+    .site-header, .site-footer {
+      background: #f9fafb;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 2px solid #ff0000;
+      color: #ff0000;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #ff0000;
+      color: #fff;
+    }
+
+    .nav a {
+      margin: 0 8px;
+      color: #111827;
+      text-decoration: none;
+    }
+    .nav a:hover {
+      color: #ff0000;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="btn"
+         href="https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc">
+        Install on Chrome Web Store
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container nav">
+      <a href="/privacy">Privacy</a> ·
+      <a href="/changelog">Changelog</a> ·
+      <a href="mailto:support@sectionrepeat.com">Support</a>
+    </div>
+  </footer>
+</body>
+</html>
