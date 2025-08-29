@@ -94,3 +94,5 @@ If you have any questions about this Privacy Policy, please contact:
 
 ## Limited Use
 The data this extension stores locally is used only to provide the features described (e.g., saving your section timestamps). It is never used for advertising, profiling, sale, or shared with third parties, in line with the Chrome Web Store User Data Policy.
+
+[← Back to Home](/)
