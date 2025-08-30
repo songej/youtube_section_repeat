@@ -1,3 +1,10 @@
+---
+layout: default
+title: Section Repeat for YouTube™
+description: A–B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts.
+permalink: /
+---
+
 # Section Repeat for YouTube™
 
 [Privacy](https://sectionrepeat.com/privacy) · [Changelog](https://sectionrepeat.com/changelog)
