@@ -1,77 +1,72 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ site.lang | default: 'en' }}">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://sectionrepeat.com/" />
-
-  <!-- Icons & manifest -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-
-  <!-- Theme -->
-  <meta name="theme-color" content="#ff0000">
-
-  <!-- SEO -->
-  <title>{{ page.title | default: "Section Repeat for YouTube™" }}</title>
-  <meta name="description" content="{{ page.description | default: 'A–B repeat and multi-section loops for YouTube™. Practice faster with keyboard shortcuts.' }}">
+  <title>{{ page.title | default: site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}" />
   <meta name="robots" content="index,follow">
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ page.title | default: 'Section Repeat for YouTube™' }}">
-  <meta property="og:description" content="{{ page.description | default: 'A–B repeat and multi-section loops for YouTube™. Practice faster with keyboard shortcuts.' }}">
-  <meta property="og:image" content="https://sectionrepeat.com/assets/og.png">
-  <meta property="og:url" content="https://sectionrepeat.com/">
+  <link rel="manifest" href="/assets/images/site.webmanifest">
+  <link rel="icon" href="/assets/images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#ff0000">
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- Simple styles -->
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: #111827;
-      background: #fff;
-    }
-    .container { max-width: 880px; margin: 0 auto; padding: 24px; }
-    .site-header, .site-footer { background: #f9fafb; padding: 12px 0; text-align: center; }
-    .btn {
-      display: inline-block; padding: 10px 14px; border-radius: 8px;
-      border: 2px solid #ff0000; color: #ff0000; font-weight: 600;
-      text-decoration: none;
-    }
-    .btn:hover { background: #ff0000; color: #fff; }
-    .nav a { margin: 0 8px; color: #111827; text-decoration: none; }
-    .nav a:hover { color: #ff0000; text-decoration: underline; }
-  </style>
-</head>
+  <meta property="og:title" content="{{ page.title | default: site.title }}" />
+  <meta property="og:description" content="{{ page.description | default: site.description }}" />
+  <meta property="og:url" content="{{ page.url | absolute_url }}" />
+  <meta property="og:site_name" content="{{ site.title }}" />
+  <meta property="og:image" content="{{ site.url }}/assets/images/og-image.webp" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ page.title | default: site.title }}" />
+  <meta name="twitter:description" content="{{ page.description | default: site.description }}" />
+  <meta name="twitter:image" content="{{ site.url }}/assets/images/og-image.webp" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "{{ site.title }}",
+    "description": "{{ site.description }}",
+    "url": "{{ site.url }}",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "Chrome",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "installUrl": "https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc",
+    "keywords": "YouTube, A-B repeat, loop, section, practice, music, dance, language learning"
+  }
+  </script>
+
+  </head>
 <body>
   <header class="site-header">
     <div class="container">
-      <a class="btn"
-         href="https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc">
+      <a class="btn" href="https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc">
         Install on Chrome Web Store
       </a>
     </div>
   </header>
-
   <main class="container">
     {{ content }}
   </main>
-
   <footer class="site-footer">
-    <div class="container nav">
+    <nav class="container nav" aria-label="Footer">
       <a href="/privacy">Privacy</a> ·
       <a href="/changelog">Changelog</a> ·
-      <a href="mailto:support@sectionrepeat.com">Support</a>
-    </div>
+      <a href="mailto:contact@sectionrepeat.com">Contact Us</a>
+    </nav>
   </footer>
 </body>
 </html>
