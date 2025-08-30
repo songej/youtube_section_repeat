@@ -4,8 +4,6 @@ title: Changelog
 permalink: /changelog
 ---
 
-# Changelog
-
 ## v1.2.6
 Privacy Policy clarified; README links fixed.
 
