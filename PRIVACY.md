@@ -4,8 +4,6 @@ title: Privacy Policy
 permalink: /privacy
 ---
 
-# Privacy Policy
-
 - Effective Date: 2025-08-29
 - Version: 1.2.6
 
