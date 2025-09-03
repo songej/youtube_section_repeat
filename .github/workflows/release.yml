@@ -17,15 +17,21 @@ jobs:
     steps:
       - name: 'Checkout (full history)'
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
-      - name: Build archive asset (repo snapshot)
+      - name: 'Build code-only archive'
+        shell: bash
         run: |
+          set -e
+          if [ ! -d code ]; then
+            echo "::error:: 'code/' 폴더가 없습니다."; exit 1
+          fi
           mkdir -p dist
-          git archive --format=zip -o dist/sectionrepeat-${{ github.ref_name }}.zip HEAD
+          (cd code && zip -r ../dist/youtube_section_repeat-code-${{ github.ref_name }}.zip . \
+            -x ".git/*" "*.DS_Store")
+          ls -lh dist
 
-      - name: Create/Update GitHub Release
+      - name: 'Create/Update GitHub Release'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
@@ -33,7 +39,7 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
           files: |
-            dist/sectionrepeat-${{ github.ref_name }}.zip
+            dist/youtube_section_repeat-code-${{ github.ref_name }}.zip
 
       - name: 'Check relationship & diff'
         id: state
@@ -65,7 +71,7 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
+        run: | 
           PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           if [ -z "$PR_NUMBER" ]; then
             gh pr create -H dev -B main \
@@ -88,8 +94,3 @@ jobs:
           gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --squash --auto && exit 0
           gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --rebase --auto && exit 0
           echo "::warning::Auto-merge not scheduled (checks/reviews pending or disallowed)."
-
-      - name: Summary
-        shell: bash
-        run: |
-          echo "Release: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
