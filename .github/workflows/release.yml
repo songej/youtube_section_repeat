@@ -30,15 +30,11 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git fetch origin dev main
           git checkout -B dev origin/dev
           git checkout -B main origin/main
-
           git checkout main
-          # dev의 변경을 main에 병합 (필요시 --ff-only로 바꿔도 됨)
           git merge --no-ff --no-edit dev
-
           git push origin main
 
       - name: Create GitHub Release
