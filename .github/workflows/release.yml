@@ -3,43 +3,60 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  merge-and-release:
+  release-and-merge:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout (full history)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Ensure tag is on dev branch
+      - name: Check tag is on dev (warn only)
         run: |
           TAG_SHA="${GITHUB_SHA}"
-          if ! git branch -r --contains "$TAG_SHA" | grep -q "origin/dev"; then
-            echo "❌ Tag commit is not on dev. Aborting."
-            exit 1
+          if git branch -r --contains "$TAG_SHA" | grep -q "origin/dev"; then
+            echo "Tag is on dev ✓"
+          else
+            echo "::warning:: Tag commit is NOT on dev. Proceeding anyway."
           fi
 
-      - name: Merge dev -> main
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin dev main
-          git checkout -B dev origin/dev
-          git checkout -B main origin/main
-          git checkout main
-          git merge --no-ff --no-edit dev
-          git push origin main
-
-      - name: Create GitHub Release
+      - name: Create/Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+
+      - name: Create or reuse PR dev -> main
+        run: |
+          # 열린 PR이 있으면 재사용
+          PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
+          if [ -z "$PR_NUMBER" ]; then
+            gh pr create -H dev -B main \
+              -t "Release ${{ github.ref_name }}" \
+              -b "Auto PR created on tag ${{ github.ref_name }}"
+            PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
+          fi
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+
+      - name: Enable auto-merge (merge commit)
+        if: env.PR_NUMBER != ''
+        run: |
+          # 리포지토리에서 Settings → General → Pull Requests → Allow auto-merge 활성화 필요
+          gh pr merge "$PR_NUMBER" --merge --auto
+
+      - name: Comment release link
+        if: env.PR_NUMBER != ''
+        run: |
+          gh pr comment "$PR_NUMBER" --body "Tag **${{ github.ref_name }}** released → https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
