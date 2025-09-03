@@ -5,7 +5,7 @@ permalink: /privacy/
 ---
 
 # Privacy Policy
-- Effective Date: 2025-08-31
+- Effective Date: 2025-09-01
 - Version: 1.2.6
 
 ## Our Promise
