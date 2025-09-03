@@ -21,15 +21,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check tag is on dev (warn only)
-        run: |
-          TAG_SHA="${GITHUB_SHA}"
-          if git branch -r --contains "$TAG_SHA" | grep -q "origin/dev"; then
-            echo "Tag is on dev ✓"
-          else
-            echo "::warning:: Tag commit is NOT on dev. Proceeding anyway."
-          fi
-
       - name: Create/Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -38,9 +29,34 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
 
-      - name: Create or reuse PR dev -> main
+      - name: Figure out tag location & diff
+        id: diff
+        shell: bash
         run: |
-          # 열린 PR이 있으면 재사용
+          set -e
+          git fetch origin dev main
+          TAG_SHA="${GITHUB_SHA}"
+
+          on_dev=false
+          if git branch -r --contains "$TAG_SHA" | grep -q "origin/dev"; then on_dev=true; fi
+
+          ahead=$(git rev-list --left-right --count origin/main...origin/dev | awk '{print $2}')
+
+          echo "on_dev=$on_dev" >> $GITHUB_OUTPUT
+          echo "ahead=$ahead" >> $GITHUB_OUTPUT
+          echo "Tag on dev: $on_dev, dev ahead of main by $ahead commits"
+
+      - name: Skip merge (no changes or tag not on dev)
+        if: steps.diff.outputs.on_dev != 'true' || steps.diff.outputs.ahead == '0'
+        run: |
+          echo "::notice::Skipping merge: tag_on_dev=${{ steps.diff.outputs.on_dev }}, dev_ahead=${{ steps.diff.outputs.ahead }}"
+
+      - name: Create or reuse PR dev -> main
+        if: steps.diff.outputs.on_dev == 'true' && steps.diff.outputs.ahead != '0'
+        id: pr
+        shell: bash
+        run: |
+          set +e
           PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           if [ -z "$PR_NUMBER" ]; then
             gh pr create -H dev -B main \
@@ -48,15 +64,14 @@ jobs:
               -b "Auto PR created on tag ${{ github.ref_name }}"
             PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           fi
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "PR_NUMBER=$PR_NUMBER"
 
       - name: Enable auto-merge (merge commit)
-        if: env.PR_NUMBER != ''
-        run: |
-          # 리포지토리에서 Settings → General → Pull Requests → Allow auto-merge 활성화 필요
-          gh pr merge "$PR_NUMBER" --merge --auto
+        if: steps.pr.outputs.PR_NUMBER != ''
+        continue-on-error: true
+        run: gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --merge --auto
 
-      - name: Comment release link
-        if: env.PR_NUMBER != ''
+      - name: Summary
         run: |
-          gh pr comment "$PR_NUMBER" --body "Tag **${{ github.ref_name }}** released → https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
+          echo "Release: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
