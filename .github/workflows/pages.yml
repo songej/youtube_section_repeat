@@ -1,13 +1,11 @@
-# .github/workflows/publish-docs.yml
-
-name: 'Pages'
+name: Pages
 
 on:
   push:
-    branches:
-      - dev
-    paths:
-      - 'docs/**'
+    branches: [dev, main]
+  release:
+    types: [published]
+  workflow_dispatch: {}
 
 permissions:
   contents: read
@@ -15,16 +13,15 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
