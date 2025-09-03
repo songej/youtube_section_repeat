@@ -600,7 +600,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     await popupManager.initialize();
   } catch (e) {
     console.error("Popup initialization failed critically.", e);
-    const errorMsg = chrome.i18n.getMessage('popup_error_connection_failed');
-    document.body.innerHTML = `<div id="main-ui" style="padding: 16px; text-align: center;">${errorMsg}</div>`;
+    // popupManager 인스턴스에 의존하지 않고 직접 DOM을 조작하여 안정성을 확보합니다.
+    document.body.innerHTML = ''; // 기존 내용 모두 안전하게 삭제
+    document.body.classList.remove('loading');
+    document.body.removeAttribute('aria-busy');
+
+    const errorUi = document.createElement('div');
+    errorUi.style.cssText = 'padding: 16px; text-align: center;';
+
+    const title = document.createElement('h3');
+    // messages.json의 키를 직접 사용하여 다국어 지원
+    title.textContent = chrome.i18n.getMessage('ext_name');
+
+    const message = document.createElement('p');
+    // 사용자에게 명확한 해결책(재설치)을 안내하는 메시지 사용
+    message.textContent = chrome.i18n.getMessage('dialog_critical_error_guidance_with_reinstall');
+
+    errorUi.appendChild(title);
+    errorUi.appendChild(message);
+    document.body.appendChild(errorUi);
   }
 });

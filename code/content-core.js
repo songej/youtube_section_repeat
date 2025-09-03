@@ -386,29 +386,29 @@
       }
     }
     _synchronizeSectionElements(sections, currentIdx) {
-      const sectionIndicesInDom = new Set();
+      const fragment = document.createDocumentFragment();
+
       sections.forEach((section, index) => {
-        let sectionEl = this.overlayEl.querySelector(`[data-section-index="${index}"]`);
-        if (!sectionEl) {
-          sectionEl = document.createElement('div');
-          sectionEl.dataset.sectionIndex = index;
-          this.overlayEl.appendChild(sectionEl);
-        }
+        const sectionEl = document.createElement('div');
+        sectionEl.dataset.sectionIndex = index;
+
         const isComplete = section.end != null;
         const isActive = currentIdx === index && isComplete;
         sectionEl.className = isComplete ? 'section' : 'incomplete-section';
+
         if (isActive) {
           sectionEl.classList.add('is-active');
         }
+
         this._updateSectionElementStyle(sectionEl, section, index, isComplete, isActive);
-        sectionIndicesInDom.add(index.toString());
+        fragment.appendChild(sectionEl);
       });
-      Array.from(this.overlayEl.children).forEach(el => {
-        const index = el.dataset.sectionIndex;
-        if (index && !sectionIndicesInDom.has(index)) {
-          el.remove();
-        }
-      });
+
+      // 기존 오버레이를 한 번에 비우고, 메모리에서 완성된 fragment를 단 한 번의 작업으로 추가합니다.
+      this.overlayEl.innerHTML = '';
+      this.overlayEl.appendChild(fragment);
+
+      this.incompleteSectionEl = this.overlayEl.querySelector('.incomplete-section');
     }
     _updateSectionElementStyle(sectionEl, section, index, isComplete, isActive) {
       const {
