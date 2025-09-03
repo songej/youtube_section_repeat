@@ -3,6 +3,11 @@ name: Release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to (re)release, e.g. v1.2.7'
+        required: true
 
 permissions:
   contents: write
@@ -13,33 +18,34 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REF: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
     steps:
-      - name: 'Checkout (full history)'
+      - name: 'Checkout ${{ env.REF }} (full history)'
         uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
+          ref: ${{ env.REF }}
 
       - name: 'Build code-only archive'
         shell: bash
         run: |
           set -e
-          if [ ! -d code ]; then
-            echo "::error:: 'code/' 폴더가 없습니다."; exit 1
-          fi
+          test -d code || { echo "::error:: 'code/' 폴더가 없습니다."; exit 1; }
           mkdir -p dist
-          (cd code && zip -r ../dist/youtube_section_repeat-code-${{ github.ref_name }}.zip . \
-            -x ".git/*" "*.DS_Store")
+          (cd code && zip -r ../dist/youtube_section_repeat-code-${REF}.zip . \
+             -x ".git/*" "*.DS_Store")
           ls -lh dist
 
       - name: 'Create/Update GitHub Release'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
+          tag_name: ${{ env.REF }}
+          name:     ${{ env.REF }}
           generate_release_notes: true
-          prerelease: ${{ contains(github.ref_name, '-') }}
+          prerelease: ${{ contains(env.REF, '-') }}
           files: |
-            dist/youtube_section_repeat-code-${{ github.ref_name }}.zip
+            dist/youtube_section_repeat-code-${{ env.REF }}.zip
 
       - name: 'Check relationship & diff'
         id: state
@@ -48,11 +54,7 @@ jobs:
           set -e
           git fetch origin dev main
           BASE=$(git merge-base origin/main origin/dev || true)
-          if [ -z "$BASE" ]; then
-            echo "related=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "related=true" >> "$GITHUB_OUTPUT"
-          fi
+          echo "related=$([ -z "$BASE" ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
           AHEAD=$(git rev-list --left-right --count origin/main...origin/dev | awk '{print $2}')
           echo "ahead=$AHEAD" >> "$GITHUB_OUTPUT"
           echo "related=$([ -z "$BASE" ] && echo false || echo true), dev ahead by $AHEAD"
@@ -71,12 +73,12 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: | 
+        run: |
           PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           if [ -z "$PR_NUMBER" ]; then
             gh pr create -H dev -B main \
-              -t "Release ${{ github.ref_name }}" \
-              -b "Auto PR created on tag ${{ github.ref_name }}"
+              -t "Release ${{ env.REF }}" \
+              -b "Auto PR created on tag ${{ env.REF }}"
             PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           fi
           echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_OUTPUT"
