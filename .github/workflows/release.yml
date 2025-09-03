@@ -20,13 +20,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Create/Update GitHub Release'
+      - name: Build archive asset (repo snapshot)
+        run: |
+          mkdir -p dist
+          git archive --format=zip -o dist/sectionrepeat-${{ github.ref_name }}.zip HEAD
+
+      - name: Create/Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
+          files: |
+            dist/sectionrepeat-${{ github.ref_name }}.zip
 
       - name: 'Check relationship & diff'
         id: state
