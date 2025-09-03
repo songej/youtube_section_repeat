@@ -15,11 +15,12 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name: Checkout (full history)
+      - name: 'Checkout (full history)'
         uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
 
-      - name: Create/Update GitHub Release
+      - name: 'Create/Update GitHub Release'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
@@ -27,7 +28,7 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
 
-      - name: Check relationship & diff
+      - name: 'Check relationship & diff'
         id: state
         shell: bash
         run: |
@@ -35,15 +36,15 @@ jobs:
           git fetch origin dev main
           BASE=$(git merge-base origin/main origin/dev || true)
           if [ -z "$BASE" ]; then
-            echo "related=false" >> $GITHUB_OUTPUT
+            echo "related=false" >> "$GITHUB_OUTPUT"
           else
-            echo "related=true" >> $GITHUB_OUTPUT
+            echo "related=true" >> "$GITHUB_OUTPUT"
           fi
           AHEAD=$(git rev-list --left-right --count origin/main...origin/dev | awk '{print $2}')
-          echo "ahead=$AHEAD" >> $GITHUB_OUTPUT
+          echo "ahead=$AHEAD" >> "$GITHUB_OUTPUT"
           echo "related=$([ -z "$BASE" ] && echo false || echo true), dev ahead by $AHEAD"
 
-      - name: One-time stitch: set main = dev (force-with-lease)
+      - name: 'One-time stitch: set main = dev (force-with-lease)'
         if: steps.state.outputs.related == 'false' && steps.state.outputs.ahead != '0'
         shell: bash
         run: |
@@ -51,11 +52,12 @@ jobs:
           echo "No common history. Forcing main to dev (one-time)."
           git push origin origin/dev:refs/heads/main --force-with-lease
 
-      - name: Create or reuse PR dev -> main
+      - name: 'Create or reuse PR dev -> main'
         if: steps.state.outputs.related == 'true' && steps.state.outputs.ahead != '0'
         id: pr
         shell: bash
-        env: { GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} }
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           if [ -z "$PR_NUMBER" ]; then
@@ -64,17 +66,23 @@ jobs:
               -b "Auto PR created on tag ${{ github.ref_name }}"
             PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           fi
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_OUTPUT"
           echo "PR: https://github.com/${{ github.repository }}/pull/$PR_NUMBER"
 
-      - name: Enable auto-merge (try allowed types)
+      - name: 'Enable auto-merge (try allowed types)'
         if: steps.pr.outputs.PR_NUMBER != ''
         continue-on-error: true
         shell: bash
-        env: { GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} }
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set +e
           gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --merge  --auto && exit 0
           gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --squash --auto && exit 0
           gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --rebase --auto && exit 0
           echo "::warning::Auto-merge not scheduled (checks/reviews pending or disallowed)."
+
+      - name: Summary
+        shell: bash
+        run: |
+          echo "Release: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
