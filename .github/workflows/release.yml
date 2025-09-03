@@ -2,20 +2,26 @@ name: Release
 
 on:
   push:
-    tags: ['v*']
+    tags:
+      - 'v*'
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   release-and-merge:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout (full history)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # 1) Always create/update the Release for this tag first
       - name: Create/Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -24,23 +30,51 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
 
-      - name: Merge dev -> main if dev is ahead
+      # 2) Only try to integrate when dev is ahead of main
+      - name: Check diff (is dev ahead of main?)
+        id: diff
         shell: bash
         run: |
           set -e
           git fetch origin dev main
-
           AHEAD=$(git rev-list --left-right --count origin/main...origin/dev | awk '{print $2}')
+          echo "ahead=$AHEAD" >> "$GITHUB_OUTPUT"
           echo "dev ahead by $AHEAD commits"
 
-          if [ "$AHEAD" = "0" ]; then
-            echo "::notice::No diff between dev and main. Skipping merge."
-            exit 0
+      # 3) Create (or reuse) a PR dev -> main when there are changes
+      - name: Create or reuse PR dev -> main
+        if: steps.diff.outputs.ahead != '0'
+        id: pr
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
+          if [ -z "$PR_NUMBER" ]; then
+            gh pr create -H dev -B main \
+              -t "Release ${{ github.ref_name }}" \
+              -b "Auto PR created on tag ${{ github.ref_name }}"
+            PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           fi
+          echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "PR: https://github.com/${{ github.repository }}/pull/$PR_NUMBER"
 
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      # 4) Enable auto-merge; try allowed types in order.
+      #    If checks/reviews are required, this schedules auto-merge and exits successfully.
+      - name: Enable auto-merge (try allowed types)
+        if: steps.pr.outputs.PR_NUMBER != ''
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --merge  --auto && exit 0
+          gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --squash --auto && exit 0
+          gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --rebase --auto && exit 0
+          echo "::warning::Auto-merge not scheduled (checks/reviews pending or merge types disallowed)."
 
-          git checkout -B main origin/main
-          git merge --no-ff --no-edit origin/dev
-          git push origin main
+      - name: Summary
+        shell: bash
+        run: |
+          echo "Release: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
