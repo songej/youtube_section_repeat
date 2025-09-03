@@ -3,11 +3,11 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'                   # e.g. v1.2.3, v1.2.3-rc.1
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: write              # needed to create releases / push merges
+  pull-requests: write         # needed to create PRs and set auto-merge
 
 jobs:
   release-and-merge:
@@ -21,6 +21,7 @@ jobs:
         with:
           fetch-depth: 0
 
+      # 1) Always create/update the Release for this tag first
       - name: Create/Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -29,34 +30,25 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
 
-      - name: Figure out tag location & diff
+      # 2) Only try to integrate when dev is ahead of main
+      - name: Check diff (is dev ahead of main?)
         id: diff
         shell: bash
         run: |
           set -e
           git fetch origin dev main
-          TAG_SHA="${GITHUB_SHA}"
+          AHEAD=$(git rev-list --left-right --count origin/main...origin/dev | awk '{print $2}')
+          echo "ahead=$AHEAD" >> "$GITHUB_OUTPUT"
+          echo "dev ahead by $AHEAD commits"
 
-          on_dev=false
-          if git branch -r --contains "$TAG_SHA" | grep -q "origin/dev"; then on_dev=true; fi
-
-          ahead=$(git rev-list --left-right --count origin/main...origin/dev | awk '{print $2}')
-
-          echo "on_dev=$on_dev" >> $GITHUB_OUTPUT
-          echo "ahead=$ahead" >> $GITHUB_OUTPUT
-          echo "Tag on dev: $on_dev, dev ahead of main by $ahead commits"
-
-      - name: Skip merge (no changes or tag not on dev)
-        if: steps.diff.outputs.on_dev != 'true' || steps.diff.outputs.ahead == '0'
-        run: |
-          echo "::notice::Skipping merge: tag_on_dev=${{ steps.diff.outputs.on_dev }}, dev_ahead=${{ steps.diff.outputs.ahead }}"
-
+      # 3) Create (or reuse) a PR dev -> main when there are changes
       - name: Create or reuse PR dev -> main
-        if: steps.diff.outputs.on_dev == 'true' && steps.diff.outputs.ahead != '0'
+        if: steps.diff.outputs.ahead != '0'
         id: pr
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set +e
           PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           if [ -z "$PR_NUMBER" ]; then
             gh pr create -H dev -B main \
@@ -64,14 +56,25 @@ jobs:
               -b "Auto PR created on tag ${{ github.ref_name }}"
             PR_NUMBER=$(gh pr list -H dev -B main --state open --json number -q '.[0].number')
           fi
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
-          echo "PR_NUMBER=$PR_NUMBER"
+          echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "PR: https://github.com/${{ github.repository }}/pull/$PR_NUMBER"
 
-      - name: Enable auto-merge (merge commit)
+      # 4) Enable auto-merge; try allowed types in order.
+      #    If checks/reviews are required, this schedules auto-merge and exits successfully.
+      - name: Enable auto-merge (try allowed types)
         if: steps.pr.outputs.PR_NUMBER != ''
         continue-on-error: true
-        run: gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --merge --auto
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --merge  --auto && exit 0
+          gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --squash --auto && exit 0
+          gh pr merge "${{ steps.pr.outputs.PR_NUMBER }}" --rebase --auto && exit 0
+          echo "::warning::Auto-merge not scheduled (checks/reviews pending or merge types disallowed)."
 
       - name: Summary
+        shell: bash
         run: |
           echo "Release: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
