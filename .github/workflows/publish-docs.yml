@@ -1,6 +1,6 @@
 # .github/workflows/publish-docs.yml
 
-name: 'Build and Deploy Docs to Pages'
+name: 'Pages'
 
 on:
   push:

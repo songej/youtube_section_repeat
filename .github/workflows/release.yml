@@ -1,6 +1,6 @@
 # .github/workflows/release.yml
 
-name: 'Create Release'
+name: 'Release'
 
 on:
   push:
