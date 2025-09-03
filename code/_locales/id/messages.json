@@ -1,0 +1,353 @@
+{
+  "ext_name": {
+    "message": "Ulang Bagian untuk YouTube™"
+  },
+  "ext_description": {
+    "message": "Ulang A-B dan loop multi-bagian untuk YouTube. Latihan lebih cepat dengan pintasan keyboard."
+  },
+  "action_error_title_with_name": {
+    "message": "$1: $2",
+    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "popup_shortcuts_header_key": {
+    "message": "Tombol"
+  },
+  "popup_shortcuts_header_action": {
+    "message": "Aksi"
+  },
+  "popup_shortcut_action_start": {
+    "message": "Mulai bagian"
+  },
+  "popup_shortcut_action_end": {
+    "message": "Akhiri (Sambung) bagian"
+  },
+  "popup_shortcut_action_toggle_repeat": {
+    "message": "Aktif/nonaktif ulang"
+  },
+  "popup_shortcut_action_prev": {
+    "message": "Bagian sebelumnya"
+  },
+  "popup_shortcut_action_next": {
+    "message": "Bagian berikutnya"
+  },
+  "popup_shortcut_action_jump": {
+    "message": "Lompat ke bagian"
+  },
+  "popup_shortcut_action_clear_sections": {
+    "message": "Hapus semua bagian"
+  },
+  "popup_shortcut_action_focus": {
+    "message": "Masuk Mode Fokus"
+  },
+  "popup_note_inactive": {
+    "message": "Pintasan aktif saat Anda berada di halaman video YouTube."
+  },
+  "popup_shortcut_key_jump_range": {
+    "message": "1-9"
+  },
+  "popup_shortcut_key_arrow_up": {
+    "message": "↑"
+  },
+  "popup_shortcut_key_arrow_down": {
+    "message": "↓"
+  },
+  "popup_shortcut_key_arrow_left": {
+    "message": "←"
+  },
+  "popup_shortcut_key_arrow_right": {
+    "message": "→"
+  },
+  "popup_shortcut_key_space": {
+    "message": "Spasi"
+  },
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
+  },
+  "popup_storage_warning_message": {
+    "message": "Penyimpanan sudah lebih dari $1% penuh. Data lama mungkin akan segera dihapus.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_completed": {
+    "message": "Data lama berhasil dihapus."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Penghapusan gagal. Silakan coba lagi nanti."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Mode sesi-saja aktif karena komponen keamanan gagal. Bagian tidak akan disimpan. Memulai ulang browser mungkin dapat mengatasi ini."
+  },
+  "popup_error_setup_title": {
+    "message": "Inisialisasi Gagal"
+  },
+  "popup_error_setup_advice": {
+    "message": "Silakan coba lagi. Jika masalah berlanjut, coba muat ulang halaman."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Tidak dapat menginisialisasi komponen keamanan yang diperlukan."
+  },
+  "popup_error_setup_unknown": {
+    "message": "Terjadi kesalahan tidak dikenal saat pengaturan."
+  },
+  "popup_error_connection_failed": {
+    "message": "Tidak dapat terhubung ke ekstensi. Silakan muat ulang halaman dan coba lagi."
+  },
+  "popup_error_connection_timeout": {
+    "message": "Koneksi timeout. Silakan muat ulang halaman dan coba lagi."
+  },
+  "popup_button_retry_setup": {
+    "message": "Coba Ulang Pengaturan"
+  },
+  "popup_button_retrying": {
+    "message": "Mencoba ulang..."
+  },
+  "popup_storage_purge_button": {
+    "message": "Hapus Data Lama"
+  },
+  "toast_success_section_added": {
+    "message": "Bagian #$1 ditambahkan.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_sections_cleared": {
+    "message": "Semua bagian untuk video ini telah dihapus."
+  },
+  "toast_success_pending_save_applied": {
+    "message": "Bagian tersimpan dari sesi sebelumnya diterapkan."
+  },
+  "toast_success_storage_cleaned": {
+    "message": "Penyimpanan dibersihkan. Penggunaan saat ini: $1%.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_reconnected": {
+    "message": "Berhasil terhubung kembali."
+  },
+  "toast_action_reload": {
+    "message": "Muat Ulang Halaman"
+  },
+  "toast_info_section_start_set": {
+    "message": "Titik awal bagian diatur. Tekan 'E' untuk mengakhiri."
+  },
+  "toast_info_repeat_stopped": {
+    "message": "Pengulangan dihentikan."
+  },
+  "toast_info_repeating_navigation": {
+    "message": "Mengulang bagian $1 dari $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_info_jumped_to_section": {
+    "message": "Melompat ke bagian $1.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_loaded_singular": {
+    "message": "Memuat 1 bagian tersimpan untuk video ini."
+  },
+  "toast_info_loaded_plural": {
+    "message": "Memuat $1 bagian tersimpan untuk video ini.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Bagian tidak lengkap otomatis dilengkapi di akhir video."
+  },
+  "toast_info_legacy_data_cleared": {
+    "message": "Data lama yang tidak kompatibel telah dihapus untuk memastikan operasi lancar."
+  },
+  "toast_info_sectioning_hint": {
+    "message": "Tekan 'S' untuk mulai bagian, 'E' untuk mengakhiri."
+  },
+  "toast_info_playlist_hint": {
+    "message": "Tip: Tekan 'W' untuk masuk Mode Fokus dan keluar dari playlist."
+  },
+  "toast_info_focus_mode_already": {
+    "message": "Anda sudah dalam Mode Fokus."
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "Memasuki Mode Fokus... Halaman akan dimuat ulang."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "Video telah selesai. Mengulang dari awal."
+  },
+  "toast_warn_initialization_slow": {
+    "message": "Ekstensi masih memuat... Silakan coba lagi sebentar."
+  },
+  "toast_warning_live_stream_unsupported": {
+    "message": "Ulang Bagian tidak tersedia untuk live stream."
+  },
+  "toast_warning_repeat_stopped_unexpectedly": {
+    "message": "Pengulangan dihentikan karena kesalahan navigasi atau latar belakang."
+  },
+  "toast_warning_storage_level": {
+    "message": "Penyimpanan $1% penuh. Data lama mungkin akan dihapus.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_warning_sections_auto_purged": {
+    "message": "Batas bagian $1 tercapai. Menghapus $2 bagian terlama untuk membuat ruang.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_error_player_init_failed": {
+    "message": "Inisialisasi gagal setelah beberapa percobaan. Silakan muat ulang halaman."
+  },
+  "toast_error_storage_critical": {
+    "message": "Penyimpanan Kritis ($1% penuh). Data lama harus dihapus untuk menyimpan bagian baru.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_error_focus_mode_failed": {
+    "message": "Tidak dapat masuk Mode Fokus. Silakan coba lagi."
+  },
+  "toast_error_action_locked": {
+    "message": "Aksi gagal karena operasi lain sedang berlangsung. Silakan coba lagi sebentar."
+  },
+  "toast_error_final_save_failed": {
+    "message": "Gagal menyimpan data. Silakan gunakan 'Hapus Data Lama' di popup untuk mengosongkan ruang."
+  },
+  "toast_reload_prompt": {
+    "message": "Konteks ekstensi hilang. Silakan muat ulang halaman untuk melanjutkan."
+  },
+  "aria_popup_shortcuts_table_label": {
+    "message": "Daftar pintasan keyboard. Gunakan tombol panah untuk menavigasi baris."
+  },
+  "aria_popup_shortcut_row_label": {
+    "message": "Tombol: $1, Aksi: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_shortcut_row_activated": {
+    "message": "Pintasan diaktifkan. Tombol: $1, Aksi: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_storage_purge_button_label": {
+    "message": "Hapus data bagian lama untuk mengosongkan ruang penyimpanan."
+  },
+  "aria_toast_container_label": {
+    "message": "Notifikasi Ulang Bagian"
+  },
+  "aria_toast_close_button": {
+    "message": "Tutup notifikasi"
+  },
+  "aria_overlay_desc_no_sections": {
+    "message": "Tidak ada bagian yang diatur untuk video ini."
+  },
+  "aria_overlay_desc_singular": {
+    "message": "1 bagian telah diatur pada progress bar."
+  },
+  "aria_overlay_desc_plural": {
+    "message": "$1 bagian telah diatur pada progress bar.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "aria_overlay_desc_with_repeating": {
+    "message": "Total $1 bagian telah diatur. Saat ini mengulang bagian nomor $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_with_incomplete": {
+    "message": "Total $1 bagian telah diatur, $2 di antaranya tidak lengkap.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_full_state": {
+    "message": "Total $1 bagian telah diatur, $2 di antaranya tidak lengkap. Saat ini mengulang bagian nomor $3.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dialog_button_cancel": {
+    "message": "Batal"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Konfirmasi Hapus"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Ini akan menghapus data bagian terlama Anda secara permanen untuk membuat ruang. Apakah Anda yakin?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "Struktur halaman YouTube berubah secara tidak terduga, dan ekstensi kehilangan kontrol. Silakan muat ulang halaman untuk memulai ulang ekstensi."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "Komponen penting gagal dimuat, yang mencegah ekstensi bekerja dengan benar. Masalah ini mungkin memerlukan instalasi ulang ekstensi."
+  }
+}

@@ -1,0 +1,15 @@
+# Windows specific
+Thumbs.db
+desktop.ini
+
+# VS Code specific
+.vscode/
+
+# Chrome Extension packaging files
+*.crx
+*.zip
+*.pem
+
+# General
+*.log
+.DS_Store

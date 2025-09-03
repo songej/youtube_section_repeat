@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}"
+      data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff0000">
+  <meta name="color-scheme" content="light dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  {%- seo -%}
+  {% include head-custom.html %}
+  {%- assign ver = site.github.build_revision | default: site.time | date: '%s' -%}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: ver | relative_url }}">
+</head>
+{%- assign _url = page.url | replace: 'index.html','' | replace: '.html','/' -%}
+<body class="color-bg-default color-fg-default">
+  <a href="#content" class="sr-only sr-only-focusable">Skip to content</a>
+  <header class="container-lg px-3 pt-3 pb-2" role="banner">
+    <nav class="d-flex flex-justify-between flex-items-center" aria-label="Primary">
+      <a class="h3 no-underline"
+         href="{{ '/' | relative_url }}"
+         {% if _url == '/' %}aria-current="page"{% endif %}>
+        {{ site.title | default: site.github.repository_name }}
+      </a>
+      <div class="d-flex flex-items-center flex-wrap">
+        <a class="mr-3 nav-install"
+           href="https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc?utm_source=site&utm_campaign=install"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Install Section Repeat from Chrome Web Store">
+          Install
+        </a>
+        <a class="mr-3"
+           href="{{ '/privacy/' | relative_url }}"
+           {% if _url == '/privacy/' %}aria-current="page"{% endif %}>
+          Privacy
+        </a>
+        <a class="mr-3"
+           href="{{ '/changelog/' | relative_url }}"
+           {% if _url == '/changelog/' %}aria-current="page"{% endif %}>
+          Changelog
+        </a>
+      </div>
+    </nav>
+  </header>
+  <main id="content" class="container-lg px-3 my-6 markdown-body">
+    {{ content }}
+  </main>
+  <footer class="container-lg px-3 my-6 color-fg-muted" role="contentinfo">
+    <small>&copy; {{ site.time | date: "%Y" }} {{ site.title | default: site.github.repository_name }}</small>
+  </footer>
+</body>
+</html>

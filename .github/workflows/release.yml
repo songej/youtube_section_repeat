@@ -1,0 +1,72 @@
+# .github/workflows/release.yml
+
+name: 'Create Release'
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Ensure tag is on dev branch
+        run: |
+          TAG_SHA=$(git rev-parse HEAD)
+          git fetch origin dev
+          if ! git branch -r --contains "$TAG_SHA" | grep -q 'origin/dev'; then
+            echo "::error:: Tag ${{ github.ref_name }} is not on the dev branch."
+            exit 1
+          fi
+
+      - name: Configure Git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      
+      - name: Fast-forward main to the tag commit
+        run: |
+          git switch main
+          git merge --ff-only ${{ github.sha }}
+          git push origin main
+
+      - name: Check manifest version equals tag
+        id: check_version
+        run: |
+          TAG_VERSION=$(echo "${{ github.ref_name }}" | sed 's/^v//')
+          MANIFEST_VERSION=$(jq -r '.version' code/manifest.json)
+          if [[ "$MANIFEST_VERSION" != "$TAG_VERSION" ]]; then
+            echo "::error:: Manifest version ($MANIFEST_VERSION) does not match tag version ($TAG_VERSION)."
+            exit 1
+          fi
+          echo "version=${MANIFEST_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Package extension artifact
+        run: |
+          VERSION=${{ steps.check_version.outputs.version }}
+          (cd code && zip -r ../extension-$VERSION.zip . -x "*/.*" "*.map" "node_modules/*" "test/*" "*.spec.*" "*.md")
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          files: extension-${{ steps.check_version.outputs.version }}.zip

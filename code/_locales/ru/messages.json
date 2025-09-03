@@ -1,0 +1,353 @@
+{
+  "ext_name": {
+    "message": "Повтор фрагментов для YouTube™"
+  },
+  "ext_description": {
+    "message": "A-B повтор и циклы фрагментов для YouTube. Быстрая тренировка с горячими клавишами."
+  },
+  "action_error_title_with_name": {
+    "message": "$1: $2",
+    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "popup_shortcuts_header_key": {
+    "message": "Клавиша"
+  },
+  "popup_shortcuts_header_action": {
+    "message": "Действие"
+  },
+  "popup_shortcut_action_start": {
+    "message": "Начать фрагмент"
+  },
+  "popup_shortcut_action_end": {
+    "message": "Завершить (Связать) фрагмент"
+  },
+  "popup_shortcut_action_toggle_repeat": {
+    "message": "Вкл/выкл повтор"
+  },
+  "popup_shortcut_action_prev": {
+    "message": "Предыдущий фрагмент"
+  },
+  "popup_shortcut_action_next": {
+    "message": "Следующий фрагмент"
+  },
+  "popup_shortcut_action_jump": {
+    "message": "Перейти к фрагменту"
+  },
+  "popup_shortcut_action_clear_sections": {
+    "message": "Очистить все фрагменты"
+  },
+  "popup_shortcut_action_focus": {
+    "message": "Войти в режим фокуса"
+  },
+  "popup_note_inactive": {
+    "message": "Горячие клавиши активны на странице видео YouTube."
+  },
+  "popup_shortcut_key_jump_range": {
+    "message": "1-9"
+  },
+  "popup_shortcut_key_arrow_up": {
+    "message": "↑"
+  },
+  "popup_shortcut_key_arrow_down": {
+    "message": "↓"
+  },
+  "popup_shortcut_key_arrow_left": {
+    "message": "←"
+  },
+  "popup_shortcut_key_arrow_right": {
+    "message": "→"
+  },
+  "popup_shortcut_key_space": {
+    "message": "Пробел"
+  },
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
+  },
+  "popup_storage_warning_message": {
+    "message": "Хранилище заполнено более чем на $1%. Старые данные могут быть скоро удалены.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_completed": {
+    "message": "Старые данные успешно удалены."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Очистка не удалась. Пожалуйста, попробуйте позже."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Режим только-сеанс активен из-за сбоя компонента безопасности. Фрагменты не будут сохранены. Перезапуск браузера может решить проблему."
+  },
+  "popup_error_setup_title": {
+    "message": "Ошибка инициализации"
+  },
+  "popup_error_setup_advice": {
+    "message": "Пожалуйста, попробуйте снова. Если проблема сохраняется, перезагрузите страницу."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Не удалось инициализировать необходимый компонент безопасности."
+  },
+  "popup_error_setup_unknown": {
+    "message": "Произошла неизвестная ошибка при настройке."
+  },
+  "popup_error_connection_failed": {
+    "message": "Не удалось подключиться к расширению. Пожалуйста, перезагрузите страницу и попробуйте снова."
+  },
+  "popup_error_connection_timeout": {
+    "message": "Время подключения истекло. Пожалуйста, перезагрузите страницу и попробуйте снова."
+  },
+  "popup_button_retry_setup": {
+    "message": "Повторить настройку"
+  },
+  "popup_button_retrying": {
+    "message": "Повтор попытки..."
+  },
+  "popup_storage_purge_button": {
+    "message": "Удалить старые данные"
+  },
+  "toast_success_section_added": {
+    "message": "Фрагмент #$1 добавлен.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_sections_cleared": {
+    "message": "Все фрагменты для этого видео очищены."
+  },
+  "toast_success_pending_save_applied": {
+    "message": "Сохранённые фрагменты из предыдущего сеанса применены."
+  },
+  "toast_success_storage_cleaned": {
+    "message": "Хранилище очищено. Текущее использование: $1%.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_reconnected": {
+    "message": "Успешно переподключено."
+  },
+  "toast_action_reload": {
+    "message": "Перезагрузить страницу"
+  },
+  "toast_info_section_start_set": {
+    "message": "Начальная точка фрагмента установлена. Нажмите 'E' для завершения."
+  },
+  "toast_info_repeat_stopped": {
+    "message": "Повтор остановлен."
+  },
+  "toast_info_repeating_navigation": {
+    "message": "Повторяется фрагмент $1 из $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_info_jumped_to_section": {
+    "message": "Переход к фрагменту $1.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_loaded_singular": {
+    "message": "Загружен 1 сохранённый фрагмент для этого видео."
+  },
+  "toast_info_loaded_plural": {
+    "message": "Загружено $1 сохранённых фрагментов для этого видео.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Незавершённый фрагмент автоматически завершён в конце видео."
+  },
+  "toast_info_legacy_data_cleared": {
+    "message": "Несовместимые старые данные очищены для обеспечения стабильной работы."
+  },
+  "toast_info_sectioning_hint": {
+    "message": "Нажмите 'S' для начала фрагмента, 'E' для завершения."
+  },
+  "toast_info_playlist_hint": {
+    "message": "Совет: Нажмите 'W' для входа в режим фокуса и выхода из плейлиста."
+  },
+  "toast_info_focus_mode_already": {
+    "message": "Вы уже в режиме фокуса."
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "Вход в режим фокуса... Страница будет перезагружена."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "Видео завершено. Повтор с начала."
+  },
+  "toast_warn_initialization_slow": {
+    "message": "Расширение всё ещё загружается... Пожалуйста, попробуйте через мгновение."
+  },
+  "toast_warning_live_stream_unsupported": {
+    "message": "Повтор фрагментов недоступен для прямых трансляций."
+  },
+  "toast_warning_repeat_stopped_unexpectedly": {
+    "message": "Повтор остановлен из-за ошибки навигации или фона."
+  },
+  "toast_warning_storage_level": {
+    "message": "Хранилище заполнено на $1%. Старые данные могут быть удалены.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_warning_sections_auto_purged": {
+    "message": "Достигнут лимит в $1 фрагментов. Удалено $2 старейших фрагментов для освобождения места.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_error_player_init_failed": {
+    "message": "Инициализация не удалась после нескольких попыток. Пожалуйста, перезагрузите страницу."
+  },
+  "toast_error_storage_critical": {
+    "message": "Критическое состояние хранилища ($1% заполнено). Старые данные должны быть удалены для сохранения новых фрагментов.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_error_focus_mode_failed": {
+    "message": "Не удалось войти в режим фокуса. Пожалуйста, попробуйте снова."
+  },
+  "toast_error_action_locked": {
+    "message": "Действие не выполнено, так как выполняется другая операция. Пожалуйста, попробуйте через мгновение."
+  },
+  "toast_error_final_save_failed": {
+    "message": "Не удалось сохранить данные. Пожалуйста, используйте 'Удалить старые данные' во всплывающем окне для освобождения места."
+  },
+  "toast_reload_prompt": {
+    "message": "Контекст расширения потерян. Пожалуйста, перезагрузите страницу для продолжения."
+  },
+  "aria_popup_shortcuts_table_label": {
+    "message": "Список горячих клавиш. Используйте стрелки для навигации по строкам."
+  },
+  "aria_popup_shortcut_row_label": {
+    "message": "Клавиша: $1, Действие: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_shortcut_row_activated": {
+    "message": "Горячая клавиша активирована. Клавиша: $1, Действие: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_storage_purge_button_label": {
+    "message": "Удалить старые данные фрагментов для освобождения места."
+  },
+  "aria_toast_container_label": {
+    "message": "Уведомления повтора фрагментов"
+  },
+  "aria_toast_close_button": {
+    "message": "Закрыть уведомление"
+  },
+  "aria_overlay_desc_no_sections": {
+    "message": "Для этого видео не установлено фрагментов."
+  },
+  "aria_overlay_desc_singular": {
+    "message": "На полосе прогресса установлен 1 фрагмент."
+  },
+  "aria_overlay_desc_plural": {
+    "message": "На полосе прогресса установлено $1 фрагментов.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "aria_overlay_desc_with_repeating": {
+    "message": "Всего установлено $1 фрагментов. В данный момент повторяется фрагмент номер $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_with_incomplete": {
+    "message": "Всего установлено $1 фрагментов, из которых $2 незавершённых.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_full_state": {
+    "message": "Всего установлено $1 фрагментов, из которых $2 незавершённых. В данный момент повторяется фрагмент номер $3.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dialog_button_cancel": {
+    "message": "Отмена"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Подтвердить удаление"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Это безвозвратно удалит ваши старейшие данные фрагментов для освобождения места. Вы уверены?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "Структура страницы YouTube неожиданно изменилась, и расширение потеряло контроль. Пожалуйста, перезагрузите страницу для перезапуска расширения."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "Критический компонент не удалось загрузить, что препятствует правильной работе расширения. Эта проблема может потребовать переустановки расширения."
+  }
+}

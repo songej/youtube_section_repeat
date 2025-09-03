@@ -1,0 +1,353 @@
+{
+  "ext_name": {
+    "message": "Section Repeat for YouTube™"
+  },
+  "ext_description": {
+    "message": "A-B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts."
+  },
+  "action_error_title_with_name": {
+    "message": "$1: $2",
+    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "popup_shortcuts_header_key": {
+    "message": "Key"
+  },
+  "popup_shortcuts_header_action": {
+    "message": "Action"
+  },
+  "popup_shortcut_action_start": {
+    "message": "Start section"
+  },
+  "popup_shortcut_action_end": {
+    "message": "End (Chain) section"
+  },
+  "popup_shortcut_action_toggle_repeat": {
+    "message": "Toggle repeat"
+  },
+  "popup_shortcut_action_prev": {
+    "message": "Previous section"
+  },
+  "popup_shortcut_action_next": {
+    "message": "Next section"
+  },
+  "popup_shortcut_action_jump": {
+    "message": "Jump to section"
+  },
+  "popup_shortcut_action_clear_sections": {
+    "message": "Clear all sections"
+  },
+  "popup_shortcut_action_focus": {
+    "message": "Enter Focus Mode"
+  },
+  "popup_note_inactive": {
+    "message": "Hotkeys are active when you are on a YouTube video page."
+  },
+  "popup_shortcut_key_jump_range": {
+    "message": "1-9"
+  },
+  "popup_shortcut_key_arrow_up": {
+    "message": "↑"
+  },
+  "popup_shortcut_key_arrow_down": {
+    "message": "↓"
+  },
+  "popup_shortcut_key_arrow_left": {
+    "message": "←"
+  },
+  "popup_shortcut_key_arrow_right": {
+    "message": "→"
+  },
+  "popup_shortcut_key_space": {
+    "message": "Space"
+  },
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
+  },
+  "popup_storage_warning_message": {
+    "message": "Storage is over $1% full. Older data may be deleted soon.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_completed": {
+    "message": "Older data has been successfully purged."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Purge failed. Please try again later."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Session-only mode is active because a security component failed. Sections will not be saved. Restarting your browser may resolve this."
+  },
+  "popup_error_setup_title": {
+    "message": "Initialization Failed"
+  },
+  "popup_error_setup_advice": {
+    "message": "Please try again. If the problem persists, try reloading the page."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Could not initialize a required security component."
+  },
+  "popup_error_setup_unknown": {
+    "message": "An unknown error occurred during setup."
+  },
+  "popup_error_connection_failed": {
+    "message": "Couldn't connect to the extension. Please reload the page and try again."
+  },
+  "popup_error_connection_timeout": {
+    "message": "Connection timed out. Please reload the page and try again."
+  },
+  "popup_button_retry_setup": {
+    "message": "Retry Setup"
+  },
+  "popup_button_retrying": {
+    "message": "Retrying..."
+  },
+  "popup_storage_purge_button": {
+    "message": "Purge Old Data"
+  },
+  "toast_success_section_added": {
+    "message": "Section #$1 added.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_sections_cleared": {
+    "message": "All sections for this video have been cleared."
+  },
+  "toast_success_pending_save_applied": {
+    "message": "Saved sections from previous session."
+  },
+  "toast_success_storage_cleaned": {
+    "message": "Storage cleaned. Current usage: $1%.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_reconnected": {
+    "message": "Successfully reconnected."
+  },
+  "toast_action_reload": {
+    "message": "Reload Page"
+  },
+  "toast_info_section_start_set": {
+    "message": "Section start point set. Press 'E' to end."
+  },
+  "toast_info_repeat_stopped": {
+    "message": "Repeat stopped."
+  },
+  "toast_info_repeating_navigation": {
+    "message": "Repeating section $1 of $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_info_jumped_to_section": {
+    "message": "Jumped to section $1.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_loaded_singular": {
+    "message": "Loaded 1 saved section for this video."
+  },
+  "toast_info_loaded_plural": {
+    "message": "Loaded $1 saved sections for this video.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Incomplete section was automatically completed at video end."
+  },
+  "toast_info_legacy_data_cleared": {
+    "message": "Incompatible old data has been cleared to ensure smooth operation."
+  },
+  "toast_info_sectioning_hint": {
+    "message": "Press 'S' to start a section, 'E' to end it."
+  },
+  "toast_info_playlist_hint": {
+    "message": "Tip: Press 'W' to enter Focus Mode and leave the playlist."
+  },
+  "toast_info_focus_mode_already": {
+    "message": "You are already in Focus Mode."
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "Entering Focus Mode... The page will reload."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "The video has finished. Repeating from the beginning."
+  },
+  "toast_warn_initialization_slow": {
+    "message": "Extension is still loading... Please try again in a moment."
+  },
+  "toast_warning_live_stream_unsupported": {
+    "message": "Section Repeat is not available for live streams."
+  },
+  "toast_warning_repeat_stopped_unexpectedly": {
+    "message": "Repeat was stopped due to a navigation or background error."
+  },
+  "toast_warning_storage_level": {
+    "message": "Storage is $1% full. Old data might be purged.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_warning_sections_auto_purged": {
+    "message": "Section limit of $1 reached. Removed $2 oldest section(s) to make space.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_error_player_init_failed": {
+    "message": "Initialization failed after multiple retries. Please reload the page."
+  },
+  "toast_error_storage_critical": {
+    "message": "Storage Critical ($1% full). Old data must be purged to save new sections.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_error_focus_mode_failed": {
+    "message": "Could not enter Focus Mode. Please try again."
+  },
+  "toast_error_action_locked": {
+    "message": "Action failed because another operation is in progress. Please try again in a moment."
+  },
+  "toast_error_final_save_failed": {
+    "message": "Failed to save data. Please use 'Purge Old Data' in the popup to free up space."
+  },
+  "toast_reload_prompt": {
+    "message": "The extension context was lost. Please reload the page to continue."
+  },
+  "aria_popup_shortcuts_table_label": {
+    "message": "Keyboard shortcuts list. Use arrow keys to navigate rows."
+  },
+  "aria_popup_shortcut_row_label": {
+    "message": "Key: $1, Action: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_shortcut_row_activated": {
+    "message": "Shortcut activated. Key: $1, Action: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_storage_purge_button_label": {
+    "message": "Delete older section data to free up storage space."
+  },
+  "aria_toast_container_label": {
+    "message": "Section Repeat Notifications"
+  },
+  "aria_toast_close_button": {
+    "message": "Close notification"
+  },
+  "aria_overlay_desc_no_sections": {
+    "message": "No sections have been set for this video."
+  },
+  "aria_overlay_desc_singular": {
+    "message": "1 section has been set on the progress bar."
+  },
+  "aria_overlay_desc_plural": {
+    "message": "$1 sections have been set on the progress bar.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "aria_overlay_desc_with_repeating": {
+    "message": "A total of $1 sections have been set. Currently repeating section number $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_with_incomplete": {
+    "message": "A total of $1 sections have been set, $2 of which are incomplete.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_full_state": {
+    "message": "A total of $1 sections have been set, $2 of which are incomplete. Currently repeating section number $3.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dialog_button_cancel": {
+    "message": "Cancel"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Confirm Purge"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "This will permanently delete your oldest section data to make space. Are you sure?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "The YouTube page structure changed unexpectedly, and the extension lost control. Please reload the page to restart the extension."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "A critical component failed to load, which prevents the extension from working correctly. This issue may require you to reinstall the extension."
+  }
+}

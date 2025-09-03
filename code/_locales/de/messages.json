@@ -1,0 +1,353 @@
+{
+  "ext_name": {
+    "message": "Abschnittswiederholung für YouTube™"
+  },
+  "ext_description": {
+    "message": "A-B-Wiederholung und Mehrfachschleifen für YouTube. Effizientes Üben mit Tastenkürzel."
+  },
+  "action_error_title_with_name": {
+    "message": "$1: $2",
+    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "popup_shortcuts_header_key": {
+    "message": "Taste"
+  },
+  "popup_shortcuts_header_action": {
+    "message": "Aktion"
+  },
+  "popup_shortcut_action_start": {
+    "message": "Abschnitt starten"
+  },
+  "popup_shortcut_action_end": {
+    "message": "Abschnitt beenden (Verketten)"
+  },
+  "popup_shortcut_action_toggle_repeat": {
+    "message": "Wiederholung ein/aus"
+  },
+  "popup_shortcut_action_prev": {
+    "message": "Vorheriger Abschnitt"
+  },
+  "popup_shortcut_action_next": {
+    "message": "Nächster Abschnitt"
+  },
+  "popup_shortcut_action_jump": {
+    "message": "Zu Abschnitt springen"
+  },
+  "popup_shortcut_action_clear_sections": {
+    "message": "Alle Abschnitte löschen"
+  },
+  "popup_shortcut_action_focus": {
+    "message": "Fokusmodus aktivieren"
+  },
+  "popup_note_inactive": {
+    "message": "Tastenkürzel sind aktiv, wenn Sie sich auf einer YouTube-Videoseite befinden."
+  },
+  "popup_shortcut_key_jump_range": {
+    "message": "1-9"
+  },
+  "popup_shortcut_key_arrow_up": {
+    "message": "↑"
+  },
+  "popup_shortcut_key_arrow_down": {
+    "message": "↓"
+  },
+  "popup_shortcut_key_arrow_left": {
+    "message": "←"
+  },
+  "popup_shortcut_key_arrow_right": {
+    "message": "→"
+  },
+  "popup_shortcut_key_space": {
+    "message": "Leertaste"
+  },
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
+  },
+  "popup_storage_warning_message": {
+    "message": "Speicher ist zu über $1% voll. Ältere Daten werden möglicherweise bald gelöscht.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_completed": {
+    "message": "Ältere Daten wurden erfolgreich gelöscht."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Löschen fehlgeschlagen. Bitte versuchen Sie es später erneut."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Nur-Sitzung-Modus ist aktiv, da eine Sicherheitskomponente fehlgeschlagen ist. Abschnitte werden nicht gespeichert. Ein Neustart Ihres Browsers könnte das Problem beheben."
+  },
+  "popup_error_setup_title": {
+    "message": "Initialisierung fehlgeschlagen"
+  },
+  "popup_error_setup_advice": {
+    "message": "Bitte versuchen Sie es erneut. Wenn das Problem weiterhin besteht, laden Sie die Seite neu."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Erforderliche Sicherheitskomponente konnte nicht initialisiert werden."
+  },
+  "popup_error_setup_unknown": {
+    "message": "Ein unbekannter Fehler ist während der Einrichtung aufgetreten."
+  },
+  "popup_error_connection_failed": {
+    "message": "Verbindung zur Erweiterung konnte nicht hergestellt werden. Bitte laden Sie die Seite neu und versuchen Sie es erneut."
+  },
+  "popup_error_connection_timeout": {
+    "message": "Verbindungszeitüberschreitung. Bitte laden Sie die Seite neu und versuchen Sie es erneut."
+  },
+  "popup_button_retry_setup": {
+    "message": "Einrichtung wiederholen"
+  },
+  "popup_button_retrying": {
+    "message": "Versuche erneut..."
+  },
+  "popup_storage_purge_button": {
+    "message": "Alte Daten löschen"
+  },
+  "toast_success_section_added": {
+    "message": "Abschnitt #$1 hinzugefügt.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_sections_cleared": {
+    "message": "Alle Abschnitte für dieses Video wurden gelöscht."
+  },
+  "toast_success_pending_save_applied": {
+    "message": "Gespeicherte Abschnitte aus vorheriger Sitzung angewendet."
+  },
+  "toast_success_storage_cleaned": {
+    "message": "Speicher bereinigt. Aktuelle Nutzung: $1%.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_reconnected": {
+    "message": "Erfolgreich wiederverbunden."
+  },
+  "toast_action_reload": {
+    "message": "Seite neu laden"
+  },
+  "toast_info_section_start_set": {
+    "message": "Abschnittsstartpunkt gesetzt. Drücken Sie 'E' zum Beenden."
+  },
+  "toast_info_repeat_stopped": {
+    "message": "Wiederholung gestoppt."
+  },
+  "toast_info_repeating_navigation": {
+    "message": "Wiederhole Abschnitt $1 von $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_info_jumped_to_section": {
+    "message": "Zu Abschnitt $1 gesprungen.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_loaded_singular": {
+    "message": "1 gespeicherten Abschnitt für dieses Video geladen."
+  },
+  "toast_info_loaded_plural": {
+    "message": "$1 gespeicherte Abschnitte für dieses Video geladen.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Unvollständiger Abschnitt wurde automatisch am Videoende vervollständigt."
+  },
+  "toast_info_legacy_data_cleared": {
+    "message": "Inkompatible alte Daten wurden gelöscht, um einen reibungslosen Betrieb zu gewährleisten."
+  },
+  "toast_info_sectioning_hint": {
+    "message": "Drücken Sie 'S' um einen Abschnitt zu starten, 'E' um ihn zu beenden."
+  },
+  "toast_info_playlist_hint": {
+    "message": "Tipp: Drücken Sie 'W' für den Fokusmodus und verlassen Sie die Playlist."
+  },
+  "toast_info_focus_mode_already": {
+    "message": "Sie sind bereits im Fokusmodus."
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "Fokusmodus wird aktiviert... Die Seite wird neu geladen."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "Das Video ist beendet. Wiederholung vom Anfang."
+  },
+  "toast_warn_initialization_slow": {
+    "message": "Erweiterung lädt noch... Bitte versuchen Sie es in einem Moment erneut."
+  },
+  "toast_warning_live_stream_unsupported": {
+    "message": "Abschnittswiederholung ist für Live-Streams nicht verfügbar."
+  },
+  "toast_warning_repeat_stopped_unexpectedly": {
+    "message": "Wiederholung wurde aufgrund eines Navigations- oder Hintergrundfehlers gestoppt."
+  },
+  "toast_warning_storage_level": {
+    "message": "Speicher ist zu $1% voll. Alte Daten könnten gelöscht werden.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_warning_sections_auto_purged": {
+    "message": "Abschnittslimit von $1 erreicht. $2 älteste(r) Abschnitt(e) entfernt, um Platz zu schaffen.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_error_player_init_failed": {
+    "message": "Initialisierung nach mehreren Versuchen fehlgeschlagen. Bitte laden Sie die Seite neu."
+  },
+  "toast_error_storage_critical": {
+    "message": "Speicher kritisch ($1% voll). Alte Daten müssen gelöscht werden, um neue Abschnitte zu speichern.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_error_focus_mode_failed": {
+    "message": "Fokusmodus konnte nicht aktiviert werden. Bitte versuchen Sie es erneut."
+  },
+  "toast_error_action_locked": {
+    "message": "Aktion fehlgeschlagen, da ein anderer Vorgang läuft. Bitte versuchen Sie es in einem Moment erneut."
+  },
+  "toast_error_final_save_failed": {
+    "message": "Daten konnten nicht gespeichert werden. Bitte verwenden Sie 'Alte Daten löschen' im Popup, um Speicherplatz freizugeben."
+  },
+  "toast_reload_prompt": {
+    "message": "Der Erweiterungskontext ging verloren. Bitte laden Sie die Seite neu, um fortzufahren."
+  },
+  "aria_popup_shortcuts_table_label": {
+    "message": "Liste der Tastenkürzel. Verwenden Sie Pfeiltasten, um durch die Zeilen zu navigieren."
+  },
+  "aria_popup_shortcut_row_label": {
+    "message": "Taste: $1, Aktion: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_shortcut_row_activated": {
+    "message": "Tastenkürzel aktiviert. Taste: $1, Aktion: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_storage_purge_button_label": {
+    "message": "Ältere Abschnittsdaten löschen, um Speicherplatz freizugeben."
+  },
+  "aria_toast_container_label": {
+    "message": "Abschnittswiederholung-Benachrichtigungen"
+  },
+  "aria_toast_close_button": {
+    "message": "Benachrichtigung schließen"
+  },
+  "aria_overlay_desc_no_sections": {
+    "message": "Keine Abschnitte wurden für dieses Video festgelegt."
+  },
+  "aria_overlay_desc_singular": {
+    "message": "1 Abschnitt wurde auf der Fortschrittsleiste festgelegt."
+  },
+  "aria_overlay_desc_plural": {
+    "message": "$1 Abschnitte wurden auf der Fortschrittsleiste festgelegt.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "aria_overlay_desc_with_repeating": {
+    "message": "Insgesamt wurden $1 Abschnitte festgelegt. Derzeit wird Abschnitt Nummer $2 wiederholt.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_with_incomplete": {
+    "message": "Insgesamt wurden $1 Abschnitte festgelegt, davon sind $2 unvollständig.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_full_state": {
+    "message": "Insgesamt wurden $1 Abschnitte festgelegt, davon sind $2 unvollständig. Derzeit wird Abschnitt Nummer $3 wiederholt.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dialog_button_cancel": {
+    "message": "Abbrechen"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Löschen bestätigen"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Dies wird Ihre ältesten Abschnittsdaten dauerhaft löschen, um Platz zu schaffen. Sind Sie sicher?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "Die YouTube-Seitenstruktur hat sich unerwartet geändert und die Erweiterung hat die Kontrolle verloren. Bitte laden Sie die Seite neu, um die Erweiterung neu zu starten."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "Eine kritische Komponente konnte nicht geladen werden, was die Erweiterung daran hindert, korrekt zu funktionieren. Dieses Problem könnte eine Neuinstallation der Erweiterung erfordern."
+  }
+}

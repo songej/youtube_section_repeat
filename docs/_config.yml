@@ -1,0 +1,42 @@
+title: Section Repeat for YouTube
+description: A-B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts.
+url: https://sectionrepeat.com
+baseurl: ""
+repository: songej/youtube_section_repeat
+logo: /assets/images/apple-touch-icon.png
+image: /assets/images/og-image.webp
+title_separator: " – "
+lang: en
+timezone: Asia/Seoul
+permalink: pretty
+
+remote_theme: pages-themes/primer@v0.6.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jekyll-readme-index
+  - jekyll-feed
+
+readme_index:
+  with_frontmatter: true
+
+author:
+  name: "Eunjeong Song"
+  url: "https://songej.com"
+
+social:
+  name: "Section Repeat"
+  links:
+    - "https://github.com/songej/youtube_section_repeat"
+    - "https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+sass:
+  style: compressed

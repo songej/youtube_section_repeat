@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="ext_name"></title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="constants.js" defer></script>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <div id="inactive-ui" class="hidden">
+    <h3 data-i18n="ext_name"></h3>
+    <p id="inactive-note" class="table-note"></p>
+  </div>
+  <div id="main-ui">
+    <div role="region" aria-labelledby="extension-title" aria-describedby="extension-description">
+      <h3 id="extension-title" data-i18n="ext_name" tabindex="-1" role="heading" aria-level="1" data-focusable></h3>
+      <div id="storage-status-container"></div>
+      <p id="extension-description" class="visually-hidden" data-i18n="ext_description"></p>
+    </div>
+    <div role="status" aria-live="polite" aria-atomic="true" class="visually-hidden">
+      <span id="live-status"></span>
+    </div>
+    <div role="region" aria-labelledby="shortcuts-heading" aria-describedby="shortcuts-instructions">
+      <p id="shortcuts-instructions" class="visually-hidden" data-i18n="aria_popup_shortcuts_table_label"></p>
+      <div id="shortcuts-grid" role="grid" tabindex="0" data-i18n-attrs="aria-label:aria_popup_shortcuts_table_label" data-focusable>
+        <div role="rowgroup" class="grid-header">
+          <div role="row">
+            <span role="columnheader" id="header-key" data-i18n="popup_shortcuts_header_key"></span>
+            <span role="columnheader" id="header-action" data-i18n="popup_shortcuts_header_action"></span>
+          </div>
+        </div>
+        <div role="rowgroup" class="grid-body">
+          <div id="shortcut-row-0" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code id="focus" class="hotkey-placeholder loading">&nbsp;</code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_focus"></span>
+          </div>
+          <div id="shortcut-row-1" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code id="start" class="hotkey-placeholder loading">&nbsp;</code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_start"></span>
+          </div>
+          <div id="shortcut-row-2" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code id="end" class="hotkey-placeholder loading">&nbsp;</code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_end"></span>
+          </div>
+          <div id="shortcut-row-3" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code id="toggleRepeat" class="hotkey-placeholder loading">&nbsp;</code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_toggle_repeat"></span>
+          </div>
+          <div id="shortcut-row-4" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code id="prev" class="hotkey-placeholder loading">&nbsp;</code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_prev"></span>
+          </div>
+          <div id="shortcut-row-5" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code id="next" class="hotkey-placeholder loading">&nbsp;</code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_next"></span>
+          </div>
+          <div id="shortcut-row-6" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code data-i18n="popup_shortcut_key_jump_range"></code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_jump"></span>
+          </div>
+          <div id="shortcut-row-7" role="row" class="grid-row" tabindex="-1">
+            <span role="gridcell" aria-describedby="header-key"><code id="clearSections" class="hotkey-placeholder loading">&nbsp;</code></span>
+            <span role="gridcell" aria-describedby="header-action" data-i18n="popup_shortcut_action_clear_sections"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="row-announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div id="popup-error-container" class="storage-warning hidden" role="alert" aria-live="assertive"></div>
+  </div>
+  <div id="error-ui" class="hidden">
+    <h3 data-i18n="ext_name"></h3>
+    <p data-i18n="popup_error_setup_title"></p>
+    <p class="error-advice" data-i18n="popup_error_setup_advice"></p>
+    <p class="error-details"></p>
+    <button id="retry-setup-btn" class="button-primary" data-i18n="popup_button_retry_setup" data-focusable></button>
+  </div>
+  <div id="purge-confirm-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+    <div class="dialog-box">
+      <h4 id="dialog-title" class="visually-hidden" data-i18n="popup_storage_purge_button"></h4>
+      <p id="dialog-description" data-i18n="dialog_purge_confirm_message"></p>
+      <div class="dialog-buttons">
+        <button id="dialog-cancel-btn" class="dialog-btn cancel" data-i18n="dialog_button_cancel"></button>
+        <button id="dialog-confirm-btn" class="dialog-btn confirm" data-i18n="dialog_button_confirm_purge"></button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

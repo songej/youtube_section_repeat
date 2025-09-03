@@ -1,0 +1,353 @@
+{
+  "ext_name": {
+    "message": "YouTube™ 片段循环"
+  },
+  "ext_description": {
+    "message": "YouTube A-B 循环和多片段重复。键盘快捷键高效练习。"
+  },
+  "action_error_title_with_name": {
+    "message": "$1：$2",
+    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "popup_shortcuts_header_key": {
+    "message": "按键"
+  },
+  "popup_shortcuts_header_action": {
+    "message": "操作"
+  },
+  "popup_shortcut_action_start": {
+    "message": "开始片段"
+  },
+  "popup_shortcut_action_end": {
+    "message": "结束（链接）片段"
+  },
+  "popup_shortcut_action_toggle_repeat": {
+    "message": "开关循环"
+  },
+  "popup_shortcut_action_prev": {
+    "message": "上一个片段"
+  },
+  "popup_shortcut_action_next": {
+    "message": "下一个片段"
+  },
+  "popup_shortcut_action_jump": {
+    "message": "跳转到片段"
+  },
+  "popup_shortcut_action_clear_sections": {
+    "message": "清除所有片段"
+  },
+  "popup_shortcut_action_focus": {
+    "message": "进入专注模式"
+  },
+  "popup_note_inactive": {
+    "message": "快捷键在 YouTube 视频页面激活。"
+  },
+  "popup_shortcut_key_jump_range": {
+    "message": "1-9"
+  },
+  "popup_shortcut_key_arrow_up": {
+    "message": "↑"
+  },
+  "popup_shortcut_key_arrow_down": {
+    "message": "↓"
+  },
+  "popup_shortcut_key_arrow_left": {
+    "message": "←"
+  },
+  "popup_shortcut_key_arrow_right": {
+    "message": "→"
+  },
+  "popup_shortcut_key_space": {
+    "message": "空格"
+  },
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
+  },
+  "popup_storage_warning_message": {
+    "message": "存储空间已使用超过 $1%。旧数据可能很快被删除。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_completed": {
+    "message": "旧数据已成功删除。"
+  },
+  "popup_storage_purge_failed": {
+    "message": "清理失败。请稍后重试。"
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "由于安全组件失败，仅会话模式已激活。片段不会被保存。重启浏览器可能解决此问题。"
+  },
+  "popup_error_setup_title": {
+    "message": "初始化失败"
+  },
+  "popup_error_setup_advice": {
+    "message": "请重试。如果问题持续，请尝试重新加载页面。"
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "无法初始化所需的安全组件。"
+  },
+  "popup_error_setup_unknown": {
+    "message": "设置过程中发生未知错误。"
+  },
+  "popup_error_connection_failed": {
+    "message": "无法连接到扩展。请重新加载页面并重试。"
+  },
+  "popup_error_connection_timeout": {
+    "message": "连接超时。请重新加载页面并重试。"
+  },
+  "popup_button_retry_setup": {
+    "message": "重试设置"
+  },
+  "popup_button_retrying": {
+    "message": "重试中..."
+  },
+  "popup_storage_purge_button": {
+    "message": "清理旧数据"
+  },
+  "toast_success_section_added": {
+    "message": "已添加片段 #$1。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_sections_cleared": {
+    "message": "已清除此视频的所有片段。"
+  },
+  "toast_success_pending_save_applied": {
+    "message": "已应用上次会话保存的片段。"
+  },
+  "toast_success_storage_cleaned": {
+    "message": "存储已清理。当前使用：$1%。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_reconnected": {
+    "message": "成功重新连接。"
+  },
+  "toast_action_reload": {
+    "message": "重新加载页面"
+  },
+  "toast_info_section_start_set": {
+    "message": "片段起点已设置。按 'E' 结束。"
+  },
+  "toast_info_repeat_stopped": {
+    "message": "循环已停止。"
+  },
+  "toast_info_repeating_navigation": {
+    "message": "正在循环第 $1 个片段（共 $2 个）。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_info_jumped_to_section": {
+    "message": "已跳转到片段 $1。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_loaded_singular": {
+    "message": "已加载此视频的 1 个保存片段。"
+  },
+  "toast_info_loaded_plural": {
+    "message": "已加载此视频的 $1 个保存片段。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "未完成的片段已在视频结尾自动完成。"
+  },
+  "toast_info_legacy_data_cleared": {
+    "message": "已清除不兼容的旧数据以确保流畅运行。"
+  },
+  "toast_info_sectioning_hint": {
+    "message": "按 'S' 开始片段，按 'E' 结束。"
+  },
+  "toast_info_playlist_hint": {
+    "message": "提示：按 'W' 进入专注模式并退出播放列表。"
+  },
+  "toast_info_focus_mode_already": {
+    "message": "您已在专注模式中。"
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "正在进入专注模式... 页面将重新加载。"
+  },
+  "toast_info_autorepeat_video": {
+    "message": "视频已结束。从头开始重复。"
+  },
+  "toast_warn_initialization_slow": {
+    "message": "扩展仍在加载中... 请稍后重试。"
+  },
+  "toast_warning_live_stream_unsupported": {
+    "message": "片段循环不适用于直播。"
+  },
+  "toast_warning_repeat_stopped_unexpectedly": {
+    "message": "由于导航或后台错误，循环已停止。"
+  },
+  "toast_warning_storage_level": {
+    "message": "存储空间已使用 $1%。旧数据可能被清理。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_warning_sections_auto_purged": {
+    "message": "达到 $1 个片段限制。删除了 $2 个最旧片段以腾出空间。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_error_player_init_failed": {
+    "message": "多次重试后初始化失败。请重新加载页面。"
+  },
+  "toast_error_storage_critical": {
+    "message": "存储严重不足（$1% 已满）。必须删除旧数据才能保存新片段。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_error_focus_mode_failed": {
+    "message": "无法进入专注模式。请重试。"
+  },
+  "toast_error_action_locked": {
+    "message": "操作失败，因为另一个操作正在进行。请稍后重试。"
+  },
+  "toast_error_final_save_failed": {
+    "message": "保存数据失败。请使用弹出窗口中的「清理旧数据」释放空间。"
+  },
+  "toast_reload_prompt": {
+    "message": "扩展上下文已丢失。请重新加载页面以继续。"
+  },
+  "aria_popup_shortcuts_table_label": {
+    "message": "键盘快捷键列表。使用方向键导航行。"
+  },
+  "aria_popup_shortcut_row_label": {
+    "message": "按键：$1，操作：$2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_shortcut_row_activated": {
+    "message": "快捷键已激活。按键：$1，操作：$2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_storage_purge_button_label": {
+    "message": "删除旧片段数据以释放存储空间。"
+  },
+  "aria_toast_container_label": {
+    "message": "片段循环通知"
+  },
+  "aria_toast_close_button": {
+    "message": "关闭通知"
+  },
+  "aria_overlay_desc_no_sections": {
+    "message": "此视频未设置任何片段。"
+  },
+  "aria_overlay_desc_singular": {
+    "message": "进度条上已设置 1 个片段。"
+  },
+  "aria_overlay_desc_plural": {
+    "message": "进度条上已设置 $1 个片段。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "aria_overlay_desc_with_repeating": {
+    "message": "共设置了 $1 个片段。当前正在循环第 $2 个片段。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_with_incomplete": {
+    "message": "共设置了 $1 个片段，其中 $2 个未完成。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_full_state": {
+    "message": "共设置了 $1 个片段，其中 $2 个未完成。当前正在循环第 $3 个片段。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dialog_button_cancel": {
+    "message": "取消"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "确认清理"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "这将永久删除您最旧的片段数据以腾出空间。您确定吗？"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "YouTube 页面结构意外更改，扩展失去控制。请重新加载页面以重启扩展。"
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "关键组件加载失败，导致扩展无法正常工作。此问题可能需要重新安装扩展。"
+  }
+}

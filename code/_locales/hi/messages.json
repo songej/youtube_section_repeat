@@ -1,0 +1,353 @@
+{
+  "ext_name": {
+    "message": "YouTube™ के लिए Section Repeat"
+  },
+  "ext_description": {
+    "message": "YouTube के लिए A-B रिपीट और मल्टी-सेक्शन लूप। Keyboard shortcuts से तेज़ प्रैक्टिस करें।"
+  },
+  "action_error_title_with_name": {
+    "message": "$1: $2",
+    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "popup_shortcuts_header_key": {
+    "message": "की"
+  },
+  "popup_shortcuts_header_action": {
+    "message": "कार्य"
+  },
+  "popup_shortcut_action_start": {
+    "message": "सेक्शन शुरू करें"
+  },
+  "popup_shortcut_action_end": {
+    "message": "सेक्शन समाप्त (जोड़ें) करें"
+  },
+  "popup_shortcut_action_toggle_repeat": {
+    "message": "रिपीट चालू/बंद करें"
+  },
+  "popup_shortcut_action_prev": {
+    "message": "पिछला सेक्शन"
+  },
+  "popup_shortcut_action_next": {
+    "message": "अगला सेक्शन"
+  },
+  "popup_shortcut_action_jump": {
+    "message": "सेक्शन पर जाएं"
+  },
+  "popup_shortcut_action_clear_sections": {
+    "message": "सभी सेक्शन मिटाएं"
+  },
+  "popup_shortcut_action_focus": {
+    "message": "Focus Mode में जाएं"
+  },
+  "popup_note_inactive": {
+    "message": "जब आप YouTube वीडियो पेज पर हों तब hotkeys सक्रिय होती हैं।"
+  },
+  "popup_shortcut_key_jump_range": {
+    "message": "1-9"
+  },
+  "popup_shortcut_key_arrow_up": {
+    "message": "↑"
+  },
+  "popup_shortcut_key_arrow_down": {
+    "message": "↓"
+  },
+  "popup_shortcut_key_arrow_left": {
+    "message": "←"
+  },
+  "popup_shortcut_key_arrow_right": {
+    "message": "→"
+  },
+  "popup_shortcut_key_space": {
+    "message": "Space"
+  },
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
+  },
+  "popup_storage_warning_message": {
+    "message": "Storage $1% से अधिक भर गया है। पुराना डेटा जल्द ही डिलीट हो सकता है।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_completed": {
+    "message": "पुराना डेटा सफलतापूर्वक हटा दिया गया है।"
+  },
+  "popup_storage_purge_failed": {
+    "message": "हटाना विफल रहा। कृपया बाद में पुनः प्रयास करें।"
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "सुरक्षा घटक विफल होने के कारण केवल-सत्र मोड सक्रिय है। सेक्शन सहेजे नहीं जाएंगे। ब्राउज़र को पुनः प्रारंभ करने से यह हल हो सकता है।"
+  },
+  "popup_error_setup_title": {
+    "message": "प्रारंभीकरण विफल"
+  },
+  "popup_error_setup_advice": {
+    "message": "कृपया पुनः प्रयास करें। यदि समस्या बनी रहती है, तो पेज को रीलोड करें।"
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "आवश्यक सुरक्षा घटक प्रारंभ नहीं हो सका।"
+  },
+  "popup_error_setup_unknown": {
+    "message": "सेटअप के दौरान एक अज्ञात त्रुटि हुई।"
+  },
+  "popup_error_connection_failed": {
+    "message": "एक्सटेंशन से कनेक्ट नहीं हो सका। कृपया पेज रीलोड करें और पुनः प्रयास करें।"
+  },
+  "popup_error_connection_timeout": {
+    "message": "कनेक्शन टाइमआउट। कृपया पेज रीलोड करें और पुनः प्रयास करें।"
+  },
+  "popup_button_retry_setup": {
+    "message": "सेटअप पुनः प्रयास करें"
+  },
+  "popup_button_retrying": {
+    "message": "पुनः प्रयास कर रहे हैं..."
+  },
+  "popup_storage_purge_button": {
+    "message": "पुराना डेटा हटाएं"
+  },
+  "toast_success_section_added": {
+    "message": "सेक्शन #$1 जोड़ा गया।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_sections_cleared": {
+    "message": "इस वीडियो के सभी सेक्शन साफ़ कर दिए गए हैं।"
+  },
+  "toast_success_pending_save_applied": {
+    "message": "पिछले सत्र से सहेजे गए सेक्शन लागू किए गए।"
+  },
+  "toast_success_storage_cleaned": {
+    "message": "Storage साफ़ किया गया। वर्तमान उपयोग: $1%।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_reconnected": {
+    "message": "सफलतापूर्वक पुनः कनेक्ट हुआ।"
+  },
+  "toast_action_reload": {
+    "message": "पेज रीलोड करें"
+  },
+  "toast_info_section_start_set": {
+    "message": "सेक्शन शुरुआती बिंदु सेट किया गया। समाप्त करने के लिए 'E' दबाएं।"
+  },
+  "toast_info_repeat_stopped": {
+    "message": "रिपीट रोक दिया गया।"
+  },
+  "toast_info_repeating_navigation": {
+    "message": "$2 में से $1 सेक्शन रिपीट हो रहा है।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_info_jumped_to_section": {
+    "message": "सेक्शन $1 पर पहुंच गए।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_loaded_singular": {
+    "message": "इस वीडियो के लिए 1 सहेजा गया सेक्शन लोड किया गया।"
+  },
+  "toast_info_loaded_plural": {
+    "message": "इस वीडियो के लिए $1 सहेजे गए सेक्शन लोड किए गए।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "अधूरा सेक्शन वीडियो के अंत में स्वचालित रूप से पूरा किया गया।"
+  },
+  "toast_info_legacy_data_cleared": {
+    "message": "सुचारू संचालन सुनिश्चित करने के लिए असंगत पुराना डेटा साफ़ किया गया।"
+  },
+  "toast_info_sectioning_hint": {
+    "message": "सेक्शन शुरू करने के लिए 'S' दबाएं, समाप्त करने के लिए 'E'।"
+  },
+  "toast_info_playlist_hint": {
+    "message": "टिप: Focus Mode में जाने और playlist छोड़ने के लिए 'W' दबाएं।"
+  },
+  "toast_info_focus_mode_already": {
+    "message": "आप पहले से ही Focus Mode में हैं।"
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "Focus Mode में जा रहे हैं... पेज रीलोड होगा।"
+  },
+  "toast_info_autorepeat_video": {
+    "message": "वीडियो समाप्त हो गया है। शुरुआत से रिपीट हो रहा है।"
+  },
+  "toast_warn_initialization_slow": {
+    "message": "एक्सटेंशन अभी भी लोड हो रहा है... कृपया एक क्षण में पुनः प्रयास करें।"
+  },
+  "toast_warning_live_stream_unsupported": {
+    "message": "लाइव स्ट्रीम के लिए Section Repeat उपलब्ध नहीं है।"
+  },
+  "toast_warning_repeat_stopped_unexpectedly": {
+    "message": "नेविगेशन या बैकग्राउंड त्रुटि के कारण रिपीट रुक गया।"
+  },
+  "toast_warning_storage_level": {
+    "message": "Storage $1% भरा है। पुराना डेटा हटाया जा सकता है।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_warning_sections_auto_purged": {
+    "message": "$1 सेक्शन की सीमा पहुंच गई। जगह बनाने के लिए $2 सबसे पुराने सेक्शन हटाए गए।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_error_player_init_failed": {
+    "message": "कई प्रयासों के बाद प्रारंभीकरण विफल। कृपया पेज रीलोड करें।"
+  },
+  "toast_error_storage_critical": {
+    "message": "Storage गंभीर ($1% भरा)। नए सेक्शन सहेजने के लिए पुराना डेटा हटाना होगा।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_error_focus_mode_failed": {
+    "message": "Focus Mode में नहीं जा सके। कृपया पुनः प्रयास करें।"
+  },
+  "toast_error_action_locked": {
+    "message": "कार्य विफल क्योंकि अन्य ऑपरेशन चल रहा है। कृपया एक क्षण में पुनः प्रयास करें।"
+  },
+  "toast_error_final_save_failed": {
+    "message": "डेटा सहेजने में विफल। कृपया जगह खाली करने के लिए पॉपअप में 'पुराना डेटा हटाएं' का उपयोग करें।"
+  },
+  "toast_reload_prompt": {
+    "message": "एक्सटेंशन संदर्भ खो गया। जारी रखने के लिए कृपया पेज रीलोड करें।"
+  },
+  "aria_popup_shortcuts_table_label": {
+    "message": "Keyboard shortcuts सूची। पंक्तियों में नेविगेट करने के लिए arrow keys का उपयोग करें।"
+  },
+  "aria_popup_shortcut_row_label": {
+    "message": "की: $1, कार्य: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_shortcut_row_activated": {
+    "message": "Shortcut सक्रिय। की: $1, कार्य: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_storage_purge_button_label": {
+    "message": "Storage जगह खाली करने के लिए पुराने सेक्शन डेटा हटाएं।"
+  },
+  "aria_toast_container_label": {
+    "message": "Section Repeat सूचनाएं"
+  },
+  "aria_toast_close_button": {
+    "message": "सूचना बंद करें"
+  },
+  "aria_overlay_desc_no_sections": {
+    "message": "इस वीडियो के लिए कोई सेक्शन सेट नहीं किया गया है।"
+  },
+  "aria_overlay_desc_singular": {
+    "message": "प्रगति बार पर 1 सेक्शन सेट किया गया है।"
+  },
+  "aria_overlay_desc_plural": {
+    "message": "प्रगति बार पर $1 सेक्शन सेट किए गए हैं।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "aria_overlay_desc_with_repeating": {
+    "message": "कुल $1 सेक्शन सेट किए गए हैं। वर्तमान में सेक्शन नंबर $2 रिपीट हो रहा है।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_with_incomplete": {
+    "message": "कुल $1 सेक्शन सेट किए गए हैं, जिनमें से $2 अधूरे हैं।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_full_state": {
+    "message": "कुल $1 सेक्शन सेट किए गए हैं, जिनमें से $2 अधूरे हैं। वर्तमान में सेक्शन नंबर $3 रिपीट हो रहा है।",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dialog_button_cancel": {
+    "message": "रद्द करें"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "हटाना पुष्टि करें"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "यह जगह बनाने के लिए आपके सबसे पुराने सेक्शन डेटा को स्थायी रूप से हटा देगा। क्या आप निश्चित हैं?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "YouTube पेज संरचना अप्रत्याशित रूप से बदल गई और एक्सटेंशन ने नियंत्रण खो दिया। एक्सटेंशन को पुनः प्रारंभ करने के लिए कृपया पेज रीलोड करें।"
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "एक महत्वपूर्ण घटक लोड नहीं हो सका, जो एक्सटेंशन को सही ढंग से काम करने से रोक रहा है। इस समस्या के लिए एक्सटेंशन को फिर से इंस्टॉल करने की आवश्यकता हो सकती है।"
+  }
+}

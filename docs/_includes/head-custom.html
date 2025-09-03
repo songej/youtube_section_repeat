@@ -1,0 +1,26 @@
+<link rel="icon" href="{{ '/assets/images/favicon.ico' | relative_url }}" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
+<link rel="mask-icon" href="{{ '/assets/images/safari-pinned-tab.svg' | relative_url }}" color="#ff0000">
+<link rel="manifest" href="{{ '/assets/images/site.webmanifest' | relative_url }}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Section Repeat for YouTube",
+  "description": {{ site.description | jsonify }},
+  "url": {{ '/' | absolute_url | jsonify }},
+  "applicationCategory": "BrowserExtension",
+  "operatingSystem": "Chrome OS, Windows, macOS, Linux",
+  "installUrl": "https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc",
+  "downloadUrl": "https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc",
+  "isAccessibleForFree": true,
+  "inLanguage": "{{ site.lang | default: 'en' }}",
+  "publisher": { "@type": "Person", "name": "Eunjeong Song" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "sameAs": [
+    "https://github.com/songej/youtube_section_repeat",
+    "https://sectionrepeat.com/"
+  ]
+}
+</script>

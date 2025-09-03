@@ -1,0 +1,39 @@
+{
+  "name": "Section Repeat for YouTube",
+  "description": "A-B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts.",
+  "short_name": "Repeater",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "browser"],
+  "orientation": "any",
+  "prefer_related_applications": false,
+  "id": "/",
+  "categories": ["productivity", "education"],
+  "theme_color": "#ff0000",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/assets/images/manifest-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/manifest-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    { "src": "/assets/images/ss-home.png", "sizes": "1280x800", "type": "image/png" },
+    { "src": "/assets/images/ss-hotkeys.png", "sizes": "1280x800", "type": "image/png" }
+  ],
+  "shortcuts": [
+    { "name": "Changelog", "url": "/changelog/" },
+    { "name": "Privacy", "url": "/privacy/" }
+  ]
+}

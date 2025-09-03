@@ -1,0 +1,353 @@
+{
+  "ext_name": {
+    "message": "Lặp Đoạn cho YouTube™"
+  },
+  "ext_description": {
+    "message": "Lặp A-B và vòng lặp đa đoạn cho YouTube. Luyện tập nhanh với phím tắt."
+  },
+  "action_error_title_with_name": {
+    "message": "$1: $2",
+    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "popup_shortcuts_header_key": {
+    "message": "Phím"
+  },
+  "popup_shortcuts_header_action": {
+    "message": "Hành động"
+  },
+  "popup_shortcut_action_start": {
+    "message": "Bắt đầu đoạn"
+  },
+  "popup_shortcut_action_end": {
+    "message": "Kết thúc (Nối) đoạn"
+  },
+  "popup_shortcut_action_toggle_repeat": {
+    "message": "Bật/tắt lặp"
+  },
+  "popup_shortcut_action_prev": {
+    "message": "Đoạn trước"
+  },
+  "popup_shortcut_action_next": {
+    "message": "Đoạn sau"
+  },
+  "popup_shortcut_action_jump": {
+    "message": "Nhảy tới đoạn"
+  },
+  "popup_shortcut_action_clear_sections": {
+    "message": "Xóa tất cả đoạn"
+  },
+  "popup_shortcut_action_focus": {
+    "message": "Vào Chế độ Tập trung"
+  },
+  "popup_note_inactive": {
+    "message": "Phím tắt hoạt động khi bạn ở trang video YouTube."
+  },
+  "popup_shortcut_key_jump_range": {
+    "message": "1-9"
+  },
+  "popup_shortcut_key_arrow_up": {
+    "message": "↑"
+  },
+  "popup_shortcut_key_arrow_down": {
+    "message": "↓"
+  },
+  "popup_shortcut_key_arrow_left": {
+    "message": "←"
+  },
+  "popup_shortcut_key_arrow_right": {
+    "message": "→"
+  },
+  "popup_shortcut_key_space": {
+    "message": "Phím cách"
+  },
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
+  },
+  "popup_storage_warning_message": {
+    "message": "Bộ nhớ đã đầy hơn $1%. Dữ liệu cũ có thể sớm bị xóa.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_completed": {
+    "message": "Dữ liệu cũ đã được xóa thành công."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Xóa thất bại. Vui lòng thử lại sau."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Chế độ chỉ-phiên đang hoạt động do thành phần bảo mật bị lỗi. Các đoạn sẽ không được lưu. Khởi động lại trình duyệt có thể khắc phục điều này."
+  },
+  "popup_error_setup_title": {
+    "message": "Khởi tạo thất bại"
+  },
+  "popup_error_setup_advice": {
+    "message": "Vui lòng thử lại. Nếu vấn đề vẫn tiếp tục, hãy tải lại trang."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Không thể khởi tạo thành phần bảo mật cần thiết."
+  },
+  "popup_error_setup_unknown": {
+    "message": "Đã xảy ra lỗi không xác định trong quá trình thiết lập."
+  },
+  "popup_error_connection_failed": {
+    "message": "Không thể kết nối với tiện ích. Vui lòng tải lại trang và thử lại."
+  },
+  "popup_error_connection_timeout": {
+    "message": "Hết thời gian kết nối. Vui lòng tải lại trang và thử lại."
+  },
+  "popup_button_retry_setup": {
+    "message": "Thử lại thiết lập"
+  },
+  "popup_button_retrying": {
+    "message": "Đang thử lại..."
+  },
+  "popup_storage_purge_button": {
+    "message": "Xóa dữ liệu cũ"
+  },
+  "toast_success_section_added": {
+    "message": "Đã thêm đoạn #$1.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_sections_cleared": {
+    "message": "Đã xóa tất cả đoạn của video này."
+  },
+  "toast_success_pending_save_applied": {
+    "message": "Đã áp dụng các đoạn đã lưu từ phiên trước."
+  },
+  "toast_success_storage_cleaned": {
+    "message": "Đã dọn dẹp bộ nhớ. Sử dụng hiện tại: $1%.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_success_reconnected": {
+    "message": "Kết nối lại thành công."
+  },
+  "toast_action_reload": {
+    "message": "Tải lại trang"
+  },
+  "toast_info_section_start_set": {
+    "message": "Đã đặt điểm bắt đầu đoạn. Nhấn 'E' để kết thúc."
+  },
+  "toast_info_repeat_stopped": {
+    "message": "Đã dừng lặp."
+  },
+  "toast_info_repeating_navigation": {
+    "message": "Đang lặp đoạn $1 trong $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_info_jumped_to_section": {
+    "message": "Đã nhảy tới đoạn $1.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_loaded_singular": {
+    "message": "Đã tải 1 đoạn đã lưu cho video này."
+  },
+  "toast_info_loaded_plural": {
+    "message": "Đã tải $1 đoạn đã lưu cho video này.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Đoạn chưa hoàn thành đã được tự động hoàn tất ở cuối video."
+  },
+  "toast_info_legacy_data_cleared": {
+    "message": "Dữ liệu cũ không tương thích đã được xóa để đảm bảo hoạt động mượt mà."
+  },
+  "toast_info_sectioning_hint": {
+    "message": "Nhấn 'S' để bắt đầu đoạn, 'E' để kết thúc."
+  },
+  "toast_info_playlist_hint": {
+    "message": "Mẹo: Nhấn 'W' để vào Chế độ Tập trung và rời khỏi danh sách phát."
+  },
+  "toast_info_focus_mode_already": {
+    "message": "Bạn đã ở trong Chế độ Tập trung."
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "Đang vào Chế độ Tập trung... Trang sẽ được tải lại."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "Video đã kết thúc. Lặp lại từ đầu."
+  },
+  "toast_warn_initialization_slow": {
+    "message": "Tiện ích vẫn đang tải... Vui lòng thử lại sau giây lát."
+  },
+  "toast_warning_live_stream_unsupported": {
+    "message": "Lặp Đoạn không khả dụng cho phát trực tiếp."
+  },
+  "toast_warning_repeat_stopped_unexpectedly": {
+    "message": "Lặp lại đã dừng do lỗi điều hướng hoặc nền."
+  },
+  "toast_warning_storage_level": {
+    "message": "Bộ nhớ đã dùng $1%. Dữ liệu cũ có thể bị xóa.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_warning_sections_auto_purged": {
+    "message": "Đạt giới hạn $1 đoạn. Đã xóa $2 đoạn cũ nhất để tạo chỗ.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "toast_error_player_init_failed": {
+    "message": "Khởi tạo thất bại sau nhiều lần thử. Vui lòng tải lại trang."
+  },
+  "toast_error_storage_critical": {
+    "message": "Bộ nhớ nguy kịch ($1% đầy). Phải xóa dữ liệu cũ để lưu đoạn mới.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "toast_error_focus_mode_failed": {
+    "message": "Không thể vào Chế độ Tập trung. Vui lòng thử lại."
+  },
+  "toast_error_action_locked": {
+    "message": "Hành động thất bại vì đang có thao tác khác. Vui lòng thử lại sau giây lát."
+  },
+  "toast_error_final_save_failed": {
+    "message": "Lưu dữ liệu thất bại. Vui lòng dùng 'Xóa dữ liệu cũ' trong popup để giải phóng không gian."
+  },
+  "toast_reload_prompt": {
+    "message": "Ngữ cảnh tiện ích đã mất. Vui lòng tải lại trang để tiếp tục."
+  },
+  "aria_popup_shortcuts_table_label": {
+    "message": "Danh sách phím tắt. Dùng phím mũi tên để điều hướng các hàng."
+  },
+  "aria_popup_shortcut_row_label": {
+    "message": "Phím: $1, Hành động: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_shortcut_row_activated": {
+    "message": "Phím tắt đã kích hoạt. Phím: $1, Hành động: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_popup_storage_purge_button_label": {
+    "message": "Xóa dữ liệu đoạn cũ để giải phóng không gian lưu trữ."
+  },
+  "aria_toast_container_label": {
+    "message": "Thông báo Lặp Đoạn"
+  },
+  "aria_toast_close_button": {
+    "message": "Đóng thông báo"
+  },
+  "aria_overlay_desc_no_sections": {
+    "message": "Không có đoạn nào được đặt cho video này."
+  },
+  "aria_overlay_desc_singular": {
+    "message": "1 đoạn đã được đặt trên thanh tiến trình."
+  },
+  "aria_overlay_desc_plural": {
+    "message": "$1 đoạn đã được đặt trên thanh tiến trình.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "aria_overlay_desc_with_repeating": {
+    "message": "Tổng cộng $1 đoạn đã được đặt. Hiện đang lặp đoạn số $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_with_incomplete": {
+    "message": "Tổng cộng $1 đoạn đã được đặt, trong đó $2 đoạn chưa hoàn thành.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "aria_overlay_desc_full_state": {
+    "message": "Tổng cộng $1 đoạn đã được đặt, trong đó $2 đoạn chưa hoàn thành. Hiện đang lặp đoạn số $3.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dialog_button_cancel": {
+    "message": "Hủy"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Xác nhận xóa"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Thao tác này sẽ xóa vĩnh viễn dữ liệu đoạn cũ nhất để tạo chỗ. Bạn có chắc không?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "Cấu trúc trang YouTube đã thay đổi bất ngờ và tiện ích mất kiểm soát. Vui lòng tải lại trang để khởi động lại tiện ích."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "Thành phần quan trọng không tải được, khiến tiện ích không hoạt động đúng. Vấn đề này có thể cần cài lại tiện ích."
+  }
+}
