@@ -82,21 +82,32 @@ class PopupManager {
     this.initialTimeout = 5000;
     this.mainUiTrap = null;
     this.dialogTrap = null;
-    this.CONSTS = window.CONST || null;
   }
   async sendMessage(message, retries = 2) {
-    const timeout = this.CONSTS?.TIMING?.TIMEOUT?.POPUP_MESSAGE || this.initialTimeout;
+    // content-utils.js의 견고한 재시도 및 타임아웃 로직으로 교체
+    const timeout = this.CONSTS?.TIMING?.TIMEOUT?.POPUP_MESSAGE || 5000;
+    const delay = this.CONSTS?.TIMING?.RETRY?.DEFAULT_DELAY_MS || 200;
+    const backoff = this.CONSTS?.TIMING?.RETRY?.DEFAULT_BACKOFF_MULTIPLIER || 1.5;
+
     for (let i = 0; i <= retries; i++) {
       try {
+        if (!chrome.runtime?.id) {
+          throw new Error("Extension context invalidated.");
+        }
         const response = await Promise.race([
-          chrome.runtime.sendMessage(message),
+          new Promise((resolve, reject) => {
+            chrome.runtime.sendMessage(message, (response) => {
+              if (chrome.runtime.lastError) {
+                reject(new Error(chrome.runtime.lastError.message));
+              } else {
+                resolve(response);
+              }
+            });
+          }),
           new Promise((_, reject) =>
             setTimeout(() => reject(new Error('Response timeout')), timeout)
           )
         ]);
-        if (chrome.runtime.lastError) {
-          throw new Error(chrome.runtime.lastError.message);
-        }
         return response;
       } catch (e) {
         if (i === retries) {
@@ -108,16 +119,14 @@ class PopupManager {
           this.showPopupError(errorMessage, true);
           throw e;
         }
-        await new Promise(res => setTimeout(res, 100 * (i + 1)));
+        await new Promise(res => setTimeout(res, delay * Math.pow(backoff, i)));
       }
     }
   }
   populatei18n() {
     const uiLocale = chrome.i18n.getUILanguage();
     document.documentElement.lang = uiLocale;
-    const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
-    const direction = rtlLanguages.includes(uiLocale.split('-')[0]) ? 'rtl' : 'ltr';
-    document.documentElement.dir = direction;
+    // RTL 처리는 popup.html의 dir="auto"에 위임
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.dataset.i18n;
       let message = chrome.i18n.getMessage(key) || `__${key}__`;
@@ -515,11 +524,18 @@ class PopupManager {
     document.body.setAttribute('aria-busy', 'true');
     this.populatei18n();
     try {
-      this.CONSTS = window.CONST;
-      if (!this.CONSTS) {
-        throw new Error("Failed to load critical configuration from constants.js.");
+      // background 스크립트에서 상수 객체를 비동기적으로 요청
+      const response = await this.sendMessage({
+        type: 'GET_CONSTANTS'
+      });
+      if (response && response.constants) {
+        this.CONSTS = response.constants;
+      } else {
+        throw new Error("Failed to get constants from background script.");
       }
+
       this.populateHotkeys();
+
       if (chrome.storage && chrome.storage.local) {
         const {
           CRITICAL_INIT_FAILURE
@@ -549,6 +565,10 @@ class PopupManager {
         isVideoPage = !!tabStatus;
       }
 
+      if (!document.body.isConnected) {
+        return;
+      }
+
       if (isVideoPage) {
         const setupStatus = this.checkStorageStatus(storageInfo);
         if (setupStatus === 'critical-error') {
@@ -569,6 +589,9 @@ class PopupManager {
         this.renderUI('inactive');
       }
     } catch (error) {
+      if (!document.body.isConnected) {
+        return;
+      }
       this.renderUI('critical-error', {
         errorMessage: error.message,
         errorType: 'unknown'
@@ -588,6 +611,9 @@ class PopupManager {
         }
       } catch (e) {}
     } finally {
+      if (!document.body.isConnected) {
+        return;
+      }
       document.body.classList.remove('loading');
       document.body.removeAttribute('aria-busy');
     }
@@ -600,8 +626,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await popupManager.initialize();
   } catch (e) {
     console.error("Popup initialization failed critically.", e);
-    // popupManager 인스턴스에 의존하지 않고 직접 DOM을 조작하여 안정성을 확보합니다.
-    document.body.innerHTML = ''; // 기존 내용 모두 안전하게 삭제
+    document.body.innerHTML = '';
     document.body.classList.remove('loading');
     document.body.removeAttribute('aria-busy');
 
@@ -609,11 +634,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     errorUi.style.cssText = 'padding: 16px; text-align: center;';
 
     const title = document.createElement('h3');
-    // messages.json의 키를 직접 사용하여 다국어 지원
     title.textContent = chrome.i18n.getMessage('ext_name');
 
     const message = document.createElement('p');
-    // 사용자에게 명확한 해결책(재설치)을 안내하는 메시지 사용
     message.textContent = chrome.i18n.getMessage('dialog_critical_error_guidance_with_reinstall');
 
     errorUi.appendChild(title);

@@ -95,7 +95,7 @@
     "message": "Please try again. If the problem persists, try reloading the page."
   },
   "popup_error_setup_crypto_failed": {
-    "message": "Could not initialize a required security component."
+    "message": "A required browser security component failed to initialize. Section data cannot be saved. Please try 'Retry Setup'. If the problem persists, restarting your browser may help."
   },
   "popup_error_setup_unknown": {
     "message": "An unknown error occurred during setup."
@@ -250,6 +250,9 @@
   },
   "toast_reload_prompt": {
     "message": "The extension context was lost. Please reload the page to continue."
+  },
+  "toast_success_initialized": {
+    "message": "Ready!"
   },
   "aria_popup_shortcuts_table_label": {
     "message": "Keyboard shortcuts list. Use arrow keys to navigate rows."

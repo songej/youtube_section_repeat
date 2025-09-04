@@ -454,7 +454,7 @@
         const context = this;
         if (!inThrottle) {
           inThrottle = true;
-          setTimeout(() => (inThrottle = false), limit);
+          SectionRepeat.TimerManager.set(() => (inThrottle = false), limit);
           lastResult = func.apply(context, args);
         }
         return lastResult;

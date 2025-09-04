@@ -13,13 +13,19 @@ const getMinimalConsts = () => ({
     CRITICAL_INIT_FAILURE: 'CRITICAL_INIT_FAILURE'
   }
 });
+
 try {
   importScripts('constants.js');
+  // DATA_SCHEMA_VERSION과 같은 필수 상수가 존재하는지 확인하여 파일의 완전성을 검증
+  if (typeof self.CONST?.DATA_SCHEMA_VERSION === 'undefined') {
+    throw new Error("constants.js was loaded but is incomplete or corrupted.");
+  }
   CONST = self.CONST;
   isConstantsLoaded = true;
 } catch (e) {
   CONST = getMinimalConsts();
-  console.error('[Section Repeat] CRITICAL: Failed to load constants.js. The extension will be non-functional.', e);
+  isConstantsLoaded = false; // 명시적으로 실패 상태 지정
+  console.error('[Section Repeat] CRITICAL: Failed to load constants.js correctly.', e);
   chrome.storage.local.set({
     [CONST.STORAGE_KEYS.CRITICAL_INIT_FAILURE]: true
   });
@@ -27,12 +33,10 @@ try {
     chrome.action.disable();
     let extName, errorTitle, title;
     try {
-      // API가 정상일 경우를 위해 메시지 로드를 시도합니다.
       extName = chrome.i18n.getMessage('ext_name');
       errorTitle = chrome.i18n.getMessage('popup_error_setup_title');
       title = chrome.i18n.getMessage('action_error_title_with_name', [extName, errorTitle]);
     } catch (i18nError) {
-      // i18n API 호출 실패 시, 2차 오류를 방지하고 영문으로 대체합니다.
       console.error('[Section Repeat] CRITICAL: Failed to get i18n messages during critical failure.', i18nError);
       extName = 'Section Repeat';
       errorTitle = 'Initialization Failed';
@@ -43,6 +47,7 @@ try {
     });
   }
 }
+
 class ErrorLogger {
   constructor() {
     this.logs = [];
@@ -106,7 +111,7 @@ class ErrorLogger {
 const logger = new ErrorLogger();
 
 function isVideoPage(url) {
-  if (!url || !isConstantsLoaded) return false;
+  if (!url) return false;
   const patterns = CONST.YOUTUBE_VIDEO_URL_PATTERNS;
   try {
     const urlPath = new URL(url).pathname;
@@ -143,17 +148,19 @@ async function processStateUpdateQueue() {
     logger.debug('processStateUpdateQueue', 'Queue processing is already locked.');
     return;
   }
-  const lockId = Date.now();
+  // 고유 ID를 사용하여 락 소유권 강화
+  const lockId = `${Date.now()}-${Math.random()}`;
   await chrome.storage.session.set({
     [QUEUE_LOCK_KEY]: {
-      timestamp: lockId
+      timestamp: Date.now(),
+      id: lockId // 고유 ID 추가
     }
   });
+
   let queue;
   try {
     queue = await getQueue();
     if (queue.length === 0) {
-      await chrome.storage.session.remove(QUEUE_LOCK_KEY);
       return;
     }
     const task = queue.shift();
@@ -179,7 +186,7 @@ async function processStateUpdateQueue() {
         logger.critical('processStateUpdateQueue', 'Task failed after max retries and was discarded.', {
           task
         });
-        const criticalTasks = ['REPEAT_STATE_CHANGED', 'STILL_REPEATING', 'NAVIGATED_AWAY'];
+        const criticalTasks = ['REPEAT_STATE_CHANGED', 'STILL_REPEATING', 'NAVIGated_AWAY'];
         if (criticalTasks.includes(task.type)) {
           try {
             const {
@@ -211,7 +218,8 @@ async function processStateUpdateQueue() {
     const {
       [QUEUE_LOCK_KEY]: finalLock
     } = await chrome.storage.session.get(QUEUE_LOCK_KEY);
-    if (finalLock && finalLock.timestamp === lockId) {
+    // 락 해제 시 고유 ID를 비교하여 올바른 소유자인지 확인
+    if (finalLock && finalLock.id === lockId) {
       await chrome.storage.session.remove(QUEUE_LOCK_KEY);
     }
   }
@@ -363,21 +371,18 @@ async function runTask(task, currentStates) {
   return newStates;
 }
 async function getTabStates() {
-  if (!isConstantsLoaded) return new Map();
   const {
     [CONST.STORAGE_KEYS.TAB_STATES]: tabStates = []
   } = await chrome.storage.session.get(CONST.STORAGE_KEYS.TAB_STATES);
   return new Map(tabStates);
 }
 async function setTabStates(newStates) {
-  if (!isConstantsLoaded) return;
   await chrome.storage.session.set({
     [CONST.STORAGE_KEYS.TAB_STATES]: Array.from(newStates.entries())
   });
 }
 const lockManager = {
   async acquire(key, timeout) {
-    if (!isConstantsLoaded) throw new Error("Constants not loaded, cannot acquire lock.");
     timeout = timeout || CONST.TIMING.TIMEOUT.LOCK;
     const lockKey = `${CONST.STORAGE_KEYS.LOCK_PREFIX}${key}`;
     const lockId = Date.now() + Math.random();
@@ -414,7 +419,7 @@ const lockManager = {
     throw new Error(`Lock acquisition timed out for key: ${key}`);
   },
   async release(key, lockId) {
-    if (!lockId || !isConstantsLoaded) return;
+    if (!lockId) return;
     const lockKey = `${CONST.STORAGE_KEYS.LOCK_PREFIX}${key}`;
     try {
       const {
@@ -539,7 +544,7 @@ async function purgeOldSections(userInitiated = false) {
 async function notifyStorageStateToTabs(level, usagePercent) {
   try {
     const tabs = await chrome.tabs.query({
-      url: "*://*.youtube.com/*"
+      url: ["*://*.youtube.com/*", "*://*.youtube-nocookie.com/*"]
     });
     for (const tab of tabs) {
       chrome.tabs.sendMessage(tab.id, {
@@ -969,7 +974,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
   debouncedUpdateTabStatus(activeInfo.tabId);
 });
 async function updateTabStatus(tabId, url) {
-  if (!tabId || !isConstantsLoaded || !url) return;
+  if (!tabId || !url) return;
   try {
     const isVidPage = isVideoPage(url);
     await chrome.storage.session.set({
@@ -1243,7 +1248,6 @@ async function handleHashVideoId(message) {
     };
   } catch (e) {
     logger.critical('handleHashVideoId', 'SubtleCrypto API failed.', e);
-    // content-script가 오류를 인지하고 대응할 수 있도록 에러를 던짐
     throw new Error('Hashing failed due to crypto API error.');
   }
 }
@@ -1283,6 +1287,10 @@ async function handleSaveDataAndMetadata({
       [CONST.STORAGE_KEYS.METADATA]: currentMetadata
     });
 
+    if (chrome.runtime.lastError) {
+      throw new Error(chrome.runtime.lastError.message);
+    }
+
   } catch (e) {
     logger.error('handleSaveDataAndMetadata', 'Failed to save data and metadata atomically.', e);
     throw e;
@@ -1294,6 +1302,14 @@ async function handleSaveDataAndMetadata({
   return {};
 }
 const messageHandlers = {
+  [CONST?.MESSAGE_TYPES?.GET_CONSTANTS]: () => {
+    if (!isConstantsLoaded) {
+      throw new Error("Constants are not available.");
+    }
+    return {
+      constants: CONST
+    };
+  },
   [CONST?.MESSAGE_TYPES?.SAVE_DATA_AND_METADATA]: handleSaveDataAndMetadata,
   [CONST?.MESSAGE_TYPES?.HASH_VIDEO_ID]: handleHashVideoId,
   [CONST?.MESSAGE_TYPES?.CONTENT_SCRIPT_READY]: handleContentScriptReady,
@@ -1304,9 +1320,6 @@ const messageHandlers = {
   [CONST?.MESSAGE_TYPES?.TRIGGER_IMMEDIATE_PURGE]: handleTriggerImmediatePurge,
   [CONST?.MESSAGE_TYPES?.GET_STORAGE_INFO]: handleGetStorageInfo,
   [CONST?.MESSAGE_TYPES?.GET_USER_SALT]: handleGetUserSalt,
-  [CONST?.MESSAGE_TYPES?.GET_CONSTANTS]: () => ({
-    constants: CONST
-  }),
   [CONST?.MESSAGE_TYPES?.ACQUIRE_LOCK]: (msg) => lockManager.acquire(msg.payload.key, msg.payload.timeout).then(lockId => ({
     lockId
   })),
@@ -1360,59 +1373,66 @@ const messageHandlers = {
     return {};
   },
 };
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (!isConstantsLoaded) {
-    logger.critical('onMessage', new Error('Received a message but constants are not loaded. Aborting.'), {
-      messageType: message.type
-    });
-    sendResponse({
-      success: false,
-      error: 'critical_initialization_failure'
-    });
-    return true;
-  }
   (async () => {
-    if (sender.tab && sender.tab.id) {
-      try {
-        await chrome.tabs.get(sender.tab.id);
-      } catch (e) {
-        await enqueueStateUpdate({
-          type: 'RECONCILE_TAB_STATES'
+    // 최상위 try...catch 블록으로 전체 비동기 로직을 감싸 안정성을 확보합니다.
+    try {
+      if (!isConstantsLoaded) {
+        logger.critical('onMessage', new Error('Received a message but constants are not loaded. Aborting.'), {
+          messageType: message.type
         });
         sendResponse({
           success: false,
-          reason: 'tab_closed'
+          error: 'critical_initialization_failure'
         });
         return;
       }
-    }
-    const handler = messageHandlers[message.type];
-    if (handler) {
-      try {
+
+      if (sender.tab && sender.tab.id) {
+        try {
+          await chrome.tabs.get(sender.tab.id);
+        } catch (e) {
+          await enqueueStateUpdate({
+            type: 'RECONCILE_TAB_STATES'
+          });
+          sendResponse({
+            success: false,
+            reason: 'tab_closed'
+          });
+          return;
+        }
+      }
+      
+      const handler = messageHandlers[message.type];
+      if (handler) {
         const responseData = await handler(message, sender);
         sendResponse({
           success: true,
           ...responseData
         });
-      } catch (error) {
-        logger.error('onMessage', error, {
-          messageType: message.type
+      } else {
+        logger.warning('onMessage', 'Unknown message type received.', {
+          type: message.type
         });
         sendResponse({
           success: false,
-          error: error.message
+          reason: 'unknown_message_type'
         });
       }
-    } else {
-      logger.warning('onMessage', 'Unknown message type received.', {
-        type: message.type
+    } catch (error) {
+      // Service Worker가 종료되지 않도록 모든 예외를 여기서 처리합니다.
+      logger.error('onMessage.critical_boundary', error, {
+        messageType: message.type
       });
       sendResponse({
         success: false,
-        reason: 'unknown_message_type'
+        error: error.message
       });
     }
   })();
-  return true;
+
+  return true; // 비동기 응답을 위해 항상 true를 반환합니다.
 });
+
 processStateUpdateQueue();

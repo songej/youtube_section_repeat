@@ -308,7 +308,7 @@
     toast(msg, duration, type = 'info', options = {}) {
       const State = SectionRepeat.State;
       duration = duration || State?.CONSTANTS?.TOAST_DURATION?.SHORT || 3000;
-      this.toastQueue.show(msg, duration, type, options);
+      return this.toastQueue.show(msg, duration, type, options);
     }
     updateOverlay(sections, currentIdx = -1, force = false) {
       const {
@@ -404,7 +404,6 @@
         fragment.appendChild(sectionEl);
       });
 
-      // 기존 오버레이를 한 번에 비우고, 메모리에서 완성된 fragment를 단 한 번의 작업으로 추가합니다.
       this.overlayEl.innerHTML = '';
       this.overlayEl.appendChild(fragment);
 
@@ -529,15 +528,12 @@
 
       let nextIdx = this.currentIdx;
       if (nextIdx === -1) {
-        // 반복 중이 아닐 때: '다음'은 첫 구간으로, '이전'은 마지막 구간으로 이동
         nextIdx = (direction === 'prev' ? completedSections.length - 1 : 0);
       } else {
-        // 반복 중일 때: 현재 인덱스에서 이동
         nextIdx += (direction === 'prev' ? -1 : 1);
         nextIdx = (nextIdx + completedSections.length) % completedSections.length;
       }
 
-      // startRepeat은 항상 반복을 '시작'하거나 '갱신'하므로, 모드를 확실하게 설정
       await this.startRepeat(nextIdx, true);
     }
     jumpToSection(index) {
@@ -564,13 +560,18 @@
         this.stopRepeat(false);
         return;
       }
+
+      // '매직 넘버'를 상수로 교체
+      const { REPEAT_BEHAVIOR } = State.CONSTANTS;
       const currentTime = this.videoEl.currentTime;
-      if (currentTime < section.start - 0.1 || currentTime >= section.end) {
+      if (currentTime < section.start - REPEAT_BEHAVIOR.LOOP_CHECK_TOLERANCE_SEC || currentTime >= section.end) {
         this.videoEl.currentTime = section.start;
       }
+      
       const POLLING_INTERVAL_MS = 100;
       const timeUntilEnd = section.end - this.videoEl.currentTime;
-      const nextCheckDelay = Math.max(POLLING_INTERVAL_MS, (timeUntilEnd - 0.15) * 1000);
+      const nextCheckDelay = Math.max(POLLING_INTERVAL_MS, (timeUntilEnd - REPEAT_BEHAVIOR.NEXT_CHECK_SCHEDULE_OFFSET_SEC) * 1000);
+      
       helpers.sendMessage({
         type: State.CONSTANTS.MESSAGE_TYPES.SCHEDULE_REPEAT_CHECK,
         payload: {
@@ -730,7 +731,7 @@
       const liveBadge = helpers.qSel(State.CONSTANTS.SELECTORS.LIVE_BADGE, this.playerEl);
       return !!(liveBadge && liveBadge.isConnected && liveBadge.offsetParent !== null);
     }
-    _runHealthCheck() {
+    async _runHealthCheck(retries = 3, delay = 150) {
       const {
         State,
         helpers,
@@ -741,15 +742,25 @@
         controls: State.CONSTANTS.SELECTORS.CONTROLS,
         progressBar: State.CONSTANTS.SELECTORS.PROGRESS_BAR,
       };
-      for (const [key, selectors] of Object.entries(essentialSelectors)) {
-        const element = helpers.qSel(selectors, this.playerEl);
-        if (!element || element.offsetParent === null) {
-          logger.error('HealthCheck.fail', `Essential element not found or not visible: ${key}`);
-          this.isHealthy = false;
-          return false;
+
+      for (let i = 0; i < retries; i++) {
+        const isHealthy = Object.values(essentialSelectors).every(selectors => {
+          const el = helpers.qSel(selectors, this.playerEl);
+          return el && el.offsetParent !== null;
+        });
+
+        if (isHealthy) {
+          return true;
+        }
+
+        if (i < retries - 1) {
+          await new Promise(res => setTimeout(res, delay * (i + 1)));
         }
       }
-      return true;
+
+      logger.error('HealthCheck.fail', 'Essential elements not found after all retries.');
+      this.isHealthy = false;
+      return false;
     }
     startHealthCheckRecovery() {
       const {
@@ -765,9 +776,9 @@
         State.unifiedObserver.unregister(recoveryObserverKey);
         this.uiManager.showCriticalErrorDialog();
       }, 30000);
-      State.unifiedObserver.register(recoveryObserverKey, playerContainer, () => {
+      State.unifiedObserver.register(recoveryObserverKey, playerContainer, async () => {
         recoveryAttempts++;
-        if (this._runHealthCheck()) {
+        if (await this._runHealthCheck()) {
           logger.info('HealthCheck.recovery', 'Health check passed. Re-initializing controller.');
           State.unifiedObserver.unregister(recoveryObserverKey);
           SectionRepeat.TimerManager.clear(recoveryTimeout);
@@ -825,7 +836,7 @@
       this.endHandled = false;
       if (this.abortCtrl.signal.aborted) return;
       this.uiManager = new SectionUIManager(this.playerEl, this.videoEl);
-      if (!this._runHealthCheck()) {
+      if (!(await this._runHealthCheck())) {
         this.uiManager.showCriticalErrorDialog();
         this.startHealthCheckRecovery();
         return;
@@ -867,7 +878,6 @@
           this.repeatManager.startRepeat(0);
         }
         this.isHealthy = true;
-        // ✨ Keydown 리스너를 비디오 페이지 Controller 초기화 시점에 등록
         this.keydownHandler = (e) => SectionRepeat.handleKeyDown(e);
         document.addEventListener('keydown', this.keydownHandler);
       } catch (e) {
@@ -1108,7 +1118,6 @@
     }
     cleanup() {
       this.abortCtrl.abort();
-      // ✨ Controller가 정리될 때 등록했던 Keydown 리스너를 제거
       if (this.keydownHandler) {
         document.removeEventListener('keydown', this.keydownHandler);
         this.keydownHandler = null;
@@ -1485,6 +1494,16 @@
       const TimerManager = SectionRepeat.TimerManager;
       const helpers = SectionRepeat.helpers;
       try {
+        const response = await helpers.sendMessage({
+          type: 'GET_CONSTANTS'
+        });
+        if (response && response.constants) {
+          SectionRepeat.CONSTANTS = response.constants;
+          State.CONSTANTS = response.constants;
+        } else {
+          throw new Error("Failed to get constants from background.");
+        }
+
         await helpers.sendMessage({
           type: State.CONSTANTS.MESSAGE_TYPES.CONTENT_SCRIPT_READY
         });
@@ -1512,7 +1531,7 @@
       await new Promise(resolve => TimerManager.set(resolve, delay));
       await this.initialize();
     }
-    handleInitialPayload(payload) {
+    handleInitialPayload(payload, slowInitToastId) {
       const State = SectionRepeat.State;
       const TimerManager = SectionRepeat.TimerManager;
       const logger = SectionRepeat.logger;
@@ -1524,7 +1543,6 @@
       const cacheTTL = State.CONSTANTS?.DOM_CACHE?.TTL || 30000;
       State.elementCache = new SectionRepeat.LRUCache(cacheSize, cacheTTL);
       State.unifiedObserver = new SectionRepeat.UnifiedObserverManager();
-      // ✨ Keydown 리스너를 전역이 아닌, Controller 단위로 관리하도록 로직 이동
       this.beforeUnloadHandler = () => SectionRepeat.handleBeforeUnload();
       window.addEventListener('beforeunload', this.beforeUnloadHandler);
       State.navigationManager = new SectionRepeat.NavigationManager();
@@ -1534,6 +1552,13 @@
       }, cacheTTL, 'interval');
       State.isFullyInitialized = true;
       logger.info('handleInitialPayload', 'Section & Repeat is fully initialized and ready.');
+
+      if (slowInitToastId && State.controller?.toastQueue) {
+        State.controller.toastQueue.remove(slowInitToastId);
+        // 폴백 문자열 'Ready!'를 제거하여 messages.json의 번역을 사용하도록 강제합니다.
+        State.controller.toast(helpers.t('toast_success_initialized'), 1500, 'success');
+      }
+
       if (State.resolveInitialization) {
         State.resolveInitialization();
       }

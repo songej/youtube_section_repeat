@@ -14,8 +14,8 @@
   });
   const JUMP_KEYS = Object.freeze(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
   const SECTION_COLORS = Object.freeze([
-    '#d93025', '#1a73e8', '#f9ab00', '#1e8e3e',
-    '#f28b82', '#4285f4', '#ffc107', '#34a853',
+    '#E69F00', '#56B4E9', '#009E73', '#F0E442',
+    '#0072B2', '#D55E00', '#CC79A7', '#000000',
   ]);
   const ICONS = Object.freeze({
     INFO: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>',
@@ -244,6 +244,9 @@
     RETURN_THRESHOLD: 0.1,
     SECTION_START_TOLERANCE: 0.5,
     MIN_DURATION_FOR_RENDER: 0.1,
+    // 의도를 명확히 하기 위한 상수 추가
+    LOOP_CHECK_TOLERANCE_SEC: 0.1,
+    NEXT_CHECK_SCHEDULE_OFFSET_SEC: 0.15,
   });
   const LIVE_STREAM = Object.freeze({
     DVR_THRESHOLD: 60,

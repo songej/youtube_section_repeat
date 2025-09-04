@@ -20,10 +20,10 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.youtube.com/*"
+        "*://*.youtube.com/*",
+        "*://*.youtube-nocookie.com/*"
       ],
       "js": [
-        "constants.js",
         "content-utils.js",
         "content-ui.js",
         "content-core.js",
@@ -36,7 +36,8 @@
     }
   ],
   "host_permissions": [
-    "*://*.youtube.com/*"
+    "*://*.youtube.com/*",
+    "*://*.youtube-nocookie.com/*"
   ],
   "permissions": [
     "storage",

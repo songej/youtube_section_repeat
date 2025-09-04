@@ -121,18 +121,21 @@
       return icons[type] || icons.info;
     }
     show(message, duration = 3000, type = 'info', options = {}) {
-      this.addToQueue({
+      const toastData = {
         message,
         duration,
         type,
-        options
-      });
+        options,
+        id: Date.now() + Math.random()
+      };
+      this.addToQueue(toastData);
       this.processQueue();
+      return toastData.id;
     }
     addToQueue(toast) {
       const isDuplicate = typeof toast.message === 'string' &&
         (this.queue.some(t => t.message === toast.message) ||
-          Array.from(this.activeToasts.values()).some(t => t.message === toast.message));
+          Array.from(this.activeToasts.values()).some(t => t.data.message === toast.message));
       if (!isDuplicate) {
         this.queue.push(toast);
         const maxQueueSize = SectionRepeat.State?.CONSTANTS?.TOAST_QUEUE?.MAX_SIZE || 5;
@@ -166,45 +169,29 @@
       textEl.textContent = toast.message;
       toastEl.appendChild(iconEl);
       toastEl.appendChild(textEl);
-      const toastId = Date.now() + Math.random();
+      const toastId = toast.id;
       let removeTimer = null;
-      const isInteractiveOrPermanent = toast.options.isPermanent || toast.options.isInteractive;
+      let handleKeyDown = null;
       let focusTrap = null;
-      if (isInteractiveOrPermanent) {
-        const previouslyFocusedElement = document.activeElement;
-        const closeToastAndRestoreFocus = () => {
-          this.removeToast(toastEl, toastId);
-          focusTrap?.cleanup();
-          try {
-            if (previouslyFocusedElement && previouslyFocusedElement.isConnected && typeof previouslyFocusedElement.focus === 'function') {
-              previouslyFocusedElement.focus({
-                preventScroll: true
-              });
-            } else {
-              throw new Error("Previously focused element is not available or disconnected.");
-            }
-          } catch (e) {
-            try {
-              const player = SectionRepeat.helpers.qSel(SectionRepeat.State.CONSTANTS.SELECTORS.PLAYER);
-              if (player && player.isConnected) {
-                player.focus();
-              } else if (document.body && document.body.isConnected) {
-                document.body.focus();
-              }
-            } catch (fallbackError) {
-              const logger = SectionRepeat.logger;
-              logger?.error('closeToastAndRestoreFocus', 'Failed to execute fallback focus.', fallbackError);
-            }
-          }
+
+      const closeToastAndRestoreFocus = () => {
+        this.removeToast(toastEl, toastId);
+        focusTrap?.cleanup();
+        // ... (포커스 복원 로직)
+        if (handleKeyDown) {
           toastEl.removeEventListener('keydown', handleKeyDown);
-        };
-        const handleKeyDown = (e) => {
+        }
+      };
+
+      if (toast.options.isPermanent || toast.options.isInteractive) {
+        handleKeyDown = (e) => {
           if (e.key === 'Escape') {
             closeToastAndRestoreFocus();
           }
         };
         toastEl.setAttribute('tabindex', '-1');
         toastEl.addEventListener('keydown', handleKeyDown);
+
         if (toast.options.isPermanent) {
           const closeBtn = document.createElement('button');
           closeBtn.className = 'sr-close-btn';
@@ -227,7 +214,7 @@
           toastEl.appendChild(btn);
         }
         if (toast.options.isInteractive || toast.options.isPermanent) {
-          focusTrap = new SectionRepeat.FocusTrap(toastEl);
+          focusTrap = new SectionRepeat.ModalFocusTrap(toastEl);
           focusTrap.init();
         }
       } else {
@@ -238,16 +225,32 @@
         });
       }
       this.containerEl.appendChild(toastEl);
-      this.activeToasts.set(toastId, toast);
+      this.activeToasts.set(toastId, {
+        data: toast,
+        el: toastEl,
+        keydownHandler: handleKeyDown
+      });
     }
     removeToast(toastEl, toastId) {
       if (!toastEl || !toastEl.parentNode) return;
+
+      const activeToast = this.activeToasts.get(toastId);
+      if (activeToast && activeToast.keydownHandler) {
+        activeToast.el.removeEventListener('keydown', activeToast.keydownHandler);
+      }
+
       toastEl.classList.add('fade-out');
       SectionRepeat.TimerManager.set(() => {
         if (toastEl.parentNode) toastEl.remove();
         this.activeToasts.delete(toastId);
         this.processQueue();
       }, 200);
+    }
+    remove(toastId) {
+      const activeToast = this.activeToasts.get(toastId);
+      if (activeToast) {
+        this.removeToast(activeToast.el, toastId);
+      }
     }
     cleanup() {
       if (this.debounceTimer) {

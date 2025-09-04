@@ -27,7 +27,7 @@
     "message": "Iniciar trecho"
   },
   "popup_shortcut_action_end": {
-    "message": "Terminar (Conectar) trecho"
+    "message": "Terminar/conectar trecho"
   },
   "popup_shortcut_action_toggle_repeat": {
     "message": "Ligar/desligar repetição"
@@ -72,7 +72,7 @@
     "message": "-"
   },
   "popup_storage_warning_message": {
-    "message": "O armazenamento está mais de $1% cheio. Dados antigos podem ser deletados em breve.",
+    "message": "O armazenamento está $1% cheio. Dados antigos podem ser deletados em breve.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -80,25 +80,25 @@
     }
   },
   "popup_storage_purge_completed": {
-    "message": "Dados antigos foram removidos com sucesso."
+    "message": "Dados antigos foram deletados com sucesso."
   },
   "popup_storage_purge_failed": {
-    "message": "A limpeza falhou. Por favor, tente novamente mais tarde."
+    "message": "Falha ao deletar. Por favor, tente novamente mais tarde."
   },
   "popup_warning_session_only_mode_detailed": {
-    "message": "Modo apenas-sessão está ativo porque um componente de segurança falhou. Trechos não serão salvos. Reiniciar seu navegador pode resolver isso."
+    "message": "Modo somente sessão ativo porque um componente de segurança falhou. Os trechos não serão salvos. Reiniciar o navegador pode resolver."
   },
   "popup_error_setup_title": {
     "message": "Falha na Inicialização"
   },
   "popup_error_setup_advice": {
-    "message": "Por favor, tente novamente. Se o problema persistir, tente recarregar a página."
+    "message": "Por favor, tente novamente. Se o problema persistir, recarregue a página."
   },
   "popup_error_setup_crypto_failed": {
-    "message": "Não foi possível inicializar um componente de segurança necessário."
+    "message": "Um componente de segurança do navegador falhou ao inicializar. Dados de trechos não podem ser salvos. Por favor, tente 'Tentar Configuração Novamente'. Se o problema persistir, reiniciar o navegador pode ajudar."
   },
   "popup_error_setup_unknown": {
-    "message": "Ocorreu um erro desconhecido durante a configuração."
+    "message": "Um erro desconhecido ocorreu durante a configuração."
   },
   "popup_error_connection_failed": {
     "message": "Não foi possível conectar à extensão. Por favor, recarregue a página e tente novamente."
@@ -113,7 +113,7 @@
     "message": "Tentando novamente..."
   },
   "popup_storage_purge_button": {
-    "message": "Limpar Dados Antigos"
+    "message": "Deletar Dados Antigos"
   },
   "toast_success_section_added": {
     "message": "Trecho #$1 adicionado.",
@@ -144,7 +144,7 @@
     "message": "Recarregar Página"
   },
   "toast_info_section_start_set": {
-    "message": "Ponto inicial do trecho definido. Aperte 'E' para terminar."
+    "message": "Ponto de início definido. Aperte 'E' para terminar."
   },
   "toast_info_repeat_stopped": {
     "message": "Repetição parada."
@@ -198,19 +198,19 @@
     "message": "Entrando no Modo Foco... A página será recarregada."
   },
   "toast_info_autorepeat_video": {
-    "message": "O vídeo terminou. Repetindo desde o início."
+    "message": "O vídeo terminou. Repetindo do início."
   },
   "toast_warn_initialization_slow": {
     "message": "A extensão ainda está carregando... Por favor, tente novamente em um momento."
   },
   "toast_warning_live_stream_unsupported": {
-    "message": "Repetir Trechos não está disponível para transmissões ao vivo."
+    "message": "Repetição de trechos não está disponível para transmissões ao vivo."
   },
   "toast_warning_repeat_stopped_unexpectedly": {
-    "message": "A repetição foi parada devido a um erro de navegação ou de fundo."
+    "message": "A repetição foi parada devido a um erro de navegação ou background."
   },
   "toast_warning_storage_level": {
-    "message": "Armazenamento está $1% cheio. Dados antigos podem ser removidos.",
+    "message": "Armazenamento está $1% cheio. Dados antigos podem ser deletados.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -229,10 +229,10 @@
     }
   },
   "toast_error_player_init_failed": {
-    "message": "Inicialização falhou após várias tentativas. Por favor, recarregue a página."
+    "message": "Inicialização falhou após múltiplas tentativas. Por favor, recarregue a página."
   },
   "toast_error_storage_critical": {
-    "message": "Armazenamento Crítico ($1% cheio). Dados antigos devem ser removidos para salvar novos trechos.",
+    "message": "Armazenamento Crítico ($1% cheio). Dados antigos devem ser deletados para salvar novos trechos.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -246,7 +246,7 @@
     "message": "Ação falhou porque outra operação está em andamento. Por favor, tente novamente em um momento."
   },
   "toast_error_final_save_failed": {
-    "message": "Falha ao salvar dados. Por favor, use 'Limpar Dados Antigos' no popup para liberar espaço."
+    "message": "Falha ao salvar dados. Por favor, use 'Deletar Dados Antigos' no popup para liberar espaço."
   },
   "toast_reload_prompt": {
     "message": "O contexto da extensão foi perdido. Por favor, recarregue a página para continuar."
@@ -342,12 +342,12 @@
     "message": "Confirmar Limpeza"
   },
   "dialog_purge_confirm_message": {
-    "message": "Isso deletará permanentemente seus dados de trechos mais antigos para fazer espaço. Tem certeza?"
+    "message": "Isto vai deletar permanentemente seus dados de trechos mais antigos para fazer espaço. Tem certeza?"
   },
   "dialog_critical_error_dom_changed": {
     "message": "A estrutura da página do YouTube mudou inesperadamente e a extensão perdeu o controle. Por favor, recarregue a página para reiniciar a extensão."
   },
   "dialog_critical_error_guidance_with_reinstall": {
-    "message": "Um componente crítico falhou ao carregar, impedindo que a extensão funcione corretamente. Esse problema pode exigir reinstalar a extensão."
+    "message": "Um componente crítico falhou ao carregar, impedindo a extensão de funcionar corretamente. Você pode precisar reinstalar a extensão."
   }
 }

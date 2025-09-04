@@ -1,19 +1,20 @@
 (() => {
   'use strict';
-  const INIT_SYMBOL = Symbol.for('section_repeat_initialized_v2');
-
-  if (window[INIT_SYMBOL]) {
+  // 전역 심볼 대신 고유 속성을 사용하여 중복 실행을 방지하고 격리 수준을 높입니다.
+  const INIT_FLAG = '__SECTION_REPEAT_INITIALIZED_V2__';
+  if (window.hasOwnProperty(INIT_FLAG)) {
     return;
   }
-  window[INIT_SYMBOL] = true;
+  Object.defineProperty(window, INIT_FLAG, {
+    value: true,
+    writable: false,
+    configurable: false
+  });
 
-  if (typeof window.SectionRepeat === 'undefined' || typeof window.SectionRepeat.CONSTANTS === 'undefined') {
-    console.error('[Section Repeat] CRITICAL: constants.js failed to load. Aborting initialization on this page.');
-    return;
-  }
-
-  const SectionRepeat = window.SectionRepeat;
+  const SectionRepeat = window.SectionRepeat || {};
+  window.SectionRepeat = SectionRepeat;
   SectionRepeat.CONSTANTS = SectionRepeat.CONSTANTS || {};
+
   let resolveInitializationPromise;
   const initializationPromise = new Promise(resolve => {
     resolveInitializationPromise = resolve;
@@ -45,6 +46,7 @@
   }
 
   let hasShownSlowInitToast = false;
+  let slowInitToastId = null; // 토스트 ID 저장을 위한 변수 추가
 
   const initializeController = function(playerEl, videoId) {
     const logger = SectionRepeat.logger;
@@ -64,6 +66,7 @@
     }
 
     hasShownSlowInitToast = false;
+    slowInitToastId = null;
 
     State.controller = new SectionRepeat.SectionController(playerEl);
     State.controller.init(videoId).catch(e => {
@@ -88,8 +91,21 @@
     if (!State.isFullyInitialized) {
       const now = performance.now();
       const {
-        KEY_QUEUE
+        KEY_QUEUE,
+        TOAST_DURATION
       } = State.CONSTANTS;
+
+      if (!hasShownSlowInitToast) {
+        const tempToastQueue = new SectionRepeat.ToastQueue();
+        // show 메서드가 반환하는 ID를 저장
+        slowInitToastId = tempToastQueue.show(
+          helpers.t('toast_warn_initialization_slow'),
+          999999, // 닫히지 않도록 긴 시간 설정
+          'warning'
+        );
+        hasShownSlowInitToast = true;
+      }
+
       const lastEvent = keydownQueue[keydownQueue.length - 1];
       if (lastEvent && lastEvent.event.code === e.code) {
         return;
@@ -246,7 +262,7 @@
     const t = helpers?.t || ((key) => key);
     State.messageHandlers.set(State.CONSTANTS.MESSAGE_TYPES.INIT_PAYLOAD, (message) => {
       if (State.initManager) {
-        State.initManager.handleInitialPayload(message.payload);
+        State.initManager.handleInitialPayload(message.payload, slowInitToastId);
         checkAndApplyPendingSave();
         processKeydownQueue();
       }
@@ -328,18 +344,18 @@
     State.elementCache?.clear();
     if (State.globalAriaAnnouncer) State.globalAriaAnnouncer.remove();
     SectionRepeat.TimerManager.clear(State.extensionHealthCheckTimer, 'interval');
-    // ✨ Keydown 리스너 제거 로직이 Controller의 cleanup으로 이동했으므로, 여기서 중복 제거할 필요 없음
     window.removeEventListener('beforeunload', SectionRepeat.handleBeforeUnload);
   };
   const initialize = () => {
-    if (!SectionRepeat.State.CONSTANTS.IS_PRODUCTION) {
-      SectionRepeat.logger.debug('init', 'Development mode is active.');
-    }
+    State.initManager = new SectionRepeat.InitializationManager();
+    State.initManager.initialize();
+  };
+
+  const preInitialize = () => {
     if (!SectionRepeat.InitializationManager) {
       SectionRepeat.logger.critical('init', "Critical component 'InitializationManager' not found!");
       return;
     }
-    State.initManager = new SectionRepeat.InitializationManager();
     if (!State.messageListenerRegistered && chrome?.runtime?.onMessage) {
       State.messageListenerRegistered = true;
       chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -353,13 +369,13 @@
         return false;
       });
     }
-    setupMessageHandlers();
     createGlobalAriaAnnouncer();
-    State.initManager.initialize();
-  };
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize);
-  } else {
     initialize();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', preInitialize);
+  } else {
+    preInitialize();
   }
 })();
