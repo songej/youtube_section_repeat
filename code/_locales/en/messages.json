@@ -7,14 +7,9 @@
   },
   "action_error_title_with_name": {
     "message": "$1: $2",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "popup_shortcuts_header_key": {
@@ -47,9 +42,6 @@
   "popup_shortcut_action_focus": {
     "message": "Enter Focus Mode"
   },
-  "popup_note_inactive": {
-    "message": "Hotkeys are active when you are on a YouTube video page."
-  },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
   },
@@ -71,22 +63,17 @@
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
-  "popup_storage_warning_message": {
-    "message": "Storage is over $1% full. Older data may be deleted soon.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      }
-    }
-  },
-  "popup_storage_purge_completed": {
-    "message": "Older data has been successfully purged."
-  },
-  "popup_storage_purge_failed": {
-    "message": "Purge failed. Please try again later."
+  "popup_note_inactive": {
+    "message": "Hotkeys are active when you are on a YouTube video page."
   },
   "popup_warning_session_only_mode_detailed": {
     "message": "Session-only mode is active because a security component failed. Sections will not be saved. Restarting your browser may resolve this."
+  },
+  "popup_storage_warning_message": {
+    "message": "Storage is over $1% full. Older data may be deleted soon.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   },
   "popup_error_setup_title": {
     "message": "Initialization Failed"
@@ -106,21 +93,25 @@
   "popup_error_connection_timeout": {
     "message": "Connection timed out. Please reload the page and try again."
   },
+  "popup_storage_purge_button": {
+    "message": "Purge Old Data"
+  },
   "popup_button_retry_setup": {
     "message": "Retry Setup"
   },
   "popup_button_retrying": {
     "message": "Retrying..."
   },
-  "popup_storage_purge_button": {
-    "message": "Purge Old Data"
+  "popup_storage_purge_completed": {
+    "message": "Older data has been successfully purged."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Purge failed. Please try again later."
   },
   "toast_success_section_added": {
     "message": "Section #$1 added.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_sections_cleared": {
@@ -132,19 +123,20 @@
   "toast_success_storage_cleaned": {
     "message": "Storage cleaned. Current usage: $1%.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_reconnected": {
     "message": "Successfully reconnected."
   },
-  "toast_action_reload": {
-    "message": "Reload Page"
+  "toast_success_initialized": {
+    "message": "Ready!"
   },
   "toast_info_section_start_set": {
     "message": "Section start point set. Press 'E' to end."
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Incomplete section was automatically completed at video end."
   },
   "toast_info_repeat_stopped": {
     "message": "Repeat stopped."
@@ -152,20 +144,14 @@
   "toast_info_repeating_navigation": {
     "message": "Repeating section $1 of $2.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_info_jumped_to_section": {
     "message": "Jumped to section $1.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_info_loaded_singular": {
@@ -174,16 +160,14 @@
   "toast_info_loaded_plural": {
     "message": "Loaded $1 saved sections for this video.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
-  },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "Incomplete section was automatically completed at video end."
   },
   "toast_info_legacy_data_cleared": {
     "message": "Incompatible old data has been cleared to ensure smooth operation."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "The video has finished. Repeating from the beginning."
   },
   "toast_info_sectioning_hint": {
     "message": "Press 'S' to start a section, 'E' to end it."
@@ -197,9 +181,6 @@
   "toast_info_focus_mode_entering": {
     "message": "Entering Focus Mode... The page will reload."
   },
-  "toast_info_autorepeat_video": {
-    "message": "The video has finished. Repeating from the beginning."
-  },
   "toast_warn_initialization_slow": {
     "message": "Extension is still loading... Please try again in a moment."
   },
@@ -212,20 +193,14 @@
   "toast_warning_storage_level": {
     "message": "Storage is $1% full. Old data might be purged.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_warning_sections_auto_purged": {
     "message": "Section limit of $1 reached. Removed $2 oldest section(s) to make space.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_error_player_init_failed": {
@@ -234,9 +209,7 @@
   "toast_error_storage_critical": {
     "message": "Storage Critical ($1% full). Old data must be purged to save new sections.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_error_focus_mode_failed": {
@@ -251,8 +224,8 @@
   "toast_reload_prompt": {
     "message": "The extension context was lost. Please reload the page to continue."
   },
-  "toast_success_initialized": {
-    "message": "Ready!"
+  "toast_action_reload": {
+    "message": "Reload Page"
   },
   "aria_popup_shortcuts_table_label": {
     "message": "Keyboard shortcuts list. Use arrow keys to navigate rows."
@@ -260,23 +233,15 @@
   "aria_popup_shortcut_row_label": {
     "message": "Key: $1, Action: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_shortcut_row_activated": {
     "message": "Shortcut activated. Key: $1, Action: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_storage_purge_button_label": {
@@ -297,52 +262,30 @@
   "aria_overlay_desc_plural": {
     "message": "$1 sections have been set on the progress bar.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "aria_overlay_desc_with_repeating": {
     "message": "A total of $1 sections have been set. Currently repeating section number $2.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_with_incomplete": {
     "message": "A total of $1 sections have been set, $2 of which are incomplete.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_full_state": {
     "message": "A total of $1 sections have been set, $2 of which are incomplete. Currently repeating section number $3.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      },
-      "3": {
-        "content": "$3"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
     }
-  },
-  "dialog_button_cancel": {
-    "message": "Cancel"
-  },
-  "dialog_button_confirm_purge": {
-    "message": "Confirm Purge"
   },
   "dialog_purge_confirm_message": {
     "message": "This will permanently delete your oldest section data to make space. Are you sure?"
@@ -352,5 +295,11 @@
   },
   "dialog_critical_error_guidance_with_reinstall": {
     "message": "A critical component failed to load, which prevents the extension from working correctly. This issue may require you to reinstall the extension."
+  },
+  "dialog_button_cancel": {
+    "message": "Cancel"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Confirm Purge"
   }
 }

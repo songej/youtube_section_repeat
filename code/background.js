@@ -13,10 +13,8 @@ const getMinimalConsts = () => ({
     CRITICAL_INIT_FAILURE: 'CRITICAL_INIT_FAILURE'
   }
 });
-
 try {
   importScripts('constants.js');
-  // DATA_SCHEMA_VERSION과 같은 필수 상수가 존재하는지 확인하여 파일의 완전성을 검증
   if (typeof self.CONST?.DATA_SCHEMA_VERSION === 'undefined') {
     throw new Error("constants.js was loaded but is incomplete or corrupted.");
   }
@@ -24,7 +22,7 @@ try {
   isConstantsLoaded = true;
 } catch (e) {
   CONST = getMinimalConsts();
-  isConstantsLoaded = false; // 명시적으로 실패 상태 지정
+  isConstantsLoaded = false;
   console.error('[Section Repeat] CRITICAL: Failed to load constants.js correctly.', e);
   chrome.storage.local.set({
     [CONST.STORAGE_KEYS.CRITICAL_INIT_FAILURE]: true
@@ -47,7 +45,6 @@ try {
     });
   }
 }
-
 class ErrorLogger {
   constructor() {
     this.logs = [];
@@ -148,15 +145,13 @@ async function processStateUpdateQueue() {
     logger.debug('processStateUpdateQueue', 'Queue processing is already locked.');
     return;
   }
-  // 고유 ID를 사용하여 락 소유권 강화
   const lockId = `${Date.now()}-${Math.random()}`;
   await chrome.storage.session.set({
     [QUEUE_LOCK_KEY]: {
       timestamp: Date.now(),
-      id: lockId // 고유 ID 추가
+      id: lockId
     }
   });
-
   let queue;
   try {
     queue = await getQueue();
@@ -218,7 +213,6 @@ async function processStateUpdateQueue() {
     const {
       [QUEUE_LOCK_KEY]: finalLock
     } = await chrome.storage.session.get(QUEUE_LOCK_KEY);
-    // 락 해제 시 고유 ID를 비교하여 올바른 소유자인지 확인
     if (finalLock && finalLock.id === lockId) {
       await chrome.storage.session.remove(QUEUE_LOCK_KEY);
     }
@@ -1264,15 +1258,12 @@ async function handleSaveDataAndMetadata({
     sectionCount
   } = metadata;
   let lockId;
-
   try {
     lockId = await lockManager.acquire(CONST.LOCK_KEYS.METADATA_ACCESS);
-
     const {
       [CONST.STORAGE_KEYS.METADATA]: currentMetadata = {}
     } = await chrome.storage.local.get(CONST.STORAGE_KEYS.METADATA);
     const storageKey = `${CONST.STORAGE_PREFIX}${hashedId}`;
-
     if (sectionCount > 0) {
       currentMetadata[storageKey] = {
         updatedAt: Date.now(),
@@ -1281,16 +1272,13 @@ async function handleSaveDataAndMetadata({
     } else {
       delete currentMetadata[storageKey];
     }
-
     await chrome.storage.local.set({
       [key]: data,
       [CONST.STORAGE_KEYS.METADATA]: currentMetadata
     });
-
     if (chrome.runtime.lastError) {
       throw new Error(chrome.runtime.lastError.message);
     }
-
   } catch (e) {
     logger.error('handleSaveDataAndMetadata', 'Failed to save data and metadata atomically.', e);
     throw e;
@@ -1373,10 +1361,8 @@ const messageHandlers = {
     return {};
   },
 };
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   (async () => {
-    // 최상위 try...catch 블록으로 전체 비동기 로직을 감싸 안정성을 확보합니다.
     try {
       if (!isConstantsLoaded) {
         logger.critical('onMessage', new Error('Received a message but constants are not loaded. Aborting.'), {
@@ -1388,7 +1374,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         });
         return;
       }
-
       if (sender.tab && sender.tab.id) {
         try {
           await chrome.tabs.get(sender.tab.id);
@@ -1403,7 +1388,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           return;
         }
       }
-      
       const handler = messageHandlers[message.type];
       if (handler) {
         const responseData = await handler(message, sender);
@@ -1421,7 +1405,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         });
       }
     } catch (error) {
-      // Service Worker가 종료되지 않도록 모든 예외를 여기서 처리합니다.
       logger.error('onMessage.critical_boundary', error, {
         messageType: message.type
       });
@@ -1431,8 +1414,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
     }
   })();
-
-  return true; // 비동기 응답을 위해 항상 true를 반환합니다.
+  return true;
 });
-
 processStateUpdateQueue();

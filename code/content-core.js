@@ -387,26 +387,20 @@
     }
     _synchronizeSectionElements(sections, currentIdx) {
       const fragment = document.createDocumentFragment();
-
       sections.forEach((section, index) => {
         const sectionEl = document.createElement('div');
         sectionEl.dataset.sectionIndex = index;
-
         const isComplete = section.end != null;
         const isActive = currentIdx === index && isComplete;
         sectionEl.className = isComplete ? 'section' : 'incomplete-section';
-
         if (isActive) {
           sectionEl.classList.add('is-active');
         }
-
         this._updateSectionElementStyle(sectionEl, section, index, isComplete, isActive);
         fragment.appendChild(sectionEl);
       });
-
       this.overlayEl.innerHTML = '';
       this.overlayEl.appendChild(fragment);
-
       this.incompleteSectionEl = this.overlayEl.querySelector('.incomplete-section');
     }
     _updateSectionElementStyle(sectionEl, section, index, isComplete, isActive) {
@@ -525,7 +519,6 @@
     async navigateSections(direction) {
       const completedSections = this.dataManager.getCompletedSections();
       if (completedSections.length === 0) return;
-
       let nextIdx = this.currentIdx;
       if (nextIdx === -1) {
         nextIdx = (direction === 'prev' ? completedSections.length - 1 : 0);
@@ -533,7 +526,6 @@
         nextIdx += (direction === 'prev' ? -1 : 1);
         nextIdx = (nextIdx + completedSections.length) % completedSections.length;
       }
-
       await this.startRepeat(nextIdx, true);
     }
     jumpToSection(index) {
@@ -560,18 +552,16 @@
         this.stopRepeat(false);
         return;
       }
-
-      // '매직 넘버'를 상수로 교체
-      const { REPEAT_BEHAVIOR } = State.CONSTANTS;
+      const {
+        REPEAT_BEHAVIOR
+      } = State.CONSTANTS;
       const currentTime = this.videoEl.currentTime;
       if (currentTime < section.start - REPEAT_BEHAVIOR.LOOP_CHECK_TOLERANCE_SEC || currentTime >= section.end) {
         this.videoEl.currentTime = section.start;
       }
-      
       const POLLING_INTERVAL_MS = 100;
       const timeUntilEnd = section.end - this.videoEl.currentTime;
       const nextCheckDelay = Math.max(POLLING_INTERVAL_MS, (timeUntilEnd - REPEAT_BEHAVIOR.NEXT_CHECK_SCHEDULE_OFFSET_SEC) * 1000);
-      
       helpers.sendMessage({
         type: State.CONSTANTS.MESSAGE_TYPES.SCHEDULE_REPEAT_CHECK,
         payload: {
@@ -742,22 +732,18 @@
         controls: State.CONSTANTS.SELECTORS.CONTROLS,
         progressBar: State.CONSTANTS.SELECTORS.PROGRESS_BAR,
       };
-
       for (let i = 0; i < retries; i++) {
         const isHealthy = Object.values(essentialSelectors).every(selectors => {
           const el = helpers.qSel(selectors, this.playerEl);
           return el && el.offsetParent !== null;
         });
-
         if (isHealthy) {
           return true;
         }
-
         if (i < retries - 1) {
           await new Promise(res => setTimeout(res, delay * (i + 1)));
         }
       }
-
       logger.error('HealthCheck.fail', 'Essential elements not found after all retries.');
       this.isHealthy = false;
       return false;
@@ -1503,7 +1489,6 @@
         } else {
           throw new Error("Failed to get constants from background.");
         }
-
         await helpers.sendMessage({
           type: State.CONSTANTS.MESSAGE_TYPES.CONTENT_SCRIPT_READY
         });
@@ -1552,13 +1537,10 @@
       }, cacheTTL, 'interval');
       State.isFullyInitialized = true;
       logger.info('handleInitialPayload', 'Section & Repeat is fully initialized and ready.');
-
       if (slowInitToastId && State.controller?.toastQueue) {
         State.controller.toastQueue.remove(slowInitToastId);
-        // 폴백 문자열 'Ready!'를 제거하여 messages.json의 번역을 사용하도록 강제합니다.
         State.controller.toast(helpers.t('toast_success_initialized'), 1500, 'success');
       }
-
       if (State.resolveInitialization) {
         State.resolveInitialization();
       }

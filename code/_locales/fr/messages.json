@@ -7,14 +7,9 @@
   },
   "action_error_title_with_name": {
     "message": "$1 : $2",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "popup_shortcuts_header_key": {
@@ -24,13 +19,13 @@
     "message": "Action"
   },
   "popup_shortcut_action_start": {
-    "message": "Début de section"
+    "message": "Démarrer section"
   },
   "popup_shortcut_action_end": {
-    "message": "Fin/enchaînement de section"
+    "message": "Terminer (enchaîner) section"
   },
   "popup_shortcut_action_toggle_repeat": {
-    "message": "Activer/désactiver la répétition"
+    "message": "Activer/désactiver répétition"
   },
   "popup_shortcut_action_prev": {
     "message": "Section précédente"
@@ -45,10 +40,7 @@
     "message": "Effacer toutes les sections"
   },
   "popup_shortcut_action_focus": {
-    "message": "Activer le Mode Focus"
-  },
-  "popup_note_inactive": {
-    "message": "Les raccourcis sont actifs sur les pages vidéo YouTube."
+    "message": "Entrer en Mode Focus"
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -71,34 +63,29 @@
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
-  "popup_storage_warning_message": {
-    "message": "Le stockage est à $1% de capacité. Les anciennes données pourraient bientôt être supprimées.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      }
-    }
-  },
-  "popup_storage_purge_completed": {
-    "message": "Les anciennes données ont été supprimées avec succès."
-  },
-  "popup_storage_purge_failed": {
-    "message": "Échec de la suppression. Veuillez réessayer plus tard."
+  "popup_note_inactive": {
+    "message": "Les raccourcis sont actifs sur une page vidéo YouTube."
   },
   "popup_warning_session_only_mode_detailed": {
-    "message": "Mode session uniquement actif car un composant de sécurité a échoué. Les sections ne seront pas sauvegardées. Redémarrer votre navigateur pourrait résoudre ce problème."
+    "message": "Le mode session uniquement est actif car un composant de sécurité a échoué. Les sections ne seront pas sauvegardées. Redémarrer votre navigateur peut résoudre ce problème."
+  },
+  "popup_storage_warning_message": {
+    "message": "Le stockage est plein à plus de $1%. Les anciennes données pourraient bientôt être supprimées.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   },
   "popup_error_setup_title": {
     "message": "Échec de l'initialisation"
   },
   "popup_error_setup_advice": {
-    "message": "Veuillez réessayer. Si le problème persiste, rechargez la page."
+    "message": "Veuillez réessayer. Si le problème persiste, essayez de recharger la page."
   },
   "popup_error_setup_crypto_failed": {
-    "message": "Un composant de sécurité du navigateur n'a pas pu s'initialiser. Les données de sections ne peuvent pas être sauvegardées. Veuillez essayer 'Réessayer la configuration'. Si le problème persiste, redémarrer votre navigateur pourrait aider."
+    "message": "Un composant de sécurité requis du navigateur n'a pas pu s'initialiser. Les données de section ne peuvent pas être sauvegardées. Veuillez essayer 'Réessayer la configuration'. Si le problème persiste, redémarrer votre navigateur peut aider."
   },
   "popup_error_setup_unknown": {
-    "message": "Une erreur inconnue s'est produite lors de la configuration."
+    "message": "Une erreur inconnue s'est produite pendant la configuration."
   },
   "popup_error_connection_failed": {
     "message": "Impossible de se connecter à l'extension. Veuillez recharger la page et réessayer."
@@ -106,21 +93,25 @@
   "popup_error_connection_timeout": {
     "message": "Délai de connexion dépassé. Veuillez recharger la page et réessayer."
   },
+  "popup_storage_purge_button": {
+    "message": "Supprimer anciennes données"
+  },
   "popup_button_retry_setup": {
     "message": "Réessayer la configuration"
   },
   "popup_button_retrying": {
     "message": "Nouvelle tentative..."
   },
-  "popup_storage_purge_button": {
-    "message": "Supprimer les anciennes données"
+  "popup_storage_purge_completed": {
+    "message": "Les anciennes données ont été supprimées avec succès."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Échec de la suppression. Veuillez réessayer plus tard."
   },
   "toast_success_section_added": {
     "message": "Section n°$1 ajoutée.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_sections_cleared": {
@@ -132,19 +123,20 @@
   "toast_success_storage_cleaned": {
     "message": "Stockage nettoyé. Utilisation actuelle : $1%.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_reconnected": {
     "message": "Reconnexion réussie."
   },
-  "toast_action_reload": {
-    "message": "Recharger la page"
+  "toast_success_initialized": {
+    "message": "Prêt !"
   },
   "toast_info_section_start_set": {
-    "message": "Point de début défini. Appuyez sur 'E' pour terminer."
+    "message": "Point de départ de section défini. Appuyez sur 'E' pour terminer."
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "La section incomplète a été automatiquement complétée à la fin de la vidéo."
   },
   "toast_info_repeat_stopped": {
     "message": "Répétition arrêtée."
@@ -152,20 +144,14 @@
   "toast_info_repeating_navigation": {
     "message": "Répétition de la section $1 sur $2.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_info_jumped_to_section": {
-    "message": "Sauté à la section $1.",
+    "message": "Saut à la section $1.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_info_loaded_singular": {
@@ -174,34 +160,29 @@
   "toast_info_loaded_plural": {
     "message": "$1 sections sauvegardées chargées pour cette vidéo.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "La section incomplète a été automatiquement complétée à la fin de la vidéo."
-  },
   "toast_info_legacy_data_cleared": {
-    "message": "Les anciennes données incompatibles ont été effacées pour assurer un bon fonctionnement."
+    "message": "Les anciennes données incompatibles ont été supprimées pour assurer un bon fonctionnement."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "La vidéo est terminée. Répétition depuis le début."
   },
   "toast_info_sectioning_hint": {
     "message": "Appuyez sur 'S' pour démarrer une section, 'E' pour la terminer."
   },
   "toast_info_playlist_hint": {
-    "message": "Astuce : Appuyez sur 'W' pour activer le Mode Focus et quitter la playlist."
+    "message": "Astuce : Appuyez sur 'W' pour entrer en Mode Focus et quitter la playlist."
   },
   "toast_info_focus_mode_already": {
     "message": "Vous êtes déjà en Mode Focus."
   },
   "toast_info_focus_mode_entering": {
-    "message": "Activation du Mode Focus... La page va se recharger."
-  },
-  "toast_info_autorepeat_video": {
-    "message": "La vidéo est terminée. Répétition depuis le début."
+    "message": "Entrée en Mode Focus... La page va se recharger."
   },
   "toast_warn_initialization_slow": {
-    "message": "L'extension est encore en cours de chargement... Veuillez réessayer dans un instant."
+    "message": "L'extension est encore en chargement... Veuillez réessayer dans un moment."
   },
   "toast_warning_live_stream_unsupported": {
     "message": "La répétition de sections n'est pas disponible pour les diffusions en direct."
@@ -210,74 +191,61 @@
     "message": "La répétition a été arrêtée en raison d'une erreur de navigation ou d'arrière-plan."
   },
   "toast_warning_storage_level": {
-    "message": "Stockage à $1%. Les anciennes données pourraient être supprimées.",
+    "message": "Le stockage est plein à $1%. Les anciennes données pourraient être supprimées.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "Limite de $1 sections atteinte. $2 section(s) la/les plus ancienne(s) supprimée(s) pour faire de la place.",
+    "message": "Limite de $1 sections atteinte. $2 section(s) la(les) plus ancienne(s) supprimée(s) pour faire de la place.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_error_player_init_failed": {
     "message": "L'initialisation a échoué après plusieurs tentatives. Veuillez recharger la page."
   },
   "toast_error_storage_critical": {
-    "message": "Stockage critique ($1% plein). Les anciennes données doivent être supprimées pour sauvegarder de nouvelles sections.",
+    "message": "Stockage critique (plein à $1%). Les anciennes données doivent être supprimées pour sauvegarder de nouvelles sections.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_error_focus_mode_failed": {
-    "message": "Impossible d'activer le Mode Focus. Veuillez réessayer."
+    "message": "Impossible d'entrer en Mode Focus. Veuillez réessayer."
   },
   "toast_error_action_locked": {
-    "message": "Action échouée car une autre opération est en cours. Veuillez réessayer dans un instant."
+    "message": "L'action a échoué car une autre opération est en cours. Veuillez réessayer dans un moment."
   },
   "toast_error_final_save_failed": {
-    "message": "Échec de la sauvegarde. Veuillez utiliser 'Supprimer les anciennes données' dans le popup pour libérer de l'espace."
+    "message": "Échec de la sauvegarde des données. Veuillez utiliser 'Supprimer anciennes données' dans le popup pour libérer de l'espace."
   },
   "toast_reload_prompt": {
     "message": "Le contexte de l'extension a été perdu. Veuillez recharger la page pour continuer."
   },
+  "toast_action_reload": {
+    "message": "Recharger la page"
+  },
   "aria_popup_shortcuts_table_label": {
-    "message": "Liste des raccourcis clavier. Utilisez les flèches pour naviguer dans les lignes."
+    "message": "Liste des raccourcis clavier. Utilisez les touches fléchées pour naviguer entre les lignes."
   },
   "aria_popup_shortcut_row_label": {
     "message": "Touche : $1, Action : $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_shortcut_row_activated": {
     "message": "Raccourci activé. Touche : $1, Action : $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_storage_purge_button_label": {
-    "message": "Supprimer les anciennes données de sections pour libérer de l'espace de stockage."
+    "message": "Supprimer les anciennes données de section pour libérer de l'espace de stockage."
   },
   "aria_toast_container_label": {
     "message": "Notifications de Répétition de Sections"
@@ -294,60 +262,44 @@
   "aria_overlay_desc_plural": {
     "message": "$1 sections ont été définies sur la barre de progression.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "Un total de $1 sections ont été définies. Répétition en cours de la section numéro $2.",
+    "message": "Un total de $1 sections ont été définies. Répétition actuelle de la section numéro $2.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_with_incomplete": {
     "message": "Un total de $1 sections ont été définies, dont $2 sont incomplètes.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "Un total de $1 sections ont été définies, dont $2 sont incomplètes. Répétition en cours de la section numéro $3.",
+    "message": "Un total de $1 sections ont été définies, dont $2 sont incomplètes. Répétition actuelle de la section numéro $3.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      },
-      "3": {
-        "content": "$3"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
     }
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Ceci supprimera définitivement vos plus anciennes données de section pour faire de la place. Êtes-vous sûr ?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "La structure de la page YouTube a changé de manière inattendue, et l'extension a perdu le contrôle. Veuillez recharger la page pour redémarrer l'extension."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "Un composant critique n'a pas pu se charger, ce qui empêche l'extension de fonctionner correctement. Ce problème peut nécessiter de réinstaller l'extension."
   },
   "dialog_button_cancel": {
     "message": "Annuler"
   },
   "dialog_button_confirm_purge": {
     "message": "Confirmer la suppression"
-  },
-  "dialog_purge_confirm_message": {
-    "message": "Ceci supprimera définitivement vos plus anciennes données de sections pour faire de la place. Êtes-vous sûr ?"
-  },
-  "dialog_critical_error_dom_changed": {
-    "message": "La structure de la page YouTube a changé de manière inattendue et l'extension a perdu le contrôle. Veuillez recharger la page pour redémarrer l'extension."
-  },
-  "dialog_critical_error_guidance_with_reinstall": {
-    "message": "Un composant critique n'a pas pu se charger, ce qui empêche l'extension de fonctionner correctement. Vous devrez peut-être réinstaller l'extension."
   }
 }

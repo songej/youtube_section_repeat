@@ -6,15 +6,10 @@
     "message": "YouTube A-B 반복과 다중 구간 루프. 단축키로 빠른 연습."
   },
   "action_error_title_with_name": {
-    "message": "$2 ($1)",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
+    "message": "$1 - $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "popup_shortcuts_header_key": {
@@ -27,7 +22,7 @@
     "message": "구간 시작"
   },
   "popup_shortcut_action_end": {
-    "message": "구간 종료/연결"
+    "message": "구간 종료(연결)"
   },
   "popup_shortcut_action_toggle_repeat": {
     "message": "반복 켜기/끄기"
@@ -45,10 +40,7 @@
     "message": "모든 구간 삭제"
   },
   "popup_shortcut_action_focus": {
-    "message": "집중 모드 시작"
-  },
-  "popup_note_inactive": {
-    "message": "YouTube 동영상 페이지에서 단축키가 활성화됩니다."
+    "message": "포커스 모드 진입"
   },
   "popup_shortcut_key_jump_range": {
     "message": "1~9"
@@ -71,40 +63,38 @@
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
-  "popup_storage_warning_message": {
-    "message": "저장 공간이 $1% 사용 중입니다. 오래된 데이터가 곧 삭제될 수 있습니다.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      }
-    }
-  },
-  "popup_storage_purge_completed": {
-    "message": "오래된 데이터가 성공적으로 삭제되었습니다."
-  },
-  "popup_storage_purge_failed": {
-    "message": "삭제에 실패했습니다. 나중에 다시 시도해주세요."
+  "popup_note_inactive": {
+    "message": "YouTube 동영상 페이지에서 단축키가 활성화됩니다."
   },
   "popup_warning_session_only_mode_detailed": {
-    "message": "보안 구성요소 오류로 세션 전용 모드가 활성화되었습니다. 구간이 저장되지 않습니다. 브라우저를 재시작하면 해결될 수 있습니다."
+    "message": "보안 구성요소 실패로 세션 전용 모드가 활성화되었습니다. 구간이 저장되지 않습니다. 브라우저를 다시 시작하면 해결될 수 있습니다."
+  },
+  "popup_storage_warning_message": {
+    "message": "저장 공간이 $1% 이상 찼습니다. 오래된 데이터가 곧 삭제될 수 있습니다.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   },
   "popup_error_setup_title": {
     "message": "초기화 실패"
   },
   "popup_error_setup_advice": {
-    "message": "다시 시도해주세요. 문제가 지속되면 페이지를 새로고침해주세요."
+    "message": "다시 시도해 주세요. 문제가 계속되면 페이지를 새로고침 해보세요."
   },
   "popup_error_setup_crypto_failed": {
-    "message": "필수 브라우저 보안 구성요소 초기화에 실패했습니다. 구간 데이터를 저장할 수 없습니다. '설정 재시도'를 눌러주세요. 문제가 지속되면 브라우저 재시작이 필요할 수 있습니다."
+    "message": "필수 브라우저 보안 구성요소를 초기화하지 못했습니다. 구간 데이터를 저장할 수 없습니다. '설정 재시도'를 눌러 주세요. 문제가 계속되면 브라우저를 다시 시작해 보세요."
   },
   "popup_error_setup_unknown": {
     "message": "설정 중 알 수 없는 오류가 발생했습니다."
   },
   "popup_error_connection_failed": {
-    "message": "확장 프로그램에 연결할 수 없습니다. 페이지를 새로고침한 후 다시 시도해주세요."
+    "message": "확장 프로그램에 연결할 수 없습니다. 페이지를 새로고침하고 다시 시도해 주세요."
   },
   "popup_error_connection_timeout": {
-    "message": "연결 시간이 초과되었습니다. 페이지를 새로고침한 후 다시 시도해주세요."
+    "message": "연결 시간이 초과되었습니다. 페이지를 새로고침하고 다시 시도해 주세요."
+  },
+  "popup_storage_purge_button": {
+    "message": "오래된 데이터 삭제"
   },
   "popup_button_retry_setup": {
     "message": "설정 재시도"
@@ -112,168 +102,146 @@
   "popup_button_retrying": {
     "message": "재시도 중..."
   },
-  "popup_storage_purge_button": {
-    "message": "오래된 데이터 삭제"
+  "popup_storage_purge_completed": {
+    "message": "오래된 데이터를 성공적으로 삭제했습니다."
+  },
+  "popup_storage_purge_failed": {
+    "message": "삭제에 실패했습니다. 나중에 다시 시도해 주세요."
   },
   "toast_success_section_added": {
-    "message": "$1번 구간이 추가되었습니다.",
+    "message": "구간 #$1이(가) 추가되었습니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_sections_cleared": {
     "message": "이 동영상의 모든 구간이 삭제되었습니다."
   },
   "toast_success_pending_save_applied": {
-    "message": "이전 세션의 구간을 저장했습니다."
+    "message": "이전 세션의 저장된 구간을 적용했습니다."
   },
   "toast_success_storage_cleaned": {
-    "message": "저장 공간 정리 완료. 현재 사용량: $1%.",
+    "message": "저장 공간 정리 완료. 현재 사용률: $1%",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_reconnected": {
     "message": "성공적으로 재연결되었습니다."
   },
-  "toast_action_reload": {
-    "message": "페이지 새로고침"
+  "toast_success_initialized": {
+    "message": "준비 완료!"
   },
   "toast_info_section_start_set": {
     "message": "구간 시작점이 설정되었습니다. 'E'를 눌러 종료하세요."
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "미완성 구간이 동영상 끝에서 자동으로 완성되었습니다."
   },
   "toast_info_repeat_stopped": {
     "message": "반복이 중지되었습니다."
   },
   "toast_info_repeating_navigation": {
-    "message": "$2개 중 $1번 구간을 반복 중입니다.",
+    "message": "$2개 중 $1번째 구간 반복 중",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_info_jumped_to_section": {
-    "message": "$1번 구간으로 이동했습니다.",
+    "message": "구간 $1(으)로 이동했습니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_info_loaded_singular": {
-    "message": "이 동영상에서 저장된 구간 1개를 불러왔습니다."
+    "message": "이 동영상의 저장된 구간 1개를 불러왔습니다."
   },
   "toast_info_loaded_plural": {
-    "message": "이 동영상에서 저장된 구간 $1개를 불러왔습니다.",
+    "message": "이 동영상의 저장된 구간 $1개를 불러왔습니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
-  },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "미완성 구간이 동영상 끝에서 자동 완성되었습니다."
   },
   "toast_info_legacy_data_cleared": {
     "message": "원활한 작동을 위해 호환되지 않는 이전 데이터를 삭제했습니다."
   },
+  "toast_info_autorepeat_video": {
+    "message": "동영상이 끝났습니다. 처음부터 다시 재생합니다."
+  },
   "toast_info_sectioning_hint": {
-    "message": "'S'를 눌러 구간을 시작하고, 'E'를 눌러 종료하세요."
+    "message": "'S'로 구간 시작, 'E'로 종료하세요."
   },
   "toast_info_playlist_hint": {
-    "message": "팁: 'W'를 눌러 집중 모드로 전환하고 재생목록을 벗어나세요."
+    "message": "팁: 'W'를 눌러 포커스 모드로 전환하고 재생목록을 벗어나세요."
   },
   "toast_info_focus_mode_already": {
-    "message": "이미 집중 모드입니다."
+    "message": "이미 포커스 모드입니다."
   },
   "toast_info_focus_mode_entering": {
-    "message": "집중 모드로 전환 중... 페이지가 새로고침됩니다."
-  },
-  "toast_info_autorepeat_video": {
-    "message": "동영상이 끝났습니다. 처음부터 다시 반복합니다."
+    "message": "포커스 모드로 전환 중... 페이지가 새로고침됩니다."
   },
   "toast_warn_initialization_slow": {
-    "message": "확장 프로그램이 아직 로딩 중입니다... 잠시 후 다시 시도해주세요."
+    "message": "확장 프로그램이 아직 로딩 중입니다... 잠시 후 다시 시도해 주세요."
   },
   "toast_warning_live_stream_unsupported": {
     "message": "실시간 스트리밍에서는 구간 반복을 사용할 수 없습니다."
   },
   "toast_warning_repeat_stopped_unexpectedly": {
-    "message": "탐색 또는 백그라운드 오류로 인해 반복이 중지되었습니다."
+    "message": "탐색 또는 백그라운드 오류로 반복이 중지되었습니다."
   },
   "toast_warning_storage_level": {
-    "message": "저장 공간이 $1% 차있습니다. 오래된 데이터가 삭제될 수 있습니다.",
+    "message": "저장 공간이 $1% 찼습니다. 오래된 데이터가 삭제될 수 있습니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "최대 구간 수 $1개에 도달했습니다. 공간 확보를 위해 가장 오래된 구간 $2개를 삭제했습니다.",
+    "message": "구간 제한 $1개에 도달했습니다. 공간 확보를 위해 가장 오래된 구간 $2개를 제거했습니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_error_player_init_failed": {
-    "message": "여러 번 재시도 후에도 초기화에 실패했습니다. 페이지를 새로고침해주세요."
+    "message": "여러 번 재시도 후 초기화에 실패했습니다. 페이지를 새로고침해 주세요."
   },
   "toast_error_storage_critical": {
-    "message": "저장 공간 임계치 ($1% 사용 중). 새 구간 저장을 위해 오래된 데이터를 삭제해야 합니다.",
+    "message": "저장 공간 위험 ($1% 사용). 새 구간 저장을 위해 오래된 데이터를 삭제해야 합니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_error_focus_mode_failed": {
-    "message": "집중 모드로 전환할 수 없습니다. 다시 시도해주세요."
+    "message": "포커스 모드로 전환할 수 없습니다. 다시 시도해 주세요."
   },
   "toast_error_action_locked": {
-    "message": "다른 작업이 진행 중이어서 실패했습니다. 잠시 후 다시 시도해주세요."
+    "message": "다른 작업이 진행 중이어서 동작이 실패했습니다. 잠시 후 다시 시도해 주세요."
   },
   "toast_error_final_save_failed": {
-    "message": "데이터 저장에 실패했습니다. 팝업에서 '오래된 데이터 삭제'를 사용해 공간을 확보해주세요."
+    "message": "데이터 저장에 실패했습니다. 팝업에서 '오래된 데이터 삭제'를 사용해 공간을 확보하세요."
   },
   "toast_reload_prompt": {
-    "message": "확장 프로그램 컨텍스트가 손실되었습니다. 계속하려면 페이지를 새로고침해주세요."
+    "message": "확장 프로그램 컨텍스트가 손실되었습니다. 계속하려면 페이지를 새로고침하세요."
+  },
+  "toast_action_reload": {
+    "message": "페이지 새로고침"
   },
   "aria_popup_shortcuts_table_label": {
-    "message": "키보드 단축키 목록. 화살표 키를 사용해 행을 탐색하세요."
+    "message": "키보드 단축키 목록. 화살표 키로 행을 탐색하세요."
   },
   "aria_popup_shortcut_row_label": {
     "message": "키: $1, 동작: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_shortcut_row_activated": {
-    "message": "단축키가 활성화되었습니다. 키: $1, 동작: $2",
+    "message": "단축키 활성화됨. 키: $1, 동작: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_storage_purge_button_label": {
@@ -289,65 +257,49 @@
     "message": "이 동영상에 설정된 구간이 없습니다."
   },
   "aria_overlay_desc_singular": {
-    "message": "진행 표시줄에 1개의 구간이 설정되었습니다."
+    "message": "진행 표시줄에 구간 1개가 설정되었습니다."
   },
   "aria_overlay_desc_plural": {
-    "message": "진행 표시줄에 $1개의 구간이 설정되었습니다.",
+    "message": "진행 표시줄에 구간 $1개가 설정되었습니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "총 $1개의 구간이 설정되었습니다. 현재 $2번 구간을 반복 중입니다.",
+    "message": "총 $1개의 구간이 설정되었습니다. 현재 $2번째 구간을 반복 중입니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_with_incomplete": {
     "message": "총 $1개의 구간이 설정되었으며, 그 중 $2개가 미완성입니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "총 $1개의 구간이 설정되었으며, 그 중 $2개가 미완성입니다. 현재 $3번 구간을 반복 중입니다.",
+    "message": "총 $1개의 구간이 설정되었으며, 그 중 $2개가 미완성입니다. 현재 $3번째 구간을 반복 중입니다.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      },
-      "3": {
-        "content": "$3"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
     }
+  },
+  "dialog_purge_confirm_message": {
+    "message": "가장 오래된 구간 데이터를 영구적으로 삭제하여 공간을 확보합니다. 계속하시겠습니까?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "YouTube 페이지 구조가 예기치 않게 변경되어 확장 프로그램이 제어권을 잃었습니다. 페이지를 새로고침하여 확장 프로그램을 재시작하세요."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "중요한 구성요소를 로드하지 못해 확장 프로그램이 올바르게 작동하지 않습니다. 확장 프로그램을 재설치해야 할 수 있습니다."
   },
   "dialog_button_cancel": {
     "message": "취소"
   },
   "dialog_button_confirm_purge": {
     "message": "삭제 확인"
-  },
-  "dialog_purge_confirm_message": {
-    "message": "공간 확보를 위해 가장 오래된 구간 데이터를 영구적으로 삭제합니다. 계속하시겠습니까?"
-  },
-  "dialog_critical_error_dom_changed": {
-    "message": "YouTube 페이지 구조가 예기치 않게 변경되어 확장 프로그램이 제어권을 잃었습니다. 페이지를 새로고침하여 확장 프로그램을 다시 시작해주세요."
-  },
-  "dialog_critical_error_guidance_with_reinstall": {
-    "message": "중요한 구성요소를 로드하지 못해 확장 프로그램이 제대로 작동하지 않습니다. 확장 프로그램을 다시 설치해야 할 수 있습니다."
   }
 }

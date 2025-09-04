@@ -7,14 +7,9 @@
   },
   "action_error_title_with_name": {
     "message": "$1: $2",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "popup_shortcuts_header_key": {
@@ -24,13 +19,13 @@
     "message": "Eylem"
   },
   "popup_shortcut_action_start": {
-    "message": "Bölüm başlat"
+    "message": "Bölümü başlat"
   },
   "popup_shortcut_action_end": {
-    "message": "Bölüm bitir/bağla"
+    "message": "Bölümü bitir (bağla)"
   },
   "popup_shortcut_action_toggle_repeat": {
-    "message": "Tekrar aç/kapa"
+    "message": "Tekrarı aç/kapat"
   },
   "popup_shortcut_action_prev": {
     "message": "Önceki bölüm"
@@ -42,13 +37,10 @@
     "message": "Bölüme git"
   },
   "popup_shortcut_action_clear_sections": {
-    "message": "Tüm bölümleri sil"
+    "message": "Tüm bölümleri temizle"
   },
   "popup_shortcut_action_focus": {
     "message": "Odak Moduna gir"
-  },
-  "popup_note_inactive": {
-    "message": "Kısayol tuşları YouTube video sayfasında aktif olur."
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -71,60 +63,59 @@
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
-  "popup_storage_warning_message": {
-    "message": "Depolama %$1 dolu. Eski veriler yakında silinebilir.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      }
-    }
-  },
-  "popup_storage_purge_completed": {
-    "message": "Eski veriler başarıyla silindi."
-  },
-  "popup_storage_purge_failed": {
-    "message": "Silme başarısız. Lütfen daha sonra tekrar deneyin."
+  "popup_note_inactive": {
+    "message": "Kısayol tuşları YouTube video sayfasında aktif olur."
   },
   "popup_warning_session_only_mode_detailed": {
-    "message": "Güvenlik bileşeni başarısız olduğu için yalnızca oturum modu aktif. Bölümler kaydedilmeyecek. Tarayıcıyı yeniden başlatmak sorunu çözebilir."
+    "message": "Güvenlik bileşeni başarısız olduğu için yalnızca oturum modu etkin. Bölümler kaydedilmeyecek. Tarayıcınızı yeniden başlatmak sorunu çözebilir."
+  },
+  "popup_storage_warning_message": {
+    "message": "Depolama %$1'den fazla dolu. Eski veriler yakında silinebilir.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   },
   "popup_error_setup_title": {
-    "message": "Başlatma Hatası"
+    "message": "Başlatma Başarısız"
   },
   "popup_error_setup_advice": {
-    "message": "Lütfen tekrar deneyin. Sorun devam ederse sayfayı yenileyin."
+    "message": "Lütfen tekrar deneyin. Sorun devam ederse, sayfayı yenilemeyi deneyin."
   },
   "popup_error_setup_crypto_failed": {
-    "message": "Gerekli tarayıcı güvenlik bileşeni başlatılamadı. Bölüm verileri kaydedilemez. Lütfen 'Kurulumu Tekrarla'yı deneyin. Sorun devam ederse tarayıcıyı yeniden başlatmak yardımcı olabilir."
+    "message": "Gerekli tarayıcı güvenlik bileşeni başlatılamadı. Bölüm verileri kaydedilemiyor. Lütfen 'Kurulumu Yeniden Dene'yi deneyin. Sorun devam ederse, tarayıcınızı yeniden başlatmak yardımcı olabilir."
   },
   "popup_error_setup_unknown": {
     "message": "Kurulum sırasında bilinmeyen bir hata oluştu."
   },
   "popup_error_connection_failed": {
-    "message": "Uzantıya bağlanılamadı. Lütfen sayfayı yenileyip tekrar deneyin."
+    "message": "Uzantıya bağlanılamadı. Lütfen sayfayı yenileyin ve tekrar deneyin."
   },
   "popup_error_connection_timeout": {
-    "message": "Bağlantı zaman aşımı. Lütfen sayfayı yenileyip tekrar deneyin."
-  },
-  "popup_button_retry_setup": {
-    "message": "Kurulumu Tekrarla"
-  },
-  "popup_button_retrying": {
-    "message": "Tekrar deneniyor..."
+    "message": "Bağlantı zaman aşımına uğradı. Lütfen sayfayı yenileyin ve tekrar deneyin."
   },
   "popup_storage_purge_button": {
-    "message": "Eski Verileri Sil"
+    "message": "Eski Verileri Temizle"
+  },
+  "popup_button_retry_setup": {
+    "message": "Kurulumu Yeniden Dene"
+  },
+  "popup_button_retrying": {
+    "message": "Yeniden deneniyor..."
+  },
+  "popup_storage_purge_completed": {
+    "message": "Eski veriler başarıyla temizlendi."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Temizleme başarısız. Lütfen daha sonra tekrar deneyin."
   },
   "toast_success_section_added": {
     "message": "Bölüm #$1 eklendi.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_sections_cleared": {
-    "message": "Bu videonun tüm bölümleri silindi."
+    "message": "Bu videonun tüm bölümleri temizlendi."
   },
   "toast_success_pending_save_applied": {
     "message": "Önceki oturumdan kaydedilen bölümler uygulandı."
@@ -132,19 +123,20 @@
   "toast_success_storage_cleaned": {
     "message": "Depolama temizlendi. Mevcut kullanım: %$1.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_reconnected": {
     "message": "Başarıyla yeniden bağlandı."
   },
-  "toast_action_reload": {
-    "message": "Sayfayı Yenile"
+  "toast_success_initialized": {
+    "message": "Hazır!"
   },
   "toast_info_section_start_set": {
     "message": "Bölüm başlangıç noktası ayarlandı. Bitirmek için 'E' tuşuna basın."
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Tamamlanmamış bölüm video sonunda otomatik olarak tamamlandı."
   },
   "toast_info_repeat_stopped": {
     "message": "Tekrar durduruldu."
@@ -152,20 +144,14 @@
   "toast_info_repeating_navigation": {
     "message": "$2 bölümden $1. bölüm tekrarlanıyor.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_info_jumped_to_section": {
     "message": "$1. bölüme atlandı.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_info_loaded_singular": {
@@ -174,16 +160,14 @@
   "toast_info_loaded_plural": {
     "message": "Bu video için kaydedilmiş $1 bölüm yüklendi.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "Tamamlanmamış bölüm video sonunda otomatik olarak tamamlandı."
-  },
   "toast_info_legacy_data_cleared": {
-    "message": "Sorunsuz çalışma için uyumsuz eski veriler temizlendi."
+    "message": "Düzgün çalışmayı sağlamak için uyumsuz eski veriler temizlendi."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "Video bitti. Baştan tekrarlanıyor."
   },
   "toast_info_sectioning_hint": {
     "message": "Bölüm başlatmak için 'S', bitirmek için 'E' tuşuna basın."
@@ -197,14 +181,11 @@
   "toast_info_focus_mode_entering": {
     "message": "Odak Moduna giriliyor... Sayfa yenilenecek."
   },
-  "toast_info_autorepeat_video": {
-    "message": "Video bitti. Baştan tekrarlanıyor."
-  },
   "toast_warn_initialization_slow": {
-    "message": "Uzantı hâlâ yükleniyor... Lütfen biraz sonra tekrar deneyin."
+    "message": "Uzantı hala yükleniyor... Lütfen birazdan tekrar deneyin."
   },
   "toast_warning_live_stream_unsupported": {
-    "message": "Canlı yayınlar için bölüm tekrarı mevcut değil."
+    "message": "Canlı yayınlar için Bölüm Tekrarı kullanılamıyor."
   },
   "toast_warning_repeat_stopped_unexpectedly": {
     "message": "Gezinme veya arka plan hatası nedeniyle tekrar durduruldu."
@@ -212,72 +193,59 @@
   "toast_warning_storage_level": {
     "message": "Depolama %$1 dolu. Eski veriler silinebilir.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_warning_sections_auto_purged": {
     "message": "$1 bölüm sınırına ulaşıldı. Yer açmak için en eski $2 bölüm kaldırıldı.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_error_player_init_failed": {
     "message": "Birden fazla denemeden sonra başlatma başarısız oldu. Lütfen sayfayı yenileyin."
   },
   "toast_error_storage_critical": {
-    "message": "Kritik Depolama (%$1 dolu). Yeni bölümler için eski veriler silinmeli.",
+    "message": "Depolama Kritik (%$1 dolu). Yeni bölümler kaydetmek için eski veriler silinmeli.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_error_focus_mode_failed": {
     "message": "Odak Moduna girilemedi. Lütfen tekrar deneyin."
   },
   "toast_error_action_locked": {
-    "message": "Başka bir işlem devam ettiği için eylem başarısız. Lütfen biraz sonra tekrar deneyin."
+    "message": "Başka bir işlem devam ettiği için eylem başarısız oldu. Lütfen birazdan tekrar deneyin."
   },
   "toast_error_final_save_failed": {
-    "message": "Veri kaydetme başarısız. Yer açmak için açılır pencerede 'Eski Verileri Sil'i kullanın."
+    "message": "Veri kaydedilemedi. Lütfen yer açmak için açılır pencerede 'Eski Verileri Temizle'yi kullanın."
   },
   "toast_reload_prompt": {
     "message": "Uzantı bağlamı kayboldu. Devam etmek için lütfen sayfayı yenileyin."
   },
+  "toast_action_reload": {
+    "message": "Sayfayı Yenile"
+  },
   "aria_popup_shortcuts_table_label": {
-    "message": "Klavye kısayolları listesi. Satırlarda gezinmek için ok tuşlarını kullanın."
+    "message": "Klavye kısayolları listesi. Satırlar arasında gezinmek için ok tuşlarını kullanın."
   },
   "aria_popup_shortcut_row_label": {
     "message": "Tuş: $1, Eylem: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_shortcut_row_activated": {
     "message": "Kısayol etkinleştirildi. Tuş: $1, Eylem: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_storage_purge_button_label": {
-    "message": "Depolama alanı açmak için eski bölüm verilerini sil."
+    "message": "Depolama alanı açmak için eski bölüm verilerini silin."
   },
   "aria_toast_container_label": {
     "message": "Bölüm Tekrarı Bildirimleri"
@@ -294,52 +262,30 @@
   "aria_overlay_desc_plural": {
     "message": "İlerleme çubuğunda $1 bölüm ayarlandı.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "Toplam $1 bölüm ayarlandı. Şu anda $2 numaralı bölüm tekrarlanıyor.",
+    "message": "Toplam $1 bölüm ayarlandı. Şu anda $2. bölüm tekrarlanıyor.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_with_incomplete": {
     "message": "Toplam $1 bölüm ayarlandı, bunların $2 tanesi tamamlanmamış.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "Toplam $1 bölüm ayarlandı, bunların $2 tanesi tamamlanmamış. Şu anda $3 numaralı bölüm tekrarlanıyor.",
+    "message": "Toplam $1 bölüm ayarlandı, bunların $2 tanesi tamamlanmamış. Şu anda $3. bölüm tekrarlanıyor.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      },
-      "3": {
-        "content": "$3"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
     }
-  },
-  "dialog_button_cancel": {
-    "message": "İptal"
-  },
-  "dialog_button_confirm_purge": {
-    "message": "Silmeyi Onayla"
   },
   "dialog_purge_confirm_message": {
     "message": "Bu, yer açmak için en eski bölüm verilerinizi kalıcı olarak silecek. Emin misiniz?"
@@ -348,6 +294,12 @@
     "message": "YouTube sayfa yapısı beklenmedik şekilde değişti ve uzantı kontrolü kaybetti. Uzantıyı yeniden başlatmak için lütfen sayfayı yenileyin."
   },
   "dialog_critical_error_guidance_with_reinstall": {
-    "message": "Kritik bir bileşen yüklenemedi, bu da uzantının düzgün çalışmasını engelliyor. Uzantıyı yeniden yüklemeniz gerekebilir."
+    "message": "Kritik bir bileşen yüklenemedi, bu da uzantının düzgün çalışmasını engelliyor. Bu sorun uzantıyı yeniden yüklemenizi gerektirebilir."
+  },
+  "dialog_button_cancel": {
+    "message": "İptal"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Temizlemeyi Onayla"
   }
 }

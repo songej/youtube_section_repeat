@@ -84,7 +84,6 @@ class PopupManager {
     this.dialogTrap = null;
   }
   async sendMessage(message, retries = 2) {
-    // content-utils.js의 견고한 재시도 및 타임아웃 로직으로 교체
     const timeout = this.CONSTS?.TIMING?.TIMEOUT?.POPUP_MESSAGE || 5000;
     const delay = this.CONSTS?.TIMING?.RETRY?.DEFAULT_DELAY_MS || 200;
     const backoff = this.CONSTS?.TIMING?.RETRY?.DEFAULT_BACKOFF_MULTIPLIER || 1.5;
@@ -126,7 +125,6 @@ class PopupManager {
   populatei18n() {
     const uiLocale = chrome.i18n.getUILanguage();
     document.documentElement.lang = uiLocale;
-    // RTL 처리는 popup.html의 dir="auto"에 위임
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.dataset.i18n;
       let message = chrome.i18n.getMessage(key) || `__${key}__`;
@@ -524,7 +522,6 @@ class PopupManager {
     document.body.setAttribute('aria-busy', 'true');
     this.populatei18n();
     try {
-      // background 스크립트에서 상수 객체를 비동기적으로 요청
       const response = await this.sendMessage({
         type: 'GET_CONSTANTS'
       });

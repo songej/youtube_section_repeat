@@ -7,14 +7,9 @@
   },
   "action_error_title_with_name": {
     "message": "$1：$2",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "popup_shortcuts_header_key": {
@@ -27,10 +22,10 @@
     "message": "開始段落"
   },
   "popup_shortcut_action_end": {
-    "message": "結束/連接段落"
+    "message": "結束（連接）段落"
   },
   "popup_shortcut_action_toggle_repeat": {
-    "message": "開關循環"
+    "message": "切換重複"
   },
   "popup_shortcut_action_prev": {
     "message": "上一個段落"
@@ -39,16 +34,13 @@
     "message": "下一個段落"
   },
   "popup_shortcut_action_jump": {
-    "message": "跳轉段落"
+    "message": "跳轉至段落"
   },
   "popup_shortcut_action_clear_sections": {
     "message": "清除所有段落"
   },
   "popup_shortcut_action_focus": {
     "message": "進入專注模式"
-  },
-  "popup_note_inactive": {
-    "message": "快捷鍵在 YouTube 影片頁面啟動。"
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -71,40 +63,38 @@
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
-  "popup_storage_warning_message": {
-    "message": "儲存空間已用 $1%。舊資料可能會被刪除。",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      }
-    }
-  },
-  "popup_storage_purge_completed": {
-    "message": "舊資料已成功刪除。"
-  },
-  "popup_storage_purge_failed": {
-    "message": "刪除失敗。請稍後再試。"
+  "popup_note_inactive": {
+    "message": "快速鍵在 YouTube 影片頁面時啟用。"
   },
   "popup_warning_session_only_mode_detailed": {
-    "message": "安全元件失敗，僅工作階段模式已啟動。段落不會儲存。重新啟動瀏覽器可能解決此問題。"
+    "message": "由於安全元件失敗，僅階段模式已啟用。段落不會被儲存。重新啟動瀏覽器可能解決此問題。"
+  },
+  "popup_storage_warning_message": {
+    "message": "儲存空間已使用超過 $1%。舊資料可能很快會被刪除。",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   },
   "popup_error_setup_title": {
     "message": "初始化失敗"
   },
   "popup_error_setup_advice": {
-    "message": "請重試。如果問題持續，請重新整理頁面。"
+    "message": "請重試。如果問題持續，請嘗試重新載入頁面。"
   },
   "popup_error_setup_crypto_failed": {
     "message": "必要的瀏覽器安全元件初始化失敗。段落資料無法儲存。請嘗試「重試設定」。如果問題持續，重新啟動瀏覽器可能有幫助。"
   },
   "popup_error_setup_unknown": {
-    "message": "設定時發生未知錯誤。"
+    "message": "設定過程中發生未知錯誤。"
   },
   "popup_error_connection_failed": {
-    "message": "無法連線到擴充功能。請重新整理頁面後重試。"
+    "message": "無法連接到擴充功能。請重新載入頁面並重試。"
   },
   "popup_error_connection_timeout": {
-    "message": "連線逾時。請重新整理頁面後重試。"
+    "message": "連線逾時。請重新載入頁面並重試。"
+  },
+  "popup_storage_purge_button": {
+    "message": "清理舊資料"
   },
   "popup_button_retry_setup": {
     "message": "重試設定"
@@ -112,60 +102,56 @@
   "popup_button_retrying": {
     "message": "重試中..."
   },
-  "popup_storage_purge_button": {
-    "message": "刪除舊資料"
+  "popup_storage_purge_completed": {
+    "message": "舊資料已成功清理。"
+  },
+  "popup_storage_purge_failed": {
+    "message": "清理失敗。請稍後重試。"
   },
   "toast_success_section_added": {
     "message": "段落 #$1 已新增。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_sections_cleared": {
     "message": "此影片的所有段落已清除。"
   },
   "toast_success_pending_save_applied": {
-    "message": "已套用上次工作階段儲存的段落。"
+    "message": "已套用上次階段儲存的段落。"
   },
   "toast_success_storage_cleaned": {
-    "message": "儲存已清理。目前使用：$1%。",
+    "message": "儲存空間已清理。目前使用：$1%。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_reconnected": {
-    "message": "重新連線成功。"
+    "message": "成功重新連線。"
   },
-  "toast_action_reload": {
-    "message": "重新整理頁面"
+  "toast_success_initialized": {
+    "message": "準備就緒！"
   },
   "toast_info_section_start_set": {
     "message": "段落起點已設定。按 'E' 結束。"
   },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "未完成的段落已在影片結尾自動完成。"
+  },
   "toast_info_repeat_stopped": {
-    "message": "循環已停止。"
+    "message": "重複已停止。"
   },
   "toast_info_repeating_navigation": {
-    "message": "正在循環第 $1 個段落，共 $2 個。",
+    "message": "正在重複第 $1 個段落，共 $2 個。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_info_jumped_to_section": {
-    "message": "已跳轉到段落 $1。",
+    "message": "已跳轉至段落 $1。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_info_loaded_singular": {
@@ -174,16 +160,14 @@
   "toast_info_loaded_plural": {
     "message": "已載入此影片的 $1 個儲存段落。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "未完成的段落已在影片結尾自動完成。"
-  },
   "toast_info_legacy_data_cleared": {
-    "message": "不相容的舊資料已清除以確保流暢運作。"
+    "message": "不相容的舊資料已清除以確保順暢運作。"
+  },
+  "toast_info_autorepeat_video": {
+    "message": "影片已結束。從頭開始重複。"
   },
   "toast_info_sectioning_hint": {
     "message": "按 'S' 開始段落，'E' 結束。"
@@ -195,92 +179,76 @@
     "message": "您已在專注模式中。"
   },
   "toast_info_focus_mode_entering": {
-    "message": "進入專注模式...頁面將重新載入。"
-  },
-  "toast_info_autorepeat_video": {
-    "message": "影片已結束。從頭開始重複。"
+    "message": "正在進入專注模式... 頁面將重新載入。"
   },
   "toast_warn_initialization_slow": {
-    "message": "擴充功能仍在載入...請稍後再試。"
+    "message": "擴充功能仍在載入中... 請稍後重試。"
   },
   "toast_warning_live_stream_unsupported": {
-    "message": "直播不支援段落循環。"
+    "message": "直播不支援段落重複。"
   },
   "toast_warning_repeat_stopped_unexpectedly": {
-    "message": "由於導覽或背景錯誤，循環已停止。"
+    "message": "由於導覽或背景錯誤，重複已停止。"
   },
   "toast_warning_storage_level": {
-    "message": "儲存空間已用 $1%。舊資料可能被刪除。",
+    "message": "儲存空間已使用 $1%。舊資料可能會被清理。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "已達到 $1 個段落限制。刪除了 $2 個最舊段落以騰出空間。",
+    "message": "已達到 $1 個段落的限制。刪除了 $2 個最舊的段落以騰出空間。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_error_player_init_failed": {
-    "message": "多次重試後初始化失敗。請重新整理頁面。"
+    "message": "多次嘗試後初始化失敗。請重新載入頁面。"
   },
   "toast_error_storage_critical": {
-    "message": "儲存嚴重不足（$1% 已滿）。必須刪除舊資料才能儲存新段落。",
+    "message": "儲存空間危急（$1% 已滿）。必須刪除舊資料才能儲存新段落。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_error_focus_mode_failed": {
     "message": "無法進入專注模式。請重試。"
   },
   "toast_error_action_locked": {
-    "message": "動作失敗，因為另一個操作正在進行。請稍後重試。"
+    "message": "操作失敗，因為另一操作正在進行中。請稍後重試。"
   },
   "toast_error_final_save_failed": {
-    "message": "儲存資料失敗。請使用彈出視窗中的「刪除舊資料」釋放空間。"
+    "message": "儲存資料失敗。請使用彈出視窗中的「清理舊資料」來釋放空間。"
   },
   "toast_reload_prompt": {
-    "message": "擴充功能上下文已遺失。請重新整理頁面繼續。"
+    "message": "擴充功能上下文已遺失。請重新載入頁面以繼續。"
+  },
+  "toast_action_reload": {
+    "message": "重新載入頁面"
   },
   "aria_popup_shortcuts_table_label": {
-    "message": "鍵盤快捷鍵列表。使用方向鍵在列間導覽。"
+    "message": "鍵盤快速鍵列表。使用方向鍵在列間導覽。"
   },
   "aria_popup_shortcut_row_label": {
     "message": "按鍵：$1，動作：$2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_shortcut_row_activated": {
-    "message": "快捷鍵已啟動。按鍵：$1，動作：$2",
+    "message": "快速鍵已啟用。按鍵：$1，動作：$2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_storage_purge_button_label": {
     "message": "刪除舊段落資料以釋放儲存空間。"
   },
   "aria_toast_container_label": {
-    "message": "段落循環通知"
+    "message": "段落重複通知"
   },
   "aria_toast_close_button": {
     "message": "關閉通知"
@@ -289,65 +257,49 @@
     "message": "此影片未設定段落。"
   },
   "aria_overlay_desc_singular": {
-    "message": "進度列上已設定 1 個段落。"
+    "message": "進度條上已設定 1 個段落。"
   },
   "aria_overlay_desc_plural": {
-    "message": "進度列上已設定 $1 個段落。",
+    "message": "進度條上已設定 $1 個段落。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "共設定了 $1 個段落。目前正在循環第 $2 個段落。",
+    "message": "共設定了 $1 個段落。目前正在重複第 $2 個段落。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_with_incomplete": {
     "message": "共設定了 $1 個段落，其中 $2 個未完成。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "共設定了 $1 個段落，其中 $2 個未完成。目前正在循環第 $3 個段落。",
+    "message": "共設定了 $1 個段落，其中 $2 個未完成。目前正在重複第 $3 個段落。",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      },
-      "3": {
-        "content": "$3"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
     }
-  },
-  "dialog_button_cancel": {
-    "message": "取消"
-  },
-  "dialog_button_confirm_purge": {
-    "message": "確認刪除"
   },
   "dialog_purge_confirm_message": {
     "message": "這將永久刪除您最舊的段落資料以騰出空間。確定嗎？"
   },
   "dialog_critical_error_dom_changed": {
-    "message": "YouTube 頁面結構意外更改，擴充功能失去控制。請重新整理頁面重新啟動擴充功能。"
+    "message": "YouTube 頁面結構意外更改，擴充功能失去控制。請重新載入頁面以重啟擴充功能。"
   },
   "dialog_critical_error_guidance_with_reinstall": {
-    "message": "關鍵元件載入失敗，導致擴充功能無法正常運作。您可能需要重新安裝擴充功能。"
+    "message": "關鍵元件載入失敗，導致擴充功能無法正常運作。此問題可能需要您重新安裝擴充功能。"
+  },
+  "dialog_button_cancel": {
+    "message": "取消"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "確認清理"
   }
 }

@@ -7,14 +7,9 @@
   },
   "action_error_title_with_name": {
     "message": "$1: $2",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "popup_shortcuts_header_key": {
@@ -27,7 +22,7 @@
     "message": "Abschnitt starten"
   },
   "popup_shortcut_action_end": {
-    "message": "Abschnitt beenden/verketten"
+    "message": "Abschnitt beenden (verketten)"
   },
   "popup_shortcut_action_toggle_repeat": {
     "message": "Wiederholung ein/aus"
@@ -39,16 +34,13 @@
     "message": "Nächster Abschnitt"
   },
   "popup_shortcut_action_jump": {
-    "message": "Zu Abschnitt springen"
+    "message": "Zum Abschnitt springen"
   },
   "popup_shortcut_action_clear_sections": {
     "message": "Alle Abschnitte löschen"
   },
   "popup_shortcut_action_focus": {
     "message": "Fokusmodus aktivieren"
-  },
-  "popup_note_inactive": {
-    "message": "Tastenkürzel sind auf YouTube-Videoseiten aktiv."
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -71,80 +63,80 @@
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
-  "popup_storage_warning_message": {
-    "message": "Speicher ist zu $1% belegt. Ältere Daten könnten bald gelöscht werden.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      }
-    }
-  },
-  "popup_storage_purge_completed": {
-    "message": "Ältere Daten wurden erfolgreich gelöscht."
-  },
-  "popup_storage_purge_failed": {
-    "message": "Löschen fehlgeschlagen. Bitte später erneut versuchen."
+  "popup_note_inactive": {
+    "message": "Tastenkürzel sind auf YouTube-Videoseiten aktiv."
   },
   "popup_warning_session_only_mode_detailed": {
-    "message": "Sitzungsmodus ist aktiv, da eine Sicherheitskomponente fehlgeschlagen ist. Abschnitte werden nicht gespeichert. Ein Neustart des Browsers könnte helfen."
+    "message": "Der Nur-Sitzung-Modus ist aktiv, da eine Sicherheitskomponente fehlgeschlagen ist. Abschnitte werden nicht gespeichert. Ein Neustart Ihres Browsers kann das Problem lösen."
+  },
+  "popup_storage_warning_message": {
+    "message": "Speicher ist über $1% voll. Ältere Daten könnten bald gelöscht werden.",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
   },
   "popup_error_setup_title": {
     "message": "Initialisierung fehlgeschlagen"
   },
   "popup_error_setup_advice": {
-    "message": "Bitte erneut versuchen. Bei anhaltendem Problem die Seite neu laden."
+    "message": "Bitte versuchen Sie es erneut. Wenn das Problem weiterhin besteht, laden Sie die Seite neu."
   },
   "popup_error_setup_crypto_failed": {
-    "message": "Eine erforderliche Browser-Sicherheitskomponente konnte nicht initialisiert werden. Abschnittsdaten können nicht gespeichert werden. Bitte 'Setup wiederholen' versuchen. Bei anhaltendem Problem könnte ein Browser-Neustart helfen."
+    "message": "Eine erforderliche Browser-Sicherheitskomponente konnte nicht initialisiert werden. Abschnittsdaten können nicht gespeichert werden. Bitte versuchen Sie 'Einrichtung wiederholen'. Wenn das Problem weiterhin besteht, kann ein Neustart Ihres Browsers helfen."
   },
   "popup_error_setup_unknown": {
-    "message": "Ein unbekannter Fehler trat während der Einrichtung auf."
+    "message": "Ein unbekannter Fehler ist während der Einrichtung aufgetreten."
   },
   "popup_error_connection_failed": {
-    "message": "Verbindung zur Erweiterung fehlgeschlagen. Bitte Seite neu laden und erneut versuchen."
+    "message": "Konnte keine Verbindung zur Erweiterung herstellen. Bitte laden Sie die Seite neu und versuchen Sie es erneut."
   },
   "popup_error_connection_timeout": {
-    "message": "Verbindung überschritten. Bitte Seite neu laden und erneut versuchen."
-  },
-  "popup_button_retry_setup": {
-    "message": "Setup wiederholen"
-  },
-  "popup_button_retrying": {
-    "message": "Wiederhole..."
+    "message": "Verbindungszeitüberschreitung. Bitte laden Sie die Seite neu und versuchen Sie es erneut."
   },
   "popup_storage_purge_button": {
     "message": "Alte Daten löschen"
   },
+  "popup_button_retry_setup": {
+    "message": "Einrichtung wiederholen"
+  },
+  "popup_button_retrying": {
+    "message": "Wiederhole..."
+  },
+  "popup_storage_purge_completed": {
+    "message": "Ältere Daten wurden erfolgreich gelöscht."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Löschvorgang fehlgeschlagen. Bitte versuchen Sie es später erneut."
+  },
   "toast_success_section_added": {
     "message": "Abschnitt #$1 hinzugefügt.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_sections_cleared": {
     "message": "Alle Abschnitte für dieses Video wurden gelöscht."
   },
   "toast_success_pending_save_applied": {
-    "message": "Gespeicherte Abschnitte aus vorheriger Sitzung angewendet."
+    "message": "Gespeicherte Abschnitte aus der vorherigen Sitzung übernommen."
   },
   "toast_success_storage_cleaned": {
     "message": "Speicher bereinigt. Aktuelle Nutzung: $1%.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_success_reconnected": {
     "message": "Erfolgreich wiederverbunden."
   },
-  "toast_action_reload": {
-    "message": "Seite neu laden"
+  "toast_success_initialized": {
+    "message": "Bereit!"
   },
   "toast_info_section_start_set": {
-    "message": "Abschnittsstartpunkt gesetzt. 'E' zum Beenden drücken."
+    "message": "Abschnittsstartpunkt festgelegt. Drücken Sie 'E' zum Beenden."
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Unvollständiger Abschnitt wurde am Videoende automatisch vervollständigt."
   },
   "toast_info_repeat_stopped": {
     "message": "Wiederholung gestoppt."
@@ -152,20 +144,14 @@
   "toast_info_repeating_navigation": {
     "message": "Wiederhole Abschnitt $1 von $2.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_info_jumped_to_section": {
     "message": "Zu Abschnitt $1 gesprungen.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_info_loaded_singular": {
@@ -174,110 +160,92 @@
   "toast_info_loaded_plural": {
     "message": "$1 gespeicherte Abschnitte für dieses Video geladen.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "Unvollständiger Abschnitt wurde automatisch am Videoende vervollständigt."
-  },
   "toast_info_legacy_data_cleared": {
-    "message": "Inkompatible alte Daten wurden für reibungslosen Betrieb gelöscht."
-  },
-  "toast_info_sectioning_hint": {
-    "message": "'S' drücken um Abschnitt zu starten, 'E' um zu beenden."
-  },
-  "toast_info_playlist_hint": {
-    "message": "Tipp: 'W' drücken für Fokusmodus und Playlist verlassen."
-  },
-  "toast_info_focus_mode_already": {
-    "message": "Sie befinden sich bereits im Fokusmodus."
-  },
-  "toast_info_focus_mode_entering": {
-    "message": "Aktiviere Fokusmodus... Die Seite wird neu geladen."
+    "message": "Inkompatible alte Daten wurden gelöscht, um einen reibungslosen Betrieb zu gewährleisten."
   },
   "toast_info_autorepeat_video": {
-    "message": "Video beendet. Wiederhole vom Anfang."
+    "message": "Das Video ist beendet. Wiederholung vom Anfang."
+  },
+  "toast_info_sectioning_hint": {
+    "message": "Drücken Sie 'S' um einen Abschnitt zu starten, 'E' um ihn zu beenden."
+  },
+  "toast_info_playlist_hint": {
+    "message": "Tipp: Drücken Sie 'W' um den Fokusmodus zu aktivieren und die Wiedergabeliste zu verlassen."
+  },
+  "toast_info_focus_mode_already": {
+    "message": "Sie sind bereits im Fokusmodus."
+  },
+  "toast_info_focus_mode_entering": {
+    "message": "Fokusmodus wird aktiviert... Die Seite wird neu geladen."
   },
   "toast_warn_initialization_slow": {
-    "message": "Erweiterung lädt noch... Bitte einen Moment warten und erneut versuchen."
+    "message": "Erweiterung lädt noch... Bitte versuchen Sie es gleich noch einmal."
   },
   "toast_warning_live_stream_unsupported": {
-    "message": "Abschnittswiederholung ist für Livestreams nicht verfügbar."
+    "message": "Abschnittswiederholung ist für Live-Streams nicht verfügbar."
   },
   "toast_warning_repeat_stopped_unexpectedly": {
     "message": "Wiederholung wurde aufgrund eines Navigations- oder Hintergrundfehlers gestoppt."
   },
   "toast_warning_storage_level": {
-    "message": "Speicher ist zu $1% belegt. Alte Daten könnten gelöscht werden.",
+    "message": "Speicher ist zu $1% voll. Alte Daten könnten gelöscht werden.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "Abschnittslimit von $1 erreicht. $2 älteste(r) Abschnitt(e) entfernt.",
+    "message": "Abschnittslimit von $1 erreicht. $2 älteste(r) Abschnitt(e) entfernt, um Platz zu schaffen.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "toast_error_player_init_failed": {
-    "message": "Initialisierung nach mehreren Versuchen fehlgeschlagen. Bitte Seite neu laden."
+    "message": "Initialisierung nach mehreren Versuchen fehlgeschlagen. Bitte laden Sie die Seite neu."
   },
   "toast_error_storage_critical": {
-    "message": "Speicher kritisch ($1% belegt). Alte Daten müssen für neue Abschnitte gelöscht werden.",
+    "message": "Speicher kritisch ($1% voll). Alte Daten müssen gelöscht werden, um neue Abschnitte zu speichern.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "toast_error_focus_mode_failed": {
-    "message": "Fokusmodus konnte nicht aktiviert werden. Bitte erneut versuchen."
+    "message": "Konnte nicht in den Fokusmodus wechseln. Bitte versuchen Sie es erneut."
   },
   "toast_error_action_locked": {
-    "message": "Aktion fehlgeschlagen, da ein anderer Vorgang läuft. Bitte gleich erneut versuchen."
+    "message": "Aktion fehlgeschlagen, da ein anderer Vorgang läuft. Bitte versuchen Sie es gleich noch einmal."
   },
   "toast_error_final_save_failed": {
-    "message": "Speichern fehlgeschlagen. Bitte 'Alte Daten löschen' im Popup verwenden, um Platz zu schaffen."
+    "message": "Daten konnten nicht gespeichert werden. Bitte verwenden Sie 'Alte Daten löschen' im Popup, um Speicherplatz freizugeben."
   },
   "toast_reload_prompt": {
-    "message": "Der Erweiterungskontext ging verloren. Bitte Seite neu laden um fortzufahren."
+    "message": "Der Erweiterungskontext ging verloren. Bitte laden Sie die Seite neu, um fortzufahren."
+  },
+  "toast_action_reload": {
+    "message": "Seite neu laden"
   },
   "aria_popup_shortcuts_table_label": {
-    "message": "Tastenkürzel-Liste. Pfeiltasten zum Navigieren der Zeilen verwenden."
+    "message": "Tastenkürzel-Liste. Verwenden Sie die Pfeiltasten, um zwischen Zeilen zu navigieren."
   },
   "aria_popup_shortcut_row_label": {
     "message": "Taste: $1, Aktion: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_shortcut_row_activated": {
     "message": "Tastenkürzel aktiviert. Taste: $1, Aktion: $2",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_popup_storage_purge_button_label": {
-    "message": "Ältere Abschnittsdaten löschen um Speicherplatz freizugeben."
+    "message": "Ältere Abschnittsdaten löschen, um Speicherplatz freizugeben."
   },
   "aria_toast_container_label": {
     "message": "Abschnittswiederholung-Benachrichtigungen"
@@ -286,68 +254,52 @@
     "message": "Benachrichtigung schließen"
   },
   "aria_overlay_desc_no_sections": {
-    "message": "Keine Abschnitte für dieses Video gesetzt."
+    "message": "Für dieses Video wurden keine Abschnitte festgelegt."
   },
   "aria_overlay_desc_singular": {
-    "message": "1 Abschnitt auf der Fortschrittsleiste gesetzt."
+    "message": "1 Abschnitt wurde auf der Fortschrittsleiste festgelegt."
   },
   "aria_overlay_desc_plural": {
-    "message": "$1 Abschnitte auf der Fortschrittsleiste gesetzt.",
+    "message": "$1 Abschnitte wurden auf der Fortschrittsleiste festgelegt.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      }
+      "1": { "content": "$1" }
     }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "Insgesamt $1 Abschnitte gesetzt. Wiederhole derzeit Abschnitt $2.",
+    "message": "Insgesamt wurden $1 Abschnitte festgelegt. Derzeit wird Abschnitt Nummer $2 wiederholt.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_with_incomplete": {
-    "message": "Insgesamt $1 Abschnitte gesetzt, davon $2 unvollständig.",
+    "message": "Insgesamt wurden $1 Abschnitte festgelegt, davon sind $2 unvollständig.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "Insgesamt $1 Abschnitte gesetzt, davon $2 unvollständig. Wiederhole derzeit Abschnitt $3.",
+    "message": "Insgesamt wurden $1 Abschnitte festgelegt, davon sind $2 unvollständig. Derzeit wird Abschnitt Nummer $3 wiederholt.",
     "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      },
-      "3": {
-        "content": "$3"
-      }
+      "1": { "content": "$1" },
+      "2": { "content": "$2" },
+      "3": { "content": "$3" }
     }
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Dies wird Ihre ältesten Abschnittsdaten dauerhaft löschen, um Platz zu schaffen. Sind Sie sicher?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "Die YouTube-Seitenstruktur hat sich unerwartet geändert, und die Erweiterung hat die Kontrolle verloren. Bitte laden Sie die Seite neu, um die Erweiterung neu zu starten."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "Eine kritische Komponente konnte nicht geladen werden, was verhindert, dass die Erweiterung korrekt funktioniert. Dieses Problem erfordert möglicherweise eine Neuinstallation der Erweiterung."
   },
   "dialog_button_cancel": {
     "message": "Abbrechen"
   },
   "dialog_button_confirm_purge": {
-    "message": "Löschen bestätigen"
-  },
-  "dialog_purge_confirm_message": {
-    "message": "Dies löscht Ihre ältesten Abschnittsdaten dauerhaft, um Platz zu schaffen. Sind Sie sicher?"
-  },
-  "dialog_critical_error_dom_changed": {
-    "message": "Die YouTube-Seitenstruktur hat sich unerwartet geändert und die Erweiterung verlor die Kontrolle. Bitte Seite neu laden, um die Erweiterung neu zu starten."
-  },
-  "dialog_critical_error_guidance_with_reinstall": {
-    "message": "Eine kritische Komponente konnte nicht geladen werden, was die korrekte Funktion der Erweiterung verhindert. Möglicherweise müssen Sie die Erweiterung neu installieren."
+    "message": "Löschung bestätigen"
   }
 }

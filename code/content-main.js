@@ -1,6 +1,5 @@
 (() => {
   'use strict';
-  // 전역 심볼 대신 고유 속성을 사용하여 중복 실행을 방지하고 격리 수준을 높입니다.
   const INIT_FLAG = '__SECTION_REPEAT_INITIALIZED_V2__';
   if (window.hasOwnProperty(INIT_FLAG)) {
     return;
@@ -46,7 +45,7 @@
   }
 
   let hasShownSlowInitToast = false;
-  let slowInitToastId = null; // 토스트 ID 저장을 위한 변수 추가
+  let slowInitToastId = null;
 
   const initializeController = function(playerEl, videoId) {
     const logger = SectionRepeat.logger;
@@ -97,10 +96,9 @@
 
       if (!hasShownSlowInitToast) {
         const tempToastQueue = new SectionRepeat.ToastQueue();
-        // show 메서드가 반환하는 ID를 저장
         slowInitToastId = tempToastQueue.show(
           helpers.t('toast_warn_initialization_slow'),
-          999999, // 닫히지 않도록 긴 시간 설정
+          999999,
           'warning'
         );
         hasShownSlowInitToast = true;

@@ -177,7 +177,6 @@
       const closeToastAndRestoreFocus = () => {
         this.removeToast(toastEl, toastId);
         focusTrap?.cleanup();
-        // ... (포커스 복원 로직)
         if (handleKeyDown) {
           toastEl.removeEventListener('keydown', handleKeyDown);
         }
