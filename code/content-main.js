@@ -100,10 +100,7 @@
           timestamp: now
         });
       }
-      if (!hasShownSlowInitToast && keydownQueue.length > 0) {
-        // We can't show a toast here directly as UI may not be ready.
-        // Instead, processKeydownQueue will check and show the toast once initialized.
-      }
+      if (!hasShownSlowInitToast && keydownQueue.length > 0) {}
       return;
     }
     if (!State.CONSTANTS?.HOTKEYS || !State.controller || State.controller.isLive || helpers?.shouldIgnoreKeyEvent(e)) {
@@ -221,9 +218,7 @@
 
   function processKeydownQueue() {
     const now = performance.now();
-    // [MODIFIED] Show the "initialization slow" toast only if the delay is noticeable (e.g., > 500ms).
-    // This prevents showing the warning for minor, imperceptible delays.
-    const staleThresholdForToast = 500; // 500ms
+    const staleThresholdForToast = 500;
     if (keydownQueue.length > 0 && !hasShownSlowInitToast && State.controller) {
       const oldestEvent = keydownQueue[0];
       if (now - oldestEvent.timestamp > staleThresholdForToast) {
@@ -374,4 +369,3 @@
     initialize();
   }
 })();
-

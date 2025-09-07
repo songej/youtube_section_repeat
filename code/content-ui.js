@@ -27,7 +27,6 @@
       });
       const styleEl = document.createElement('style');
 
-      // [MODIFIED] Updated styles to position the toast in the top-right corner.
       const styles = `
         :host {
           --sr-toast-bg-light: rgba(25, 25, 25, 0.92);
@@ -262,7 +261,7 @@
       toastEl.addEventListener('animationend', removeLogic);
       toastEl.classList.add('fade-out');
 
-      fallbackTimer = SectionRepeat.TimerManager.set(removeLogic, 400); // Animation is 300ms
+      fallbackTimer = SectionRepeat.TimerManager.set(removeLogic, 400);
     }
     remove(toastId) {
       const activeToast = this.activeToasts.get(toastId);
@@ -282,4 +281,3 @@
     }
   };
 })();
-

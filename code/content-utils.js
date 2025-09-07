@@ -410,15 +410,13 @@
     }
   };
 
-  // [MODIFIED] Removed LRU cache for hashing as it provides negligible performance benefits
-  // and adds unnecessary complexity. Direct hashing is fast enough.
   async function hashStringWithSalt(input, salt) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(input + salt);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const result = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      return result;
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input + salt);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const result = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return result;
   }
 
   SectionRepeat.helpers = {
@@ -597,12 +595,13 @@
       }
     },
     async hashVideoId(videoId) {
-        const { State } = SectionRepeat;
-        if (!State.userSalt) {
-            throw new SectionRepeat.CryptoError('User salt not available for hashing.');
-        }
-        return hashStringWithSalt(videoId, State.userSalt);
+      const {
+        State
+      } = SectionRepeat;
+      if (!State.userSalt) {
+        throw new SectionRepeat.CryptoError('User salt not available for hashing.');
+      }
+      return hashStringWithSalt(videoId, State.userSalt);
     }
   };
 })();
-

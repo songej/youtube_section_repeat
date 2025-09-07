@@ -25,7 +25,6 @@ try {
   });
   if (chrome.action) {
     chrome.action.disable();
-    // [MODIFIED] Use i18n with a safe fallback for the most critical error message.
     const criticalErrorTitle = chrome.i18n.getMessage('critical_error_title') || 'Section Repeat: Critical error. Please try reinstalling.';
     chrome.action.setTitle({
       title: criticalErrorTitle
@@ -1153,16 +1152,13 @@ async function handleContentScriptReady(message, sender) {
   logger.debug('CONTENT_SCRIPT_READY', 'Content script initialized, sending initial payload...', {
     tabId
   });
-
   await sendInitialPayload(tabId);
-
   enqueueStateUpdate({
     type: CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_INIT_STARTED,
     payload: {
       tabId
     }
   });
-
   return {};
 }
 async function handleReattemptSetup() {
@@ -1377,4 +1373,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true;
 });
 processStateUpdateQueue();
-

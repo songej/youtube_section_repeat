@@ -405,19 +405,16 @@
         this.overlayEl.setAttribute('aria-label', label);
       }
     }
-    // [MODIFIED] Use DocumentFragment to batch DOM updates for better performance.
     _synchronizeSectionElements(sections, currentIdx) {
       const fragment = document.createDocumentFragment();
       const sectionIndicesInDom = new Set();
-
       sections.forEach((section, index) => {
         let sectionEl = this.overlayEl.querySelector(`[data-section-index="${index}"]`);
         if (!sectionEl) {
           sectionEl = document.createElement('div');
           sectionEl.dataset.sectionIndex = index;
-          fragment.appendChild(sectionEl); // Append to fragment instead of directly to DOM
+          fragment.appendChild(sectionEl);
         }
-
         const isComplete = section.end != null;
         const isActive = currentIdx === index && isComplete;
         sectionEl.className = isComplete ? 'section' : 'incomplete-section';
@@ -427,13 +424,9 @@
         this._updateSectionElementStyle(sectionEl, section, index, isComplete, isActive);
         sectionIndicesInDom.add(index.toString());
       });
-
-      // Append all new elements at once
       if (fragment.hasChildNodes()) {
         this.overlayEl.appendChild(fragment);
       }
-
-      // Remove elements that are no longer in the sections array
       Array.from(this.overlayEl.children).forEach(el => {
         const index = el.dataset.sectionIndex;
         if (index && !sectionIndicesInDom.has(index)) {
@@ -1168,12 +1161,7 @@
         this.runInitialization(event);
       }, State.CONSTANTS.TIMING.DEBOUNCE.MUTATION);
     }
-    // [ADDED] A dedicated handler for events that might signal a video change.
     _handlePotentialVideoChange() {
-      // This handler is triggered by various YouTube SPA events (`yt-page-data-updated`, `yt-player-updated`)
-      // that often indicate a video change without a full page navigation.
-      // It acts as a robust safety net to ensure the controller is always synchronized
-      // with the currently displayed video, complementing the main navigation event listeners.
       this._requestReinitialization();
     }
     init() {
@@ -1186,11 +1174,8 @@
         }
       };
       document.addEventListener('visibilitychange', this.visibilityChangeHandler);
-
-      // [MODIFIED] Use the new dedicated handler for clarity and robustness.
       this.addEventListener(document, YOUTUBE_EVENTS.PAGE_DATA_UPDATED, () => this._handlePotentialVideoChange());
       this.addEventListener(document, YOUTUBE_EVENTS.PLAYER_UPDATED, () => this._handlePotentialVideoChange());
-
       this.addEventListener(document.body, YOUTUBE_EVENTS.NAVIGATE_START, () => {
         SectionRepeat.State?.elementCache?.invalidate();
         if (SectionRepeat.State.controller) {
@@ -1203,7 +1188,6 @@
         this.lastVideoSrc = null;
       });
       this.addEventListener(document.body, YOUTUBE_EVENTS.NAVIGATE_FINISH, (e) => {
-        // NAVIGATE_FINISH is a primary navigation event, so it calls the reinitialization request directly.
         this._requestReinitialization(e);
       });
       this.addEventListener(document, YOUTUBE_EVENTS.PLAYLIST_DATA_UPDATED, () => this.handlePlaylistChange());
