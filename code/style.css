@@ -61,7 +61,9 @@ code {
   font-size: var(--font-size-md);
   background-color: var(--bg-secondary);
   border-radius: var(--radius-sm);
-  transition: background-color 0.2s ease-in-out;
+  /* [MODIFIED] Added border in light mode to match dark mode, preventing layout shifts. */
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 
 .hidden {
@@ -235,6 +237,7 @@ body.loading::after {
 .grid-row.focused [role="gridcell"] code {
   color: white;
   background-color: var(--brand);
+  border-color: var(--brand);
   font-weight: bold;
 }
 
@@ -421,7 +424,6 @@ body.loading::after {
 }
 
 /* === CONTENT SCRIPT UI: TOAST NOTIFICATIONS === */
-/* [MODIFIED] Position the toast container in the top-right corner. */
 #section-repeat-toast-host {
   position: fixed !important;
   top: 24px !important;
@@ -498,7 +500,7 @@ ytd-watch-flexy[theater] #section-repeat-toast-host {
 
   code {
     color: var(--text-code-dark);
-    border: 1px solid var(--border-color);
+    /* [MODIFIED] No change needed here, as the base 'code' style now includes the border. */
   }
 
   .popup-error-close-btn:hover,
@@ -525,4 +527,3 @@ ytd-watch-flexy[theater] #section-repeat-toast-host {
     box-shadow: 0 0 0 1px black !important;
   }
 }
-

@@ -55,8 +55,25 @@ class GridFocusManager {
   }
 }
 
-function formatKeyCode(code) {
-  // [MODIFIED] Expanded key mappings for better localization coverage.
+// [MODIFIED] A layered, async approach to key formatting for better internationalization.
+async function formatKeyCode(code) {
+  // 1. Primary Method: Use the modern Keyboard API for dynamic, layout-aware key labels.
+  // This correctly displays the character on the physical key regardless of the user's keyboard layout (e.g., QWERTZ, AZERTY).
+  if (navigator.keyboard && navigator.keyboard.getLayoutMap) {
+    try {
+      const layoutMap = await navigator.keyboard.getLayoutMap();
+      const keyLabel = layoutMap.get(code);
+      if (keyLabel) {
+        // For single characters, make them uppercase for consistency. For others (like 'ArrowUp'), use as is.
+        return keyLabel.length === 1 ? keyLabel.toUpperCase() : keyLabel;
+      }
+    } catch (e) {
+      // Log error but continue gracefully to fallbacks.
+      console.warn('Could not get keyboard layout map, using fallbacks.', e);
+    }
+  }
+
+  // 2. Secondary Fallback: Use hardcoded i18n strings for special, non-alphanumeric keys.
   const keyMappings = {
     'ArrowUp': chrome.i18n.getMessage('popup_shortcut_key_arrow_up'),
     'ArrowDown': chrome.i18n.getMessage('popup_shortcut_key_arrow_down'),
@@ -71,6 +88,7 @@ function formatKeyCode(code) {
     return keyMappings[code];
   }
 
+  // 3. Final Fallback: Simple string manipulation for alphanumeric keys (QWERTY-centric).
   if (code.startsWith('Key')) return code.substring(3);
   if (code.startsWith('Digit')) return code.substring(5);
 
@@ -149,26 +167,34 @@ class PopupManager {
     });
   }
 
-  populateHotkeys() {
+  // [MODIFIED] Converted to an async function to support the await call to formatKeyCode.
+  async populateHotkeys() {
     if (this.CONSTS && this.CONSTS.HOTKEYS) {
-      for (const [action, code] of Object.entries(this.CONSTS.HOTKEYS)) {
+      // Use Promise.all for concurrent processing of hotkey formatting.
+      const hotkeyPromises = Object.entries(this.CONSTS.HOTKEYS).map(async ([action, code]) => {
         const el = document.getElementById(action);
         if (el) {
-          const formattedKey = formatKeyCode(code);
-          el.textContent = formattedKey;
-          el.classList.remove('loading');
-
-          try {
-            const row = el.closest('[role="row"]');
-            const actionCell = row.querySelector('[role="gridcell"][aria-describedby="header-action"]');
-            if (actionCell) {
-              const actionText = actionCell.textContent;
-              const fullLabel = chrome.i18n.getMessage('aria_popup_shortcut_row_label', [formattedKey, actionText]);
-              el.setAttribute('aria-label', fullLabel);
-            }
-          } catch (e) {}
+          const formattedKey = await formatKeyCode(code);
+          return () => { // Return a function to apply DOM changes synchronously later
+            el.textContent = formattedKey;
+            el.classList.remove('loading');
+            try {
+              const row = el.closest('[role="row"]');
+              const actionCell = row.querySelector('[role="gridcell"][aria-describedby="header-action"]');
+              if (actionCell) {
+                const actionText = actionCell.textContent;
+                const fullLabel = chrome.i18n.getMessage('aria_popup_shortcut_row_label', [formattedKey, actionText]);
+                el.setAttribute('aria-label', fullLabel);
+              }
+            } catch (e) {}
+          };
         }
-      }
+        return null;
+      });
+
+      const domUpdaters = (await Promise.all(hotkeyPromises)).filter(Boolean);
+      domUpdaters.forEach(update => update());
+
     } else {
       const errorText = chrome.i18n.getMessage('popup_hotkey_error_placeholder') || '-';
       document.querySelectorAll('.hotkey-placeholder.loading').forEach(el => {
@@ -216,8 +242,6 @@ class PopupManager {
     closeButton.onclick = closeAndCleanup;
     errorContainer.appendChild(closeButton);
     
-    // [MODIFIED] Removed automatic timeout for all dismissable errors to prevent focus loss issues.
-    // All errors with a close button now require manual dismissal.
     document.addEventListener('keydown', handleKeydown);
     closeButton.focus();
   }
@@ -527,8 +551,9 @@ class PopupManager {
       } else {
         throw new Error("Failed to get constants from background script.");
       }
-
-      this.populateHotkeys();
+      
+      // [MODIFIED] Added await because populateHotkeys is now async.
+      await this.populateHotkeys();
 
       if (chrome.storage && chrome.storage.local) {
         const {
@@ -638,4 +663,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.body.appendChild(errorUi);
   }
 });
-
