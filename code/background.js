@@ -15,33 +15,24 @@ const getMinimalConsts = () => ({
 });
 try {
   importScripts('constants.js');
-  if (typeof self.CONST?.DATA_SCHEMA_VERSION === 'undefined') {
-    throw new Error("constants.js was loaded but is incomplete or corrupted.");
-  }
   CONST = self.CONST;
   isConstantsLoaded = true;
 } catch (e) {
   CONST = getMinimalConsts();
-  isConstantsLoaded = false;
-  console.error('[Section Repeat] CRITICAL: Failed to load constants.js correctly.', e);
+  console.error('[Section Repeat] CRITICAL: Failed to load constants.js. The extension will be non-functional.', e);
   chrome.storage.local.set({
     [CONST.STORAGE_KEYS.CRITICAL_INIT_FAILURE]: true
   });
   if (chrome.action) {
     chrome.action.disable();
-    let extName, errorTitle, title;
-    try {
-      extName = chrome.i18n.getMessage('ext_name');
-      errorTitle = chrome.i18n.getMessage('popup_error_setup_title');
-      title = chrome.i18n.getMessage('action_error_title_with_name', [extName, errorTitle]);
-    } catch (i18nError) {
-      console.error('[Section Repeat] CRITICAL: Failed to get i18n messages during critical failure.', i18nError);
-      extName = 'Section Repeat';
-      errorTitle = 'Initialization Failed';
-      title = `${extName}: ${errorTitle}`;
-    }
+    const extName = chrome.i18n.getMessage('ext_name') || 'Section Repeat';
+    const errorTitleKey = 'popup_error_setup_title';
+    const errorTitle = chrome.i18n.getMessage(errorTitleKey);
+    const title = errorTitle ?
+      chrome.i18n.getMessage('action_error_title_with_name', [extName, errorTitle]) :
+      extName;
     chrome.action.setTitle({
-      title
+      title: title
     });
   }
 }
@@ -108,7 +99,7 @@ class ErrorLogger {
 const logger = new ErrorLogger();
 
 function isVideoPage(url) {
-  if (!url) return false;
+  if (!url || !isConstantsLoaded) return false;
   const patterns = CONST.YOUTUBE_VIDEO_URL_PATTERNS;
   try {
     const urlPath = new URL(url).pathname;
@@ -145,17 +136,17 @@ async function processStateUpdateQueue() {
     logger.debug('processStateUpdateQueue', 'Queue processing is already locked.');
     return;
   }
-  const lockId = `${Date.now()}-${Math.random()}`;
+  const lockId = Date.now();
   await chrome.storage.session.set({
     [QUEUE_LOCK_KEY]: {
-      timestamp: Date.now(),
-      id: lockId
+      timestamp: lockId
     }
   });
   let queue;
   try {
     queue = await getQueue();
     if (queue.length === 0) {
+      await chrome.storage.session.remove(QUEUE_LOCK_KEY);
       return;
     }
     const task = queue.shift();
@@ -172,7 +163,7 @@ async function processStateUpdateQueue() {
         error: taskError
       });
       const retryCount = (task.retries || 0) + 1;
-      if (retryCount <= CONST.TIMING.RETRY.STATE_UPDATE_ATTEMPTS) {
+      if (retryCount <= 3) {
         task.retries = retryCount;
         queue.unshift(task);
         await setQueue(queue);
@@ -181,7 +172,7 @@ async function processStateUpdateQueue() {
         logger.critical('processStateUpdateQueue', 'Task failed after max retries and was discarded.', {
           task
         });
-        const criticalTasks = ['REPEAT_STATE_CHANGED', 'STILL_REPEATING', 'NAVIGated_AWAY'];
+        const criticalTasks = ['REPEAT_STATE_CHANGED', 'STILL_REPEATING', 'NAVIGATED_AWAY'];
         if (criticalTasks.includes(task.type)) {
           try {
             const {
@@ -213,7 +204,7 @@ async function processStateUpdateQueue() {
     const {
       [QUEUE_LOCK_KEY]: finalLock
     } = await chrome.storage.session.get(QUEUE_LOCK_KEY);
-    if (finalLock && finalLock.id === lockId) {
+    if (finalLock && finalLock.timestamp === lockId) {
       await chrome.storage.session.remove(QUEUE_LOCK_KEY);
     }
   }
@@ -365,18 +356,21 @@ async function runTask(task, currentStates) {
   return newStates;
 }
 async function getTabStates() {
+  if (!isConstantsLoaded) return new Map();
   const {
     [CONST.STORAGE_KEYS.TAB_STATES]: tabStates = []
   } = await chrome.storage.session.get(CONST.STORAGE_KEYS.TAB_STATES);
   return new Map(tabStates);
 }
 async function setTabStates(newStates) {
+  if (!isConstantsLoaded) return;
   await chrome.storage.session.set({
     [CONST.STORAGE_KEYS.TAB_STATES]: Array.from(newStates.entries())
   });
 }
 const lockManager = {
   async acquire(key, timeout) {
+    if (!isConstantsLoaded) throw new Error("Constants not loaded, cannot acquire lock.");
     timeout = timeout || CONST.TIMING.TIMEOUT.LOCK;
     const lockKey = `${CONST.STORAGE_KEYS.LOCK_PREFIX}${key}`;
     const lockId = Date.now() + Math.random();
@@ -413,7 +407,7 @@ const lockManager = {
     throw new Error(`Lock acquisition timed out for key: ${key}`);
   },
   async release(key, lockId) {
-    if (!lockId) return;
+    if (!lockId || !isConstantsLoaded) return;
     const lockKey = `${CONST.STORAGE_KEYS.LOCK_PREFIX}${key}`;
     try {
       const {
@@ -514,11 +508,7 @@ async function purgeOldSections(userInitiated = false) {
     return true;
   } catch (e) {
     if (e.message.includes('Lock acquisition timed out')) {
-      if (userInitiated) {
-        logger.warning('purgeOldSections', 'Lock busy for user-initiated purge.');
-        throw new Error('lock_busy');
-      }
-      logger.debug('purgeOldSections', 'Could not acquire purge lock for background task, scheduling retry.');
+      logger.debug('purgeOldSections', 'Could not acquire purge lock, scheduling retry.');
       chrome.alarms.create(CONST.ALARM_NAMES.RETRY_PURGE, {
         delayInMinutes: CONST.TIMING.TIMEOUT.PURGE_RETRY_DELAY_MIN
       });
@@ -538,7 +528,7 @@ async function purgeOldSections(userInitiated = false) {
 async function notifyStorageStateToTabs(level, usagePercent) {
   try {
     const tabs = await chrome.tabs.query({
-      url: ["*://*.youtube.com/*", "*://*.youtube-nocookie.com/*"]
+      url: "*://*.youtube.com/*"
     });
     for (const tab of tabs) {
       chrome.tabs.sendMessage(tab.id, {
@@ -968,7 +958,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
   debouncedUpdateTabStatus(activeInfo.tabId);
 });
 async function updateTabStatus(tabId, url) {
-  if (!tabId || !url) return;
+  if (!tabId || !isConstantsLoaded || !url) return;
   try {
     const isVidPage = isVideoPage(url);
     await chrome.storage.session.set({
@@ -1163,13 +1153,18 @@ async function handleContentScriptReady(message, sender) {
   logger.debug('CONTENT_SCRIPT_READY', 'Content script initialized, sending initial payload...', {
     tabId
   });
-  sendInitialPayload(tabId);
-  await enqueueStateUpdate({
+
+  // [수정] 가장 중요한 페이로드 전송을 최우선으로 실행하여 콘텐츠 스크립트의 대기 상태를 즉시 해제합니다.
+  await sendInitialPayload(tabId);
+
+  // [수정] 상태 업데이트는 중요하지만 페이로드 전송을 막아서는 안 되므로, 이후에 비동기적으로 실행합니다.
+  enqueueStateUpdate({
     type: 'CONTENT_SCRIPT_INIT_STARTED',
     payload: {
       tabId
     }
   });
+
   return {};
 }
 async function handleReattemptSetup() {
@@ -1225,63 +1220,33 @@ async function handleGetUserSalt() {
     salt: userSalt
   };
 }
-async function handleHashVideoId(message) {
-  const userSalt = await getUserSaltWithRetry();
-  if (!userSalt) throw new Error('Salt not available');
-  const {
-    videoId
-  } = message.payload;
-  const saltString = Array.isArray(userSalt) ? userSalt.map(b => b.toString(16).padStart(2, '0')).join('') : userSalt;
-  const data = new TextEncoder().encode(videoId + saltString);
-  try {
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashedId = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return {
-      hashedId
-    };
-  } catch (e) {
-    logger.critical('handleHashVideoId', 'SubtleCrypto API failed.', e);
-    throw new Error('Hashing failed due to crypto API error.');
-  }
-}
-async function handleSaveDataAndMetadata({
+async function handleUpdateMetadata({
   payload
 }) {
   const {
-    key,
-    data,
-    metadata
-  } = payload;
-  const {
     hashedId,
     sectionCount
-  } = metadata;
+  } = payload;
   let lockId;
   try {
     lockId = await lockManager.acquire(CONST.LOCK_KEYS.METADATA_ACCESS);
-    const {
-      [CONST.STORAGE_KEYS.METADATA]: currentMetadata = {}
-    } = await chrome.storage.local.get(CONST.STORAGE_KEYS.METADATA);
     const storageKey = `${CONST.STORAGE_PREFIX}${hashedId}`;
+    const {
+      [CONST.STORAGE_KEYS.METADATA]: metadata = {}
+    } = await chrome.storage.local.get(CONST.STORAGE_KEYS.METADATA);
     if (sectionCount > 0) {
-      currentMetadata[storageKey] = {
+      metadata[storageKey] = {
         updatedAt: Date.now(),
         sectionCount
       };
     } else {
-      delete currentMetadata[storageKey];
+      delete metadata[storageKey];
     }
     await chrome.storage.local.set({
-      [key]: data,
-      [CONST.STORAGE_KEYS.METADATA]: currentMetadata
+      [CONST.STORAGE_KEYS.METADATA]: metadata
     });
-    if (chrome.runtime.lastError) {
-      throw new Error(chrome.runtime.lastError.message);
-    }
   } catch (e) {
-    logger.error('handleSaveDataAndMetadata', 'Failed to save data and metadata atomically.', e);
-    throw e;
+    logger.error('handleUpdateMetadata', 'Failed to update metadata', e);
   } finally {
     if (lockId) {
       await lockManager.release(CONST.LOCK_KEYS.METADATA_ACCESS, lockId);
@@ -1290,16 +1255,10 @@ async function handleSaveDataAndMetadata({
   return {};
 }
 const messageHandlers = {
-  [CONST?.MESSAGE_TYPES?.GET_CONSTANTS]: () => {
-    if (!isConstantsLoaded) {
-      throw new Error("Constants are not available.");
-    }
-    return {
-      constants: CONST
-    };
+  [CONST?.MESSAGE_TYPES?.UPDATE_METADATA]: (msg) => {
+    handleUpdateMetadata(msg);
+    return {};
   },
-  [CONST?.MESSAGE_TYPES?.SAVE_DATA_AND_METADATA]: handleSaveDataAndMetadata,
-  [CONST?.MESSAGE_TYPES?.HASH_VIDEO_ID]: handleHashVideoId,
   [CONST?.MESSAGE_TYPES?.CONTENT_SCRIPT_READY]: handleContentScriptReady,
   [CONST?.MESSAGE_TYPES?.REATTEMPT_SETUP]: handleReattemptSetup,
   [CONST?.MESSAGE_TYPES?.GET_TAB_STATE]: handleGetTabState,
@@ -1308,6 +1267,9 @@ const messageHandlers = {
   [CONST?.MESSAGE_TYPES?.TRIGGER_IMMEDIATE_PURGE]: handleTriggerImmediatePurge,
   [CONST?.MESSAGE_TYPES?.GET_STORAGE_INFO]: handleGetStorageInfo,
   [CONST?.MESSAGE_TYPES?.GET_USER_SALT]: handleGetUserSalt,
+  [CONST?.MESSAGE_TYPES?.GET_CONSTANTS]: () => ({
+    constants: CONST
+  }),
   [CONST?.MESSAGE_TYPES?.ACQUIRE_LOCK]: (msg) => lockManager.acquire(msg.payload.key, msg.payload.timeout).then(lockId => ({
     lockId
   })),
@@ -1362,55 +1324,55 @@ const messageHandlers = {
   },
 };
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (!isConstantsLoaded) {
+    logger.critical('onMessage', new Error('Received a message but constants are not loaded. Aborting.'), {
+      messageType: message.type
+    });
+    sendResponse({
+      success: false,
+      error: 'critical_initialization_failure'
+    });
+    return true;
+  }
   (async () => {
-    try {
-      if (!isConstantsLoaded) {
-        logger.critical('onMessage', new Error('Received a message but constants are not loaded. Aborting.'), {
-          messageType: message.type
+    if (sender.tab && sender.tab.id) {
+      try {
+        await chrome.tabs.get(sender.tab.id);
+      } catch (e) {
+        await enqueueStateUpdate({
+          type: 'RECONCILE_TAB_STATES'
         });
         sendResponse({
           success: false,
-          error: 'critical_initialization_failure'
+          reason: 'tab_closed'
         });
         return;
       }
-      if (sender.tab && sender.tab.id) {
-        try {
-          await chrome.tabs.get(sender.tab.id);
-        } catch (e) {
-          await enqueueStateUpdate({
-            type: 'RECONCILE_TAB_STATES'
-          });
-          sendResponse({
-            success: false,
-            reason: 'tab_closed'
-          });
-          return;
-        }
-      }
-      const handler = messageHandlers[message.type];
-      if (handler) {
+    }
+    const handler = messageHandlers[message.type];
+    if (handler) {
+      try {
         const responseData = await handler(message, sender);
         sendResponse({
           success: true,
           ...responseData
         });
-      } else {
-        logger.warning('onMessage', 'Unknown message type received.', {
-          type: message.type
+      } catch (error) {
+        logger.error('onMessage', error, {
+          messageType: message.type
         });
         sendResponse({
           success: false,
-          reason: 'unknown_message_type'
+          error: error.message
         });
       }
-    } catch (error) {
-      logger.error('onMessage.critical_boundary', error, {
-        messageType: message.type
+    } else {
+      logger.warning('onMessage', 'Unknown message type received.', {
+        type: message.type
       });
       sendResponse({
         success: false,
-        error: error.message
+        reason: 'unknown_message_type'
       });
     }
   })();

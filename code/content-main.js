@@ -1,19 +1,19 @@
 (() => {
   'use strict';
-  const INIT_FLAG = '__SECTION_REPEAT_INITIALIZED_V2__';
-  if (window.hasOwnProperty(INIT_FLAG)) {
+  const INIT_SYMBOL = Symbol.for('section_repeat_initialized_v2');
+
+  if (window[INIT_SYMBOL]) {
     return;
   }
-  Object.defineProperty(window, INIT_FLAG, {
-    value: true,
-    writable: false,
-    configurable: false
-  });
+  window[INIT_SYMBOL] = true;
 
-  const SectionRepeat = window.SectionRepeat || {};
-  window.SectionRepeat = SectionRepeat;
+  if (typeof window.SectionRepeat === 'undefined' || typeof window.SectionRepeat.CONSTANTS === 'undefined') {
+    console.error('[Section Repeat] CRITICAL: constants.js failed to load. Aborting initialization on this page.');
+    return;
+  }
+
+  const SectionRepeat = window.SectionRepeat;
   SectionRepeat.CONSTANTS = SectionRepeat.CONSTANTS || {};
-
   let resolveInitializationPromise;
   const initializationPromise = new Promise(resolve => {
     resolveInitializationPromise = resolve;
@@ -45,7 +45,6 @@
   }
 
   let hasShownSlowInitToast = false;
-  let slowInitToastId = null;
 
   const initializeController = function(playerEl, videoId) {
     const logger = SectionRepeat.logger;
@@ -65,7 +64,6 @@
     }
 
     hasShownSlowInitToast = false;
-    slowInitToastId = null;
 
     State.controller = new SectionRepeat.SectionController(playerEl);
     State.controller.init(videoId).catch(e => {
@@ -90,20 +88,8 @@
     if (!State.isFullyInitialized) {
       const now = performance.now();
       const {
-        KEY_QUEUE,
-        TOAST_DURATION
+        KEY_QUEUE
       } = State.CONSTANTS;
-
-      if (!hasShownSlowInitToast) {
-        const tempToastQueue = new SectionRepeat.ToastQueue();
-        slowInitToastId = tempToastQueue.show(
-          helpers.t('toast_warn_initialization_slow'),
-          999999,
-          'warning'
-        );
-        hasShownSlowInitToast = true;
-      }
-
       const lastEvent = keydownQueue[keydownQueue.length - 1];
       if (lastEvent && lastEvent.event.code === e.code) {
         return;
@@ -260,7 +246,7 @@
     const t = helpers?.t || ((key) => key);
     State.messageHandlers.set(State.CONSTANTS.MESSAGE_TYPES.INIT_PAYLOAD, (message) => {
       if (State.initManager) {
-        State.initManager.handleInitialPayload(message.payload, slowInitToastId);
+        State.initManager.handleInitialPayload(message.payload);
         checkAndApplyPendingSave();
         processKeydownQueue();
       }
@@ -305,9 +291,6 @@
       if (State.controller) {
         State.controller.cleanup();
       }
-      if (State.initManager?.keydownHandler) {
-        document.removeEventListener('keydown', State.initManager.keydownHandler);
-      }
       const toastQueue = State.controller?.toastQueue || new SectionRepeat.ToastQueue();
       toastQueue.show(t('toast_error_player_init_failed'), 999999, 'error', {
         isPermanent: true,
@@ -342,18 +325,18 @@
     State.elementCache?.clear();
     if (State.globalAriaAnnouncer) State.globalAriaAnnouncer.remove();
     SectionRepeat.TimerManager.clear(State.extensionHealthCheckTimer, 'interval');
+    window.removeEventListener('keydown', handleKeyDown);
     window.removeEventListener('beforeunload', SectionRepeat.handleBeforeUnload);
   };
   const initialize = () => {
-    State.initManager = new SectionRepeat.InitializationManager();
-    State.initManager.initialize();
-  };
-
-  const preInitialize = () => {
+    if (!SectionRepeat.State.CONSTANTS.IS_PRODUCTION) {
+      SectionRepeat.logger.debug('init', 'Development mode is active.');
+    }
     if (!SectionRepeat.InitializationManager) {
       SectionRepeat.logger.critical('init', "Critical component 'InitializationManager' not found!");
       return;
     }
+    State.initManager = new SectionRepeat.InitializationManager();
     if (!State.messageListenerRegistered && chrome?.runtime?.onMessage) {
       State.messageListenerRegistered = true;
       chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -367,13 +350,19 @@
         return false;
       });
     }
-    createGlobalAriaAnnouncer();
-    initialize();
-  };
 
+    // [수정] 단축키 핸들러를 즉시 등록
+    document.addEventListener('keydown', handleKeyDown);
+    // [수정] 페이지 이탈 핸들러도 함께 등록
+    window.addEventListener('beforeunload', SectionRepeat.handleBeforeUnload);
+
+    setupMessageHandlers();
+    createGlobalAriaAnnouncer();
+    State.initManager.initialize();
+  };
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', preInitialize);
+    document.addEventListener('DOMContentLoaded', initialize);
   } else {
-    preInitialize();
+    initialize();
   }
 })();

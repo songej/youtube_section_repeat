@@ -72,35 +72,61 @@
       this.sections = this.sections.filter(s => s.start != null);
       this.completedSections = this.sections.filter(s => s.end != null);
     }
+    async #updateMetadata(sectionCount) {
+      const {
+        helpers,
+        logger,
+        State
+      } = SectionRepeat;
+      if (!this.videoId) return;
+      try {
+        const hashedId = await helpers.hashVideoId(this.videoId);
+        if (!hashedId) return false;
+        await helpers.retryAsync(() => helpers.sendMessage({
+          type: State.CONSTANTS.MESSAGE_TYPES.UPDATE_METADATA,
+          payload: {
+            hashedId,
+            sectionCount
+          }
+        }), {
+          context: 'updateMetadata',
+          shouldRetry: (e) => !e.message?.includes('Extension context invalidated')
+        });
+        return true;
+      } catch (e) {
+        logger.error('updateMetadata', 'Failed to send metadata update after retries', e);
+        throw e;
+      }
+    }
     async loadData() {
       const {
         State,
         logger,
         helpers
       } = SectionRepeat;
-      if (this.abortCtrl.signal.aborted) return;
+      if (this.abortCtrl.signal.aborted) return [];
       if (!chrome?.storage?.local) {
         logger.warning('loadData', 'Chrome storage API not available');
         this.updateSections([]);
-        return;
+        return [];
       }
       try {
         const hashedId = await helpers.hashVideoId(this.videoId);
         if (this.abortCtrl.signal.aborted || !hashedId) {
           this.updateSections([]);
           if (!hashedId) logger.info('loadData', 'Aborting load due to unavailable hash. Session-only mode.');
-          return;
+          return [];
         }
         const storageKey = `${State.CONSTANTS.STORAGE_PREFIX}${hashedId}`;
         const localData = await chrome.storage.local.get(storageKey);
-        if (this.abortCtrl.signal.aborted) return;
+        if (this.abortCtrl.signal.aborted) return this.sections;
         const storedData = localData[storageKey];
         if (storedData) {
           if (!Array.isArray(storedData.sections)) {
             logger.warning('loadData', `Corrupted section data found (not an array) for video ${this.videoId}. Resetting sections.`);
             this.updateSections([]);
             await this.clearAllDataForCurrentVideo();
-            return;
+            return [];
           }
           if (storedData.v === State.CONSTANTS.DATA_SCHEMA_VERSION) {
             this.updateSections(storedData.sections);
@@ -132,6 +158,7 @@
           );
         }
       }
+      return this.sections;
     }
     async persist(immediate = false) {
       const {
@@ -142,7 +169,7 @@
       } = SectionRepeat;
       const persistLogic = async () => {
         if (this.abortCtrl.signal.aborted) return;
-        let hashedId, key, payloadToSave, sectionsToSave;
+        let hashedId, key, payloadToSave;
         try {
           if (!chrome?.storage?.local) throw new Error('Storage API not available');
           hashedId = await helpers.hashVideoId(this.videoId);
@@ -151,7 +178,7 @@
             return;
           }
           key = `${State.CONSTANTS.STORAGE_PREFIX}${hashedId}`;
-          sectionsToSave = [...this.sections];
+          let sectionsToSave = [...this.sections];
           const maxSections = State.CONSTANTS.SECTION_LIMITS.MAX_SECTIONS_PER_VIDEO;
           if (sectionsToSave.length > maxSections) {
             const incompleteSection = sectionsToSave.find(s => s.end == null);
@@ -170,17 +197,10 @@
             updatedAt: Date.now(),
             v: State.CONSTANTS.DATA_SCHEMA_VERSION
           };
-          await helpers.sendMessage({
-            type: State.CONSTANTS.MESSAGE_TYPES.SAVE_DATA_AND_METADATA,
-            payload: {
-              key: key,
-              data: payloadToSave,
-              metadata: {
-                hashedId: hashedId,
-                sectionCount: sectionsToSave.filter(s => s.end != null).length
-              }
-            }
+          await chrome.storage.local.set({
+            [key]: payloadToSave
           });
+          await this.#updateMetadata(sectionsToSave.filter(s => s.end != null).length);
         } catch (err) {
           if (err.message?.includes('QUOTA_EXCEEDED')) {
             logger.warning('persist', 'QUOTA_EXCEEDED. Saving as pending and requesting purge.');
@@ -308,7 +328,7 @@
     toast(msg, duration, type = 'info', options = {}) {
       const State = SectionRepeat.State;
       duration = duration || State?.CONSTANTS?.TOAST_DURATION?.SHORT || 3000;
-      return this.toastQueue.show(msg, duration, type, options);
+      this.toastQueue.show(msg, duration, type, options);
     }
     updateOverlay(sections, currentIdx = -1, force = false) {
       const {
@@ -386,10 +406,14 @@
       }
     }
     _synchronizeSectionElements(sections, currentIdx) {
-      const fragment = document.createDocumentFragment();
+      const sectionIndicesInDom = new Set();
       sections.forEach((section, index) => {
-        const sectionEl = document.createElement('div');
-        sectionEl.dataset.sectionIndex = index;
+        let sectionEl = this.overlayEl.querySelector(`[data-section-index="${index}"]`);
+        if (!sectionEl) {
+          sectionEl = document.createElement('div');
+          sectionEl.dataset.sectionIndex = index;
+          this.overlayEl.appendChild(sectionEl);
+        }
         const isComplete = section.end != null;
         const isActive = currentIdx === index && isComplete;
         sectionEl.className = isComplete ? 'section' : 'incomplete-section';
@@ -397,11 +421,14 @@
           sectionEl.classList.add('is-active');
         }
         this._updateSectionElementStyle(sectionEl, section, index, isComplete, isActive);
-        fragment.appendChild(sectionEl);
+        sectionIndicesInDom.add(index.toString());
       });
-      this.overlayEl.innerHTML = '';
-      this.overlayEl.appendChild(fragment);
-      this.incompleteSectionEl = this.overlayEl.querySelector('.incomplete-section');
+      Array.from(this.overlayEl.children).forEach(el => {
+        const index = el.dataset.sectionIndex;
+        if (index && !sectionIndicesInDom.has(index)) {
+          el.remove();
+        }
+      });
     }
     _updateSectionElementStyle(sectionEl, section, index, isComplete, isActive) {
       const {
@@ -494,6 +521,7 @@
       this.abortCtrl = new AbortController();
       this.isPausedByVisibility = false;
       this.checkRepeatState = this.checkRepeatState.bind(this);
+      this.isNavigating = false;
     }
     _enterRepeatMode(index) {
       this.mode = SectionRepeat.State.CONSTANTS.MODES.REPEATING;
@@ -517,16 +545,18 @@
       }
     }
     async navigateSections(direction) {
+      if (this.isNavigating) return;
       const completedSections = this.dataManager.getCompletedSections();
       if (completedSections.length === 0) return;
-      let nextIdx = this.currentIdx;
-      if (nextIdx === -1) {
-        nextIdx = (direction === 'prev' ? completedSections.length - 1 : 0);
-      } else {
+      this.isNavigating = true;
+      try {
+        let nextIdx = this.currentIdx === -1 ? 0 : this.currentIdx;
         nextIdx += (direction === 'prev' ? -1 : 1);
         nextIdx = (nextIdx + completedSections.length) % completedSections.length;
+        await this.startRepeat(nextIdx, true);
+      } finally {
+        this.isNavigating = false;
       }
-      await this.startRepeat(nextIdx, true);
     }
     jumpToSection(index) {
       const completedSections = this.dataManager.getCompletedSections();
@@ -552,16 +582,13 @@
         this.stopRepeat(false);
         return;
       }
-      const {
-        REPEAT_BEHAVIOR
-      } = State.CONSTANTS;
       const currentTime = this.videoEl.currentTime;
-      if (currentTime < section.start - REPEAT_BEHAVIOR.LOOP_CHECK_TOLERANCE_SEC || currentTime >= section.end) {
+      if (currentTime < section.start - 0.1 || currentTime >= section.end) {
         this.videoEl.currentTime = section.start;
       }
       const POLLING_INTERVAL_MS = 100;
       const timeUntilEnd = section.end - this.videoEl.currentTime;
-      const nextCheckDelay = Math.max(POLLING_INTERVAL_MS, (timeUntilEnd - REPEAT_BEHAVIOR.NEXT_CHECK_SCHEDULE_OFFSET_SEC) * 1000);
+      const nextCheckDelay = Math.max(POLLING_INTERVAL_MS, (timeUntilEnd - 0.15) * 1000);
       helpers.sendMessage({
         type: State.CONSTANTS.MESSAGE_TYPES.SCHEDULE_REPEAT_CHECK,
         payload: {
@@ -721,7 +748,7 @@
       const liveBadge = helpers.qSel(State.CONSTANTS.SELECTORS.LIVE_BADGE, this.playerEl);
       return !!(liveBadge && liveBadge.isConnected && liveBadge.offsetParent !== null);
     }
-    async _runHealthCheck(retries = 3, delay = 150) {
+    _runHealthCheck() {
       const {
         State,
         helpers,
@@ -732,21 +759,15 @@
         controls: State.CONSTANTS.SELECTORS.CONTROLS,
         progressBar: State.CONSTANTS.SELECTORS.PROGRESS_BAR,
       };
-      for (let i = 0; i < retries; i++) {
-        const isHealthy = Object.values(essentialSelectors).every(selectors => {
-          const el = helpers.qSel(selectors, this.playerEl);
-          return el && el.offsetParent !== null;
-        });
-        if (isHealthy) {
-          return true;
-        }
-        if (i < retries - 1) {
-          await new Promise(res => setTimeout(res, delay * (i + 1)));
+      for (const [key, selectors] of Object.entries(essentialSelectors)) {
+        const element = helpers.qSel(selectors, this.playerEl);
+        if (!element || element.offsetParent === null) {
+          logger.error('HealthCheck.fail', `Essential element not found or not visible: ${key}`);
+          this.isHealthy = false;
+          return false;
         }
       }
-      logger.error('HealthCheck.fail', 'Essential elements not found after all retries.');
-      this.isHealthy = false;
-      return false;
+      return true;
     }
     startHealthCheckRecovery() {
       const {
@@ -762,9 +783,9 @@
         State.unifiedObserver.unregister(recoveryObserverKey);
         this.uiManager.showCriticalErrorDialog();
       }, 30000);
-      State.unifiedObserver.register(recoveryObserverKey, playerContainer, async () => {
+      State.unifiedObserver.register(recoveryObserverKey, playerContainer, () => {
         recoveryAttempts++;
-        if (await this._runHealthCheck()) {
+        if (this._runHealthCheck()) {
           logger.info('HealthCheck.recovery', 'Health check passed. Re-initializing controller.');
           State.unifiedObserver.unregister(recoveryObserverKey);
           SectionRepeat.TimerManager.clear(recoveryTimeout);
@@ -822,7 +843,7 @@
       this.endHandled = false;
       if (this.abortCtrl.signal.aborted) return;
       this.uiManager = new SectionUIManager(this.playerEl, this.videoEl);
-      if (!(await this._runHealthCheck())) {
+      if (!this._runHealthCheck()) {
         this.uiManager.showCriticalErrorDialog();
         this.startHealthCheckRecovery();
         return;
@@ -845,11 +866,11 @@
       try {
         await State.initializationPromise;
         if (this.abortCtrl.signal.aborted) return;
-        await this.dataManager.loadData();
+        const initialSections = await this.dataManager.loadData();
         if (this.abortCtrl.signal.aborted) return;
         this.bindEvents();
         this.updateListenerState();
-        this.uiManager.updateOverlay(this.dataManager.getSections(), -1, true);
+        this.uiManager.updateOverlay(initialSections, -1, true);
         const loadedSectionCount = this.dataManager.getCompletedSections().length;
         if (loadedSectionCount > 0) {
           const msgKey = loadedSectionCount === 1 ? 'toast_info_loaded_singular' : 'toast_info_loaded_plural';
@@ -864,8 +885,6 @@
           this.repeatManager.startRepeat(0);
         }
         this.isHealthy = true;
-        this.keydownHandler = (e) => SectionRepeat.handleKeyDown(e);
-        document.addEventListener('keydown', this.keydownHandler);
       } catch (e) {
         this.isHealthy = false;
         logger.critical('init', 'Initialization promise failed', e);
@@ -1104,10 +1123,6 @@
     }
     cleanup() {
       this.abortCtrl.abort();
-      if (this.keydownHandler) {
-        document.removeEventListener('keydown', this.keydownHandler);
-        this.keydownHandler = null;
-      }
       this.uiManager?.cleanup();
       if (this.isTimeUpdateListenerActive) {
         this.videoEl.removeEventListener('timeupdate', this.timeUpdateHandler);
@@ -1119,7 +1134,6 @@
       SectionRepeat.logger.debug('cleanup', 'Controller and all managers cleaned up');
     }
   };
-  const GLOBAL_LISTENERS_INITIALIZED = Symbol.for('sr_global_listeners_initialized_v2');
   SectionRepeat.NavigationManager = class NavigationManager {
     constructor() {
       this.initPromise = null;
@@ -1144,9 +1158,6 @@
       }, State.CONSTANTS.TIMING.DEBOUNCE.MUTATION);
     }
     init() {
-      if (window[GLOBAL_LISTENERS_INITIALIZED]) {
-        return;
-      }
       const YOUTUBE_EVENTS = SectionRepeat.State.CONSTANTS.YOUTUBE_EVENTS;
       this.visibilityChangeHandler = () => {
         this.isBackgroundTab = document.hidden;
@@ -1184,7 +1195,6 @@
         this._requestReinitialization();
         this.setupPlayerObserver();
       });
-      window[GLOBAL_LISTENERS_INITIALIZED] = true;
     }
     runSafetyCheck() {
       const {
@@ -1466,7 +1476,6 @@
         }
       });
       this.eventListeners = [];
-      window[GLOBAL_LISTENERS_INITIALIZED] = false;
     }
   };
   SectionRepeat.InitializationManager = class InitializationManager {
@@ -1480,15 +1489,6 @@
       const TimerManager = SectionRepeat.TimerManager;
       const helpers = SectionRepeat.helpers;
       try {
-        const response = await helpers.sendMessage({
-          type: 'GET_CONSTANTS'
-        });
-        if (response && response.constants) {
-          SectionRepeat.CONSTANTS = response.constants;
-          State.CONSTANTS = response.constants;
-        } else {
-          throw new Error("Failed to get constants from background.");
-        }
         await helpers.sendMessage({
           type: State.CONSTANTS.MESSAGE_TYPES.CONTENT_SCRIPT_READY
         });
@@ -1516,7 +1516,7 @@
       await new Promise(resolve => TimerManager.set(resolve, delay));
       await this.initialize();
     }
-    handleInitialPayload(payload, slowInitToastId) {
+    handleInitialPayload(payload) {
       const State = SectionRepeat.State;
       const TimerManager = SectionRepeat.TimerManager;
       const logger = SectionRepeat.logger;
@@ -1528,8 +1528,6 @@
       const cacheTTL = State.CONSTANTS?.DOM_CACHE?.TTL || 30000;
       State.elementCache = new SectionRepeat.LRUCache(cacheSize, cacheTTL);
       State.unifiedObserver = new SectionRepeat.UnifiedObserverManager();
-      this.beforeUnloadHandler = () => SectionRepeat.handleBeforeUnload();
-      window.addEventListener('beforeunload', this.beforeUnloadHandler);
       State.navigationManager = new SectionRepeat.NavigationManager();
       State.navigationManager.init();
       TimerManager.set(() => {
@@ -1537,10 +1535,6 @@
       }, cacheTTL, 'interval');
       State.isFullyInitialized = true;
       logger.info('handleInitialPayload', 'Section & Repeat is fully initialized and ready.');
-      if (slowInitToastId && State.controller?.toastQueue) {
-        State.controller.toastQueue.remove(slowInitToastId);
-        State.controller.toast(helpers.t('toast_success_initialized'), 1500, 'success');
-      }
       if (State.resolveInitialization) {
         State.resolveInitialization();
       }

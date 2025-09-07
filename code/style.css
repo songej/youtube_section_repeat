@@ -189,13 +189,19 @@ body.loading::after {
 
 #section-repeat-toast-host {
   position: fixed !important;
-  bottom: 100px !important;
+  bottom: 80px !important; /* Default position for standard view */
   left: 50% !important;
   z-index: var(--sr-z-index-toast) !important;
   width: auto !important;
   max-width: 90vw !important;
   transform: translateX(-50%) !important;
   pointer-events: none !important;
+  transition: bottom 0.3s ease; /* Smooth transition for position changes */
+}
+
+/* Adjust position for YouTube's theater mode */
+ytd-watch-flexy[theater]:has(#section-repeat-toast-host) #section-repeat-toast-host {
+    bottom: 100px !important;
 }
 
 .dialog-overlay {

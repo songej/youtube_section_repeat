@@ -1,5 +1,9 @@
-(function(SectionRepeat) {
+(function() { // [Fix] Race Condition 방지를 위해 IIFE 패턴 변경
   'use strict';
+  // [Fix] 다른 스크립트보다 먼저 실행될 경우를 대비해 SectionRepeat 네임스페이스를 방어적으로 생성
+  const SectionRepeat = window.SectionRepeat || {};
+  window.SectionRepeat = SectionRepeat;
+
   if (!SectionRepeat) {
     console.error('SectionRepeat namespace not found!');
     return;
@@ -262,4 +266,4 @@
       this.queue = [];
     }
   };
-})(window.SectionRepeat);
+})();

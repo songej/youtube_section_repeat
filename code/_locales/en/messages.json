@@ -5,13 +5,6 @@
   "ext_description": {
     "message": "A-B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts."
   },
-  "action_error_title_with_name": {
-    "message": "$1: $2",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
-  },
   "popup_shortcuts_header_key": {
     "message": "Key"
   },
@@ -75,6 +68,15 @@
       "1": { "content": "$1" }
     }
   },
+  "popup_storage_purge_button": {
+    "message": "Purge Old Data"
+  },
+  "popup_storage_purge_completed": {
+    "message": "Older data has been successfully purged."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Purge failed. Please try again later."
+  },
   "popup_error_setup_title": {
     "message": "Initialization Failed"
   },
@@ -93,20 +95,11 @@
   "popup_error_connection_timeout": {
     "message": "Connection timed out. Please reload the page and try again."
   },
-  "popup_storage_purge_button": {
-    "message": "Purge Old Data"
-  },
   "popup_button_retry_setup": {
     "message": "Retry Setup"
   },
   "popup_button_retrying": {
     "message": "Retrying..."
-  },
-  "popup_storage_purge_completed": {
-    "message": "Older data has been successfully purged."
-  },
-  "popup_storage_purge_failed": {
-    "message": "Purge failed. Please try again later."
   },
   "toast_success_section_added": {
     "message": "Section #$1 added.",
@@ -203,6 +196,12 @@
       "2": { "content": "$2" }
     }
   },
+  "toast_warning_sync_failed": {
+    "message": "Cloud sync failed. Sections will be saved only on this device for now."
+  },
+  "toast_warning_quota_exceeded_pending": {
+    "message": "Storage is full. Your section will be saved once older data is cleared."
+  },
   "toast_error_player_init_failed": {
     "message": "Initialization failed after multiple retries. Please reload the page."
   },
@@ -226,6 +225,21 @@
   },
   "toast_action_reload": {
     "message": "Reload Page"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "This will permanently delete your oldest section data to make space. Are you sure?"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "The YouTube page structure changed unexpectedly, and the extension lost control. Please reload the page to restart the extension."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "A critical component failed to load, which prevents the extension from working correctly. This issue may require you to reinstall the extension."
+  },
+  "dialog_button_cancel": {
+    "message": "Cancel"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Confirm Purge"
   },
   "aria_popup_shortcuts_table_label": {
     "message": "Keyboard shortcuts list. Use arrow keys to navigate rows."
@@ -287,19 +301,11 @@
       "3": { "content": "$3" }
     }
   },
-  "dialog_purge_confirm_message": {
-    "message": "This will permanently delete your oldest section data to make space. Are you sure?"
-  },
-  "dialog_critical_error_dom_changed": {
-    "message": "The YouTube page structure changed unexpectedly, and the extension lost control. Please reload the page to restart the extension."
-  },
-  "dialog_critical_error_guidance_with_reinstall": {
-    "message": "A critical component failed to load, which prevents the extension from working correctly. This issue may require you to reinstall the extension."
-  },
-  "dialog_button_cancel": {
-    "message": "Cancel"
-  },
-  "dialog_button_confirm_purge": {
-    "message": "Confirm Purge"
+  "action_error_title_with_name": {
+    "message": "$1: $2",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
   }
 }

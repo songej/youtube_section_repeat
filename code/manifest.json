@@ -24,6 +24,7 @@
         "*://*.youtube-nocookie.com/*"
       ],
       "js": [
+        "constants.js",
         "content-utils.js",
         "content-ui.js",
         "content-core.js",
@@ -32,7 +33,7 @@
       "css": [
         "style.css"
       ],
-      "run_at": "document_idle"
+      "run_at": "document_end"
     }
   ],
   "host_permissions": [
