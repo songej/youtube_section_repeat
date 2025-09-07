@@ -3,14 +3,10 @@
     "message": "YouTube™ 区間リピート"
   },
   "ext_description": {
-    "message": "YouTubeのA-Bリピートと複数区間ループ。キーボードショートカットで効率的に練習。"
+    "message": "YouTubeのA-Bリピートと複数区間ループ。キーボードショートカットキーで効率的に練習。"
   },
-  "action_error_title_with_name": {
-    "message": "$1：$2",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+  "popup_note_inactive": {
+    "message": "YouTube動画ページでホットキーが有効になります。"
   },
   "popup_shortcuts_header_key": {
     "message": "キー"
@@ -18,11 +14,14 @@
   "popup_shortcuts_header_action": {
     "message": "アクション"
   },
+  "popup_shortcut_action_focus": {
+    "message": "フォーカスモードに入る"
+  },
   "popup_shortcut_action_start": {
     "message": "区間開始"
   },
   "popup_shortcut_action_end": {
-    "message": "区間終了（連結）"
+    "message": "区間終了"
   },
   "popup_shortcut_action_toggle_repeat": {
     "message": "リピート切替"
@@ -37,10 +36,7 @@
     "message": "区間へジャンプ"
   },
   "popup_shortcut_action_clear_sections": {
-    "message": "全区間削除"
-  },
-  "popup_shortcut_action_focus": {
-    "message": "フォーカスモード開始"
+    "message": "全区間クリア"
   },
   "popup_shortcut_key_jump_range": {
     "message": "1～9"
@@ -60,20 +56,14 @@
   "popup_shortcut_key_space": {
     "message": "スペース"
   },
+  "popup_shortcut_key_home": {
+    "message": "Home"
+  },
+  "popup_shortcut_key_end": {
+    "message": "End"
+  },
   "popup_hotkey_error_placeholder": {
     "message": "-"
-  },
-  "popup_note_inactive": {
-    "message": "YouTube動画ページでホットキーが有効になります。"
-  },
-  "popup_warning_session_only_mode_detailed": {
-    "message": "セキュリティコンポーネントの障害によりセッション限定モードが有効です。区間は保存されません。ブラウザの再起動で解決する場合があります。"
-  },
-  "popup_storage_warning_message": {
-    "message": "ストレージが$1%以上使用されています。古いデータが間もなく削除される可能性があります。",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
   },
   "popup_error_setup_title": {
     "message": "初期化失敗"
@@ -81,77 +71,83 @@
   "popup_error_setup_advice": {
     "message": "もう一度お試しください。問題が続く場合は、ページを再読み込みしてください。"
   },
-  "popup_error_setup_crypto_failed": {
-    "message": "必要なブラウザセキュリティコンポーネントの初期化に失敗しました。区間データを保存できません。「セットアップ再試行」をお試しください。問題が続く場合は、ブラウザの再起動が役立つ場合があります。"
-  },
-  "popup_error_setup_unknown": {
-    "message": "セットアップ中に不明なエラーが発生しました。"
-  },
-  "popup_error_connection_failed": {
-    "message": "拡張機能に接続できませんでした。ページを再読み込みしてもう一度お試しください。"
-  },
-  "popup_error_connection_timeout": {
-    "message": "接続がタイムアウトしました。ページを再読み込みしてもう一度お試しください。"
-  },
-  "popup_storage_purge_button": {
-    "message": "古いデータを削除"
-  },
   "popup_button_retry_setup": {
-    "message": "セットアップ再試行"
+    "message": "設定を再試行"
   },
   "popup_button_retrying": {
     "message": "再試行中..."
   },
-  "popup_storage_purge_completed": {
-    "message": "古いデータを正常に削除しました。"
+  "popup_storage_warning_message": {
+    "message": "ストレージが$1%以上使用されています。古いデータが間もなく削除される可能性があります。",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
-  "popup_storage_purge_failed": {
-    "message": "削除に失敗しました。後でもう一度お試しください。"
+  "popup_storage_purge_button": {
+    "message": "古いデータを削除"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "容量確保のため、最も古い区間データを完全に削除します。よろしいですか？"
+  },
+  "dialog_button_cancel": {
+    "message": "キャンセル"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "削除を確認"
   },
   "toast_success_section_added": {
-    "message": "区間 #$1 を追加しました。",
+    "message": "区間#$1を追加しました。",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_success_sections_cleared": {
-    "message": "この動画のすべての区間を削除しました。"
+    "message": "この動画の全区間をクリアしました。"
   },
   "toast_success_pending_save_applied": {
     "message": "前回のセッションから保存された区間を適用しました。"
   },
   "toast_success_storage_cleaned": {
-    "message": "ストレージをクリーンアップしました。現在の使用率：$1%",
+    "message": "ストレージをクリーンアップしました。現在の使用量：$1%。",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_success_reconnected": {
     "message": "正常に再接続しました。"
   },
-  "toast_success_initialized": {
-    "message": "準備完了！"
-  },
   "toast_info_section_start_set": {
-    "message": "区間開始点を設定しました。'E'を押して終了してください。"
+    "message": "区間の開始点を設定しました。'E'を押して終了してください。"
   },
   "toast_info_incomplete_section_autocompleted": {
-    "message": "不完全な区間は動画の終わりで自動的に完了しました。"
+    "message": "不完全な区間が動画の終了時に自動的に完成されました。"
   },
   "toast_info_repeat_stopped": {
     "message": "リピートを停止しました。"
   },
   "toast_info_repeating_navigation": {
-    "message": "$2個中$1番目の区間をリピート中。",
+    "message": "$2個中$1番目の区間をリピート中です。",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "toast_info_jumped_to_section": {
-    "message": "区間$1へジャンプしました。",
+    "message": "区間$1にジャンプしました。",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_info_loaded_singular": {
@@ -160,20 +156,22 @@
   "toast_info_loaded_plural": {
     "message": "この動画の保存された区間を$1個読み込みました。",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_info_legacy_data_cleared": {
-    "message": "スムーズな動作のため、互換性のない古いデータを削除しました。"
+    "message": "スムーズな動作のため、互換性のない古いデータをクリアしました。"
   },
   "toast_info_autorepeat_video": {
-    "message": "動画が終了しました。最初からリピートします。"
+    "message": "動画が終了しました。最初から繰り返します。"
   },
   "toast_info_sectioning_hint": {
-    "message": "'S'で区間を開始、'E'で終了します。"
+    "message": "'S'を押して区間を開始、'E'を押して終了します。"
   },
   "toast_info_playlist_hint": {
-    "message": "ヒント：'W'を押してフォーカスモードに入り、プレイリストから離れます。"
+    "message": "ヒント：'W'を押してフォーカスモードに入り、プレイリストを離れられます。"
   },
   "toast_info_focus_mode_already": {
     "message": "すでにフォーカスモードです。"
@@ -182,10 +180,10 @@
     "message": "フォーカスモードに入ります... ページが再読み込みされます。"
   },
   "toast_warn_initialization_slow": {
-    "message": "拡張機能はまだ読み込み中です... しばらく待ってからもう一度お試しください。"
+    "message": "拡張機能はまだ読み込み中です... しばらくしてからもう一度お試しください。"
   },
   "toast_warning_live_stream_unsupported": {
-    "message": "ライブ配信では区間リピートは利用できません。"
+    "message": "区間リピートはライブストリームでは使用できません。"
   },
   "toast_warning_repeat_stopped_unexpectedly": {
     "message": "ナビゲーションまたはバックグラウンドエラーのためリピートが停止しました。"
@@ -193,59 +191,66 @@
   "toast_warning_storage_level": {
     "message": "ストレージが$1%使用されています。古いデータが削除される可能性があります。",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "区間の上限$1に達しました。スペースを作るため最も古い区間$2個を削除しました。",
+    "message": "区間制限$1個に達しました。容量確保のため最も古い区間$2個を削除しました。",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
-  "toast_error_player_init_failed": {
-    "message": "複数回の試行後、初期化に失敗しました。ページを再読み込みしてください。"
-  },
   "toast_error_storage_critical": {
-    "message": "ストレージ危機的（$1%使用）。新しい区間を保存するには古いデータを削除する必要があります。",
+    "message": "ストレージ危機（$1%使用）。新しい区間を保存するには古いデータを削除する必要があります。",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_error_focus_mode_failed": {
     "message": "フォーカスモードに入れませんでした。もう一度お試しください。"
   },
   "toast_error_action_locked": {
-    "message": "別の操作が進行中のため、アクションが失敗しました。しばらく待ってからもう一度お試しください。"
+    "message": "別の処理が進行中のためアクションが失敗しました。しばらくしてからもう一度お試しください。"
   },
   "toast_error_final_save_failed": {
-    "message": "データの保存に失敗しました。ポップアップの「古いデータを削除」を使用してスペースを解放してください。"
-  },
-  "toast_reload_prompt": {
-    "message": "拡張機能のコンテキストが失われました。続行するにはページを再読み込みしてください。"
-  },
-  "toast_action_reload": {
-    "message": "ページを再読み込み"
+    "message": "データの保存に失敗しました。ポップアップの「古いデータを削除」を使用して容量を確保してください。"
   },
   "aria_popup_shortcuts_table_label": {
-    "message": "キーボードショートカット一覧。矢印キーで行間を移動できます。"
+    "message": "キーボードショートカット一覧。矢印キーで行をナビゲートします。"
   },
   "aria_popup_shortcut_row_label": {
     "message": "キー：$1、アクション：$2",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_popup_shortcut_row_activated": {
-    "message": "ショートカットがアクティブになりました。キー：$1、アクション：$2",
+    "message": "ショートカットが有効化されました。キー：$1、アクション：$2",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_popup_storage_purge_button_label": {
-    "message": "ストレージスペースを解放するため古い区間データを削除します。"
+    "message": "ストレージ容量を確保するため古い区間データを削除します。"
   },
   "aria_toast_container_label": {
     "message": "区間リピート通知"
@@ -254,52 +259,92 @@
     "message": "通知を閉じる"
   },
   "aria_overlay_desc_no_sections": {
-    "message": "この動画に設定された区間はありません。"
+    "message": "この動画に区間は設定されていません。"
   },
   "aria_overlay_desc_singular": {
-    "message": "プログレスバーに1個の区間が設定されました。"
+    "message": "プログレスバーに1個の区間が設定されています。"
   },
   "aria_overlay_desc_plural": {
-    "message": "プログレスバーに$1個の区間が設定されました。",
+    "message": "プログレスバーに$1個の区間が設定されています。",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "合計$1個の区間が設定されました。現在$2番目の区間をリピート中です。",
+    "message": "合計$1個の区間が設定されています。現在$2番目の区間をリピート中です。",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_overlay_desc_with_incomplete": {
     "message": "合計$1個の区間が設定され、そのうち$2個が不完全です。",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_overlay_desc_full_state": {
     "message": "合計$1個の区間が設定され、そのうち$2個が不完全です。現在$3番目の区間をリピート中です。",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" },
-      "3": { "content": "$3" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
     }
   },
-  "dialog_purge_confirm_message": {
-    "message": "最も古い区間データを完全に削除してスペースを作ります。よろしいですか？"
+  "critical_error_title": {
+    "message": "区間リピート：重大なエラー。再インストールをお試しください。"
+  },
+  "popup_error_connection_failed": {
+    "message": "拡張機能に接続できませんでした。ページを再読み込みしてもう一度お試しください。"
+  },
+  "popup_error_connection_timeout": {
+    "message": "接続がタイムアウトしました。ページを再読み込みしてもう一度お試しください。"
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "必要なブラウザセキュリティコンポーネントの初期化に失敗しました。区間データを保存できません。「設定を再試行」をお試しください。問題が続く場合は、ブラウザの再起動が役立つ可能性があります。"
+  },
+  "popup_error_setup_unknown": {
+    "message": "セットアップ中に不明なエラーが発生しました。"
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "セキュリティコンポーネントの失敗によりセッション限定モードが有効です。区間は保存されません。ブラウザの再起動で解決する可能性があります。"
+  },
+  "popup_storage_purge_completed": {
+    "message": "古いデータを正常に削除しました。"
+  },
+  "popup_storage_purge_failed": {
+    "message": "削除に失敗しました。後でもう一度お試しください。"
+  },
+  "toast_error_player_init_failed": {
+    "message": "複数回の再試行後も初期化に失敗しました。ページを再読み込みしてください。"
+  },
+  "toast_reload_prompt": {
+    "message": "拡張機能のコンテキストが失われました。続行するにはページを再読み込みしてください。"
+  },
+  "toast_action_reload": {
+    "message": "ページを再読み込み"
   },
   "dialog_critical_error_dom_changed": {
-    "message": "YouTubeページ構造が予期せず変更され、拡張機能が制御を失いました。拡張機能を再起動するにはページを再読み込みしてください。"
+    "message": "YouTubeページ構造が予期せず変更され、拡張機能が制御を失いました。ページを再読み込みして拡張機能を再起動してください。"
   },
   "dialog_critical_error_guidance_with_reinstall": {
-    "message": "重要なコンポーネントの読み込みに失敗し、拡張機能が正しく動作しません。この問題を解決するには拡張機能の再インストールが必要な場合があります。"
-  },
-  "dialog_button_cancel": {
-    "message": "キャンセル"
-  },
-  "dialog_button_confirm_purge": {
-    "message": "削除を確認"
+    "message": "重要なコンポーネントの読み込みに失敗し、拡張機能が正しく動作していません。拡張機能の再インストールが必要な場合があります。"
   }
 }

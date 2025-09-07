@@ -5,12 +5,8 @@
   "ext_description": {
     "message": "Lặp A-B và vòng lặp đa đoạn cho YouTube. Luyện tập nhanh với phím tắt."
   },
-  "action_error_title_with_name": {
-    "message": "$1: $2",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+  "popup_note_inactive": {
+    "message": "Phím tắt hoạt động khi bạn đang ở trang video YouTube."
   },
   "popup_shortcuts_header_key": {
     "message": "Phím"
@@ -18,11 +14,14 @@
   "popup_shortcuts_header_action": {
     "message": "Hành động"
   },
+  "popup_shortcut_action_focus": {
+    "message": "Vào Chế độ Tập trung"
+  },
   "popup_shortcut_action_start": {
     "message": "Bắt đầu đoạn"
   },
   "popup_shortcut_action_end": {
-    "message": "Kết thúc (nối) đoạn"
+    "message": "Kết thúc đoạn"
   },
   "popup_shortcut_action_toggle_repeat": {
     "message": "Bật/tắt lặp"
@@ -31,16 +30,13 @@
     "message": "Đoạn trước"
   },
   "popup_shortcut_action_next": {
-    "message": "Đoạn tiếp"
+    "message": "Đoạn sau"
   },
   "popup_shortcut_action_jump": {
-    "message": "Nhảy đến đoạn"
+    "message": "Nhảy tới đoạn"
   },
   "popup_shortcut_action_clear_sections": {
     "message": "Xóa tất cả đoạn"
-  },
-  "popup_shortcut_action_focus": {
-    "message": "Vào Chế độ Tập trung"
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -58,60 +54,55 @@
     "message": "→"
   },
   "popup_shortcut_key_space": {
-    "message": "Dấu cách"
+    "message": "Phím cách"
+  },
+  "popup_shortcut_key_home": {
+    "message": "Home"
+  },
+  "popup_shortcut_key_end": {
+    "message": "End"
   },
   "popup_hotkey_error_placeholder": {
     "message": "-"
-  },
-  "popup_note_inactive": {
-    "message": "Phím nóng hoạt động khi bạn ở trang video YouTube."
-  },
-  "popup_warning_session_only_mode_detailed": {
-    "message": "Chế độ chỉ-phiên hoạt động do thành phần bảo mật thất bại. Các đoạn sẽ không được lưu. Khởi động lại trình duyệt có thể giải quyết vấn đề."
-  },
-  "popup_storage_warning_message": {
-    "message": "Bộ nhớ đã đầy hơn $1%. Dữ liệu cũ có thể sớm bị xóa.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
   },
   "popup_error_setup_title": {
     "message": "Khởi tạo thất bại"
   },
   "popup_error_setup_advice": {
-    "message": "Vui lòng thử lại. Nếu vấn đề vẫn tiếp tục, hãy thử tải lại trang."
-  },
-  "popup_error_setup_crypto_failed": {
-    "message": "Thành phần bảo mật trình duyệt cần thiết không khởi tạo được. Dữ liệu đoạn không thể lưu. Vui lòng thử 'Thử lại Cài đặt'. Nếu vấn đề vẫn tiếp tục, khởi động lại trình duyệt có thể giúp."
-  },
-  "popup_error_setup_unknown": {
-    "message": "Đã xảy ra lỗi không xác định trong quá trình cài đặt."
-  },
-  "popup_error_connection_failed": {
-    "message": "Không thể kết nối với tiện ích. Vui lòng tải lại trang và thử lại."
-  },
-  "popup_error_connection_timeout": {
-    "message": "Kết nối hết thời gian chờ. Vui lòng tải lại trang và thử lại."
-  },
-  "popup_storage_purge_button": {
-    "message": "Xóa dữ liệu cũ"
+    "message": "Vui lòng thử lại. Nếu vấn đề vẫn tiếp tục, hãy tải lại trang."
   },
   "popup_button_retry_setup": {
-    "message": "Thử lại Cài đặt"
+    "message": "Thử lại cài đặt"
   },
   "popup_button_retrying": {
     "message": "Đang thử lại..."
   },
-  "popup_storage_purge_completed": {
-    "message": "Dữ liệu cũ đã được xóa thành công."
+  "popup_storage_warning_message": {
+    "message": "Bộ nhớ đã dùng hơn $1%. Dữ liệu cũ có thể sẽ bị xóa sớm.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
-  "popup_storage_purge_failed": {
-    "message": "Xóa thất bại. Vui lòng thử lại sau."
+  "popup_storage_purge_button": {
+    "message": "Xóa dữ liệu cũ"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Thao tác này sẽ xóa vĩnh viễn dữ liệu đoạn cũ nhất của bạn để tạo không gian. Bạn có chắc không?"
+  },
+  "dialog_button_cancel": {
+    "message": "Hủy"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Xác nhận xóa"
   },
   "toast_success_section_added": {
     "message": "Đã thêm đoạn #$1.",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_success_sections_cleared": {
@@ -121,22 +112,21 @@
     "message": "Đã áp dụng các đoạn đã lưu từ phiên trước."
   },
   "toast_success_storage_cleaned": {
-    "message": "Đã dọn bộ nhớ. Sử dụng hiện tại: $1%.",
+    "message": "Đã dọn dẹp bộ nhớ. Sử dụng hiện tại: $1%.",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_success_reconnected": {
     "message": "Kết nối lại thành công."
   },
-  "toast_success_initialized": {
-    "message": "Sẵn sàng!"
-  },
   "toast_info_section_start_set": {
     "message": "Đã đặt điểm bắt đầu đoạn. Nhấn 'E' để kết thúc."
   },
   "toast_info_incomplete_section_autocompleted": {
-    "message": "Đoạn chưa hoàn thành đã tự động hoàn tất ở cuối video."
+    "message": "Đoạn chưa hoàn thành đã được tự động hoàn tất ở cuối video."
   },
   "toast_info_repeat_stopped": {
     "message": "Đã dừng lặp."
@@ -144,14 +134,20 @@
   "toast_info_repeating_navigation": {
     "message": "Đang lặp đoạn $1 trong $2.",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "toast_info_jumped_to_section": {
-    "message": "Đã nhảy đến đoạn $1.",
+    "message": "Đã nhảy tới đoạn $1.",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_info_loaded_singular": {
@@ -160,7 +156,9 @@
   "toast_info_loaded_plural": {
     "message": "Đã tải $1 đoạn đã lưu cho video này.",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_info_legacy_data_cleared": {
@@ -173,7 +171,7 @@
     "message": "Nhấn 'S' để bắt đầu đoạn, 'E' để kết thúc."
   },
   "toast_info_playlist_hint": {
-    "message": "Mẹo: Nhấn 'W' để vào Chế độ Tập trung và rời playlist."
+    "message": "Mẹo: Nhấn 'W' để vào Chế độ Tập trung và rời khỏi danh sách phát."
   },
   "toast_info_focus_mode_already": {
     "message": "Bạn đã ở trong Chế độ Tập trung."
@@ -182,7 +180,7 @@
     "message": "Đang vào Chế độ Tập trung... Trang sẽ tải lại."
   },
   "toast_warn_initialization_slow": {
-    "message": "Tiện ích vẫn đang tải... Vui lòng thử lại sau giây lát."
+    "message": "Tiện ích vẫn đang tải... Vui lòng thử lại sau một chút."
   },
   "toast_warning_live_stream_unsupported": {
     "message": "Lặp Đoạn không khả dụng cho phát trực tiếp."
@@ -191,57 +189,64 @@
     "message": "Lặp đã dừng do lỗi điều hướng hoặc nền."
   },
   "toast_warning_storage_level": {
-    "message": "Bộ nhớ đã đầy $1%. Dữ liệu cũ có thể bị xóa.",
+    "message": "Bộ nhớ đã dùng $1%. Dữ liệu cũ có thể bị xóa.",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "Đã đạt giới hạn $1 đoạn. Đã xóa $2 đoạn cũ nhất để tạo chỗ.",
+    "message": "Đã đạt giới hạn $1 đoạn. Đã xóa $2 đoạn cũ nhất để tạo không gian.",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
-  "toast_error_player_init_failed": {
-    "message": "Khởi tạo thất bại sau nhiều lần thử. Vui lòng tải lại trang."
-  },
   "toast_error_storage_critical": {
-    "message": "Bộ nhớ Nghiêm trọng (đầy $1%). Phải xóa dữ liệu cũ để lưu đoạn mới.",
+    "message": "Bộ nhớ nghiêm trọng ($1% đầy). Phải xóa dữ liệu cũ để lưu đoạn mới.",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "toast_error_focus_mode_failed": {
     "message": "Không thể vào Chế độ Tập trung. Vui lòng thử lại."
   },
   "toast_error_action_locked": {
-    "message": "Hành động thất bại vì một thao tác khác đang diễn ra. Vui lòng thử lại sau giây lát."
+    "message": "Hành động thất bại vì một thao tác khác đang thực hiện. Vui lòng thử lại sau một chút."
   },
   "toast_error_final_save_failed": {
-    "message": "Lưu dữ liệu thất bại. Vui lòng dùng 'Xóa dữ liệu cũ' trong popup để giải phóng không gian."
-  },
-  "toast_reload_prompt": {
-    "message": "Ngữ cảnh tiện ích đã mất. Vui lòng tải lại trang để tiếp tục."
-  },
-  "toast_action_reload": {
-    "message": "Tải lại trang"
+    "message": "Lưu dữ liệu thất bại. Dùng 'Xóa dữ liệu cũ' trong popup để giải phóng không gian."
   },
   "aria_popup_shortcuts_table_label": {
-    "message": "Danh sách phím tắt. Dùng phím mũi tên để di chuyển giữa các hàng."
+    "message": "Danh sách phím tắt. Dùng phím mũi tên để điều hướng các hàng."
   },
   "aria_popup_shortcut_row_label": {
     "message": "Phím: $1, Hành động: $2",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_popup_shortcut_row_activated": {
     "message": "Phím tắt đã kích hoạt. Phím: $1, Hành động: $2",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_popup_storage_purge_button_label": {
@@ -254,52 +259,92 @@
     "message": "Đóng thông báo"
   },
   "aria_overlay_desc_no_sections": {
-    "message": "Không có đoạn nào được đặt cho video này."
+    "message": "Chưa có đoạn nào được đặt cho video này."
   },
   "aria_overlay_desc_singular": {
-    "message": "1 đoạn đã được đặt trên thanh tiến trình."
+    "message": "Đã đặt 1 đoạn trên thanh tiến trình."
   },
   "aria_overlay_desc_plural": {
-    "message": "$1 đoạn đã được đặt trên thanh tiến trình.",
+    "message": "Đã đặt $1 đoạn trên thanh tiến trình.",
     "placeholders": {
-      "1": { "content": "$1" }
+      "1": {
+        "content": "$1"
+      }
     }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "Tổng cộng $1 đoạn đã được đặt. Hiện đang lặp đoạn số $2.",
+    "message": "Tổng cộng đã đặt $1 đoạn. Hiện đang lặp đoạn số $2.",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_overlay_desc_with_incomplete": {
-    "message": "Tổng cộng $1 đoạn đã được đặt, trong đó $2 đoạn chưa hoàn thành.",
+    "message": "Tổng cộng đã đặt $1 đoạn, trong đó $2 đoạn chưa hoàn thành.",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "Tổng cộng $1 đoạn đã được đặt, trong đó $2 đoạn chưa hoàn thành. Hiện đang lặp đoạn số $3.",
+    "message": "Tổng cộng đã đặt $1 đoạn, trong đó $2 đoạn chưa hoàn thành. Hiện đang lặp đoạn số $3.",
     "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" },
-      "3": { "content": "$3" }
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
     }
   },
-  "dialog_purge_confirm_message": {
-    "message": "Thao tác này sẽ xóa vĩnh viễn dữ liệu đoạn cũ nhất để tạo không gian. Bạn có chắc không?"
+  "critical_error_title": {
+    "message": "Lặp Đoạn: Lỗi nghiêm trọng. Vui lòng thử cài đặt lại."
+  },
+  "popup_error_connection_failed": {
+    "message": "Không thể kết nối tới tiện ích. Vui lòng tải lại trang và thử lại."
+  },
+  "popup_error_connection_timeout": {
+    "message": "Hết thời gian kết nối. Vui lòng tải lại trang và thử lại."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Thành phần bảo mật trình duyệt cần thiết không khởi tạo được. Dữ liệu đoạn không thể lưu. Vui lòng thử 'Thử lại cài đặt'. Nếu vấn đề vẫn tiếp tục, khởi động lại trình duyệt có thể giúp ích."
+  },
+  "popup_error_setup_unknown": {
+    "message": "Đã xảy ra lỗi không xác định trong quá trình cài đặt."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Chế độ chỉ-phiên đang hoạt động vì thành phần bảo mật thất bại. Các đoạn sẽ không được lưu. Khởi động lại trình duyệt có thể giải quyết vấn đề này."
+  },
+  "popup_storage_purge_completed": {
+    "message": "Dữ liệu cũ đã được xóa thành công."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Xóa thất bại. Vui lòng thử lại sau."
+  },
+  "toast_error_player_init_failed": {
+    "message": "Khởi tạo thất bại sau nhiều lần thử. Vui lòng tải lại trang."
+  },
+  "toast_reload_prompt": {
+    "message": "Ngữ cảnh tiện ích đã mất. Vui lòng tải lại trang để tiếp tục."
+  },
+  "toast_action_reload": {
+    "message": "Tải lại trang"
   },
   "dialog_critical_error_dom_changed": {
-    "message": "Cấu trúc trang YouTube thay đổi bất ngờ, và tiện ích mất quyền kiểm soát. Vui lòng tải lại trang để khởi động lại tiện ích."
+    "message": "Cấu trúc trang YouTube thay đổi bất ngờ và tiện ích mất kiểm soát. Vui lòng tải lại trang để khởi động lại tiện ích."
   },
   "dialog_critical_error_guidance_with_reinstall": {
-    "message": "Một thành phần quan trọng tải thất bại, ngăn tiện ích hoạt động đúng. Vấn đề này có thể cần bạn cài lại tiện ích."
-  },
-  "dialog_button_cancel": {
-    "message": "Hủy"
-  },
-  "dialog_button_confirm_purge": {
-    "message": "Xác nhận Xóa"
+    "message": "Thành phần quan trọng không tải được, khiến tiện ích không hoạt động đúng. Bạn có thể cần cài đặt lại tiện ích."
   }
 }
