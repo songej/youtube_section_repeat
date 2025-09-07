@@ -20,9 +20,8 @@
       this.isProcessing = false;
       this.initShadowDOM();
     }
-    // [MODIFIED] Load styles dynamically with a reliable fallback.
-    // This improves maintainability by allowing styles to be edited in a .css file,
-    // while ensuring the UI doesn't break if the file fails to load.
+    // [MODIFIED] 안정성 향상을 위해 fetch 대신 CSS 내용을 JS에 직접 내장합니다.
+    // 이는 네트워크 오류, 애드블록커 등으로 인해 스타일 로드에 실패하는 경우를 원천적으로 방지합니다.
     async initShadowDOM() {
       this.shadowHost = document.createElement('div');
       this.shadowHost.id = 'section-repeat-toast-host';
@@ -31,7 +30,7 @@
       });
       const styleEl = document.createElement('style');
 
-      const fallbackStyles = `
+      const styles = `
         :host {
           --sr-toast-bg-light: rgba(25, 25, 25, 0.92);
           --sr-toast-bg-dark: rgba(32, 33, 36, 0.95);
@@ -103,21 +102,7 @@
         }
       `;
 
-      try {
-        const styleURL = chrome.runtime.getURL('style.css');
-        const response = await fetch(styleURL);
-        if (response.ok) {
-          // It's safer to inject the whole stylesheet into the Shadow DOM,
-          // as it prevents any potential style conflicts with the host page.
-          styleEl.textContent = await response.text();
-        } else {
-          styleEl.textContent = fallbackStyles;
-        }
-      } catch (e) {
-        console.error('[Section Repeat] Could not load external styles for Toast. Using fallback.', e);
-        styleEl.textContent = fallbackStyles;
-      }
-
+      styleEl.textContent = styles;
       this.shadowRoot.appendChild(styleEl);
       this.containerEl = document.createElement('div');
       this.containerEl.className = 'toast-container';
@@ -253,6 +238,9 @@
         keydownHandler: handleKeyDown
       });
     }
+    // [MODIFIED] 유지보수성 및 안정성 향상을 위해 `setTimeout` 대신 `animationend` 이벤트를 사용합니다.
+    // CSS 애니메이션 지속 시간이 변경되어도 JS 코드를 수정할 필요가 없습니다.
+    // 드물게 animationend 이벤트가 발생하지 않는 경우를 대비해 안전장치로 fallback 타이머를 함께 사용합니다.
     removeToast(toastEl, toastId) {
       if (!toastEl || !toastEl.parentNode) return;
 
@@ -261,12 +249,25 @@
         activeToast.el.removeEventListener('keydown', activeToast.keydownHandler);
       }
 
-      toastEl.classList.add('fade-out');
-      SectionRepeat.TimerManager.set(() => {
-        if (toastEl.parentNode) toastEl.remove();
+      let fallbackTimer;
+
+      const removeLogic = () => {
+        // 중복 실행 방지
+        if (!toastEl.parentNode) return;
+
+        toastEl.removeEventListener('animationend', removeLogic);
+        SectionRepeat.TimerManager.clear(fallbackTimer); // 안전장치 타이머 제거
+
+        toastEl.remove();
         this.activeToasts.delete(toastId);
         this.processQueue();
-      }, 200);
+      };
+
+      toastEl.addEventListener('animationend', removeLogic);
+      toastEl.classList.add('fade-out');
+
+      // 애니메이션 이벤트가 실행되지 않을 경우를 대비한 안전장치
+      fallbackTimer = SectionRepeat.TimerManager.set(removeLogic, 300); // 애니메이션 시간(200ms)보다 약간 길게 설정
     }
     remove(toastId) {
       const activeToast = this.activeToasts.get(toastId);
