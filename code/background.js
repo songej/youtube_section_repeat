@@ -25,14 +25,10 @@ try {
   });
   if (chrome.action) {
     chrome.action.disable();
-    const extName = chrome.i18n.getMessage('ext_name') || 'Section Repeat';
-    const errorTitleKey = 'popup_error_setup_title';
-    const errorTitle = chrome.i18n.getMessage(errorTitleKey);
-    const title = errorTitle ?
-      chrome.i18n.getMessage('action_error_title_with_name', [extName, errorTitle]) :
-      extName;
+    // Use a hardcoded English fallback title for critical errors to ensure stability,
+    // as the i18n API might not be available at this stage.
     chrome.action.setTitle({
-      title: title
+      title: 'Section Repeat: Critical error. Please try reinstalling.'
     });
   }
 }
@@ -172,7 +168,11 @@ async function processStateUpdateQueue() {
         logger.critical('processStateUpdateQueue', 'Task failed after max retries and was discarded.', {
           task
         });
-        const criticalTasks = ['REPEAT_STATE_CHANGED', 'STILL_REPEATING', 'NAVIGATED_AWAY'];
+        const criticalTasks = [
+          CONST.INTERNAL_TASK_TYPES.REPEAT_STATE_CHANGED,
+          CONST.INTERNAL_TASK_TYPES.STILL_REPEATING,
+          CONST.INTERNAL_TASK_TYPES.NAVIGATED_AWAY
+        ];
         if (criticalTasks.includes(task.type)) {
           try {
             const {
@@ -216,7 +216,7 @@ async function runTask(task, currentStates) {
   } = task;
   const newStates = new Map(currentStates);
   switch (type) {
-    case 'CONTENT_SCRIPT_INIT_STARTED':
+    case CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_INIT_STARTED:
       {
         const {
           tabId
@@ -226,7 +226,7 @@ async function runTask(task, currentStates) {
         newStates.set(tabId.toString(), state);
         return newStates;
       }
-    case 'CONTENT_SCRIPT_READY':
+    case CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_READY:
       {
         const {
           tabId
@@ -238,7 +238,7 @@ async function runTask(task, currentStates) {
         newStates.set(tabId.toString(), state);
         return newStates;
       }
-    case 'REPEAT_STATE_CHANGED':
+    case CONST.INTERNAL_TASK_TYPES.REPEAT_STATE_CHANGED:
       {
         const {
           tabId,
@@ -263,7 +263,7 @@ async function runTask(task, currentStates) {
         }
         return newStates;
       }
-    case 'TAB_REMOVED':
+    case CONST.INTERNAL_TASK_TYPES.TAB_REMOVED:
       {
         const {
           tabId
@@ -275,7 +275,7 @@ async function runTask(task, currentStates) {
         }
         return null;
       }
-    case 'STILL_REPEATING':
+    case CONST.INTERNAL_TASK_TYPES.STILL_REPEATING:
       {
         const {
           tabId
@@ -292,7 +292,7 @@ async function runTask(task, currentStates) {
           .catch(e => logger.debug('runTask.still_repeating', `Tab ${tabId} not found for force stop.`));
         return null;
       }
-    case 'NAVIGATED_AWAY':
+    case CONST.INTERNAL_TASK_TYPES.NAVIGATED_AWAY:
       {
         const {
           tabId
@@ -304,7 +304,7 @@ async function runTask(task, currentStates) {
         }
         return null;
       }
-    case 'SET_FOCUS_MODE':
+    case CONST.INTERNAL_TASK_TYPES.SET_FOCUS_MODE:
       {
         const {
           tabId,
@@ -315,7 +315,7 @@ async function runTask(task, currentStates) {
         newStates.set(tabId.toString(), state);
         return newStates;
       }
-    case 'RECONCILE_TAB_STATES':
+    case CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES:
       {
         const tabIdPromises = Array.from(newStates.keys()).map(tabIdStr => {
           return chrome.tabs.get(parseInt(tabIdStr, 10))
@@ -339,7 +339,7 @@ async function runTask(task, currentStates) {
         }
         return changed ? newStates : null;
       }
-    case 'CLEAR_STATE_IF_NOT_VIDEO_PAGE':
+    case CONST.INTERNAL_TASK_TYPES.CLEAR_STATE_IF_NOT_VIDEO_PAGE:
       {
         const {
           tabId
@@ -797,7 +797,7 @@ chrome.runtime.onInstalled.addListener(async ({
   try {
     await cleanupStaleLocksOnStartup();
     await enqueueStateUpdate({
-      type: 'RECONCILE_TAB_STATES'
+      type: CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES
     });
     try {
       chrome.alarms.create(CONST.ALARM_NAMES.PURGE_OLD_SECTIONS, {
@@ -871,7 +871,7 @@ chrome.runtime.onStartup.addListener(async () => {
   await cleanupStaleLocksOnStartup();
   await attemptSyncMigration();
   await enqueueStateUpdate({
-    type: 'RECONCILE_TAB_STATES'
+    type: CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES
   });
   logger.info('onStartup', 'Extension started');
   await purgeOldSections().catch(e => logger.error('onStartup.purgeOldSections', e));
@@ -888,7 +888,7 @@ async function clearTabStateAfterGracePeriod(tabId) {
   }
   if (stillNotVideoPage) {
     await enqueueStateUpdate({
-      type: 'CLEAR_STATE_IF_NOT_VIDEO_PAGE',
+      type: CONST.INTERNAL_TASK_TYPES.CLEAR_STATE_IF_NOT_VIDEO_PAGE,
       payload: {
         tabId
       }
@@ -989,12 +989,14 @@ async function handleTabRemoved(tabId) {
   chrome.alarms.clear(`${CONST.ALARM_NAMES.CLEANUP_TAB_PREFIX}${tabId}`);
   await chrome.storage.session.remove(`tab_status_${tabId}`);
   await enqueueStateUpdate({
-    type: 'TAB_REMOVED',
+    type: CONST.INTERNAL_TASK_TYPES.TAB_REMOVED,
     payload: {
       tabId
     }
   });
 }
+// Ensure the function is async and awaits the call to handleTabRemoved
+// to guarantee state cleanup is processed in order before other logic proceeds.
 async function handleTabReplaced(addedTabId, removedTabId) {
   await handleTabRemoved(removedTabId);
 }
@@ -1052,7 +1054,7 @@ const sendInitialPayload = async (tabId, retryCount = 0) => {
       tabId
     });
     await enqueueStateUpdate({
-      type: 'CONTENT_SCRIPT_READY',
+      type: CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_READY,
       payload: {
         tabId
       }
@@ -1087,7 +1089,7 @@ function handleRepeatStateChanged(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'REPEAT_STATE_CHANGED',
+    type: CONST.INTERNAL_TASK_TYPES.REPEAT_STATE_CHANGED,
     payload: {
       tabId,
       isRepeating: !!message.payload,
@@ -1100,7 +1102,7 @@ function handleStillRepeating(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'STILL_REPEATING',
+    type: CONST.INTERNAL_TASK_TYPES.STILL_REPEATING,
     payload: {
       tabId
     }
@@ -1111,7 +1113,7 @@ function handleNavigatedAwayFromVideo(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'NAVIGATED_AWAY',
+    type: CONST.INTERNAL_TASK_TYPES.NAVIGATED_AWAY,
     payload: {
       tabId
     }
@@ -1122,7 +1124,7 @@ function handleSetFocusMode(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'SET_FOCUS_MODE',
+    type: CONST.INTERNAL_TASK_TYPES.SET_FOCUS_MODE,
     payload: {
       tabId,
       isFocus: message.payload.isFocus,
@@ -1154,12 +1156,12 @@ async function handleContentScriptReady(message, sender) {
     tabId
   });
 
-  // [수정] 가장 중요한 페이로드 전송을 최우선으로 실행하여 콘텐츠 스크립트의 대기 상태를 즉시 해제합니다.
+  // Payload sending is prioritized to unblock the content script immediately.
   await sendInitialPayload(tabId);
 
-  // [수정] 상태 업데이트는 중요하지만 페이로드 전송을 막아서는 안 되므로, 이후에 비동기적으로 실행합니다.
+  // State update is enqueued asynchronously after the payload is sent.
   enqueueStateUpdate({
-    type: 'CONTENT_SCRIPT_INIT_STARTED',
+    type: CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_INIT_STARTED,
     payload: {
       tabId
     }
@@ -1340,7 +1342,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         await chrome.tabs.get(sender.tab.id);
       } catch (e) {
         await enqueueStateUpdate({
-          type: 'RECONCILE_TAB_STATES'
+          type: CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES
         });
         sendResponse({
           success: false,
@@ -1379,3 +1381,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true;
 });
 processStateUpdateQueue();
+

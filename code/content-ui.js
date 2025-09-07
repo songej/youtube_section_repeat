@@ -20,13 +20,17 @@
       this.isProcessing = false;
       this.initShadowDOM();
     }
-    initShadowDOM() {
+    // [MODIFIED] Load styles dynamically with a reliable fallback.
+    // This improves maintainability by allowing styles to be edited in a .css file,
+    // while ensuring the UI doesn't break if the file fails to load.
+    async initShadowDOM() {
       this.shadowHost = document.createElement('div');
       this.shadowHost.id = 'section-repeat-toast-host';
       this.shadowRoot = this.shadowHost.attachShadow({
         mode: 'open'
       });
       const styleEl = document.createElement('style');
+
       const fallbackStyles = `
         :host {
           --sr-toast-bg-light: rgba(25, 25, 25, 0.92);
@@ -98,7 +102,22 @@
           .toast.fade-out { opacity: 0; }
         }
       `;
-      styleEl.textContent = fallbackStyles;
+
+      try {
+        const styleURL = chrome.runtime.getURL('style.css');
+        const response = await fetch(styleURL);
+        if (response.ok) {
+          // It's safer to inject the whole stylesheet into the Shadow DOM,
+          // as it prevents any potential style conflicts with the host page.
+          styleEl.textContent = await response.text();
+        } else {
+          styleEl.textContent = fallbackStyles;
+        }
+      } catch (e) {
+        console.error('[Section Repeat] Could not load external styles for Toast. Using fallback.', e);
+        styleEl.textContent = fallbackStyles;
+      }
+
       this.shadowRoot.appendChild(styleEl);
       this.containerEl = document.createElement('div');
       this.containerEl.className = 'toast-container';

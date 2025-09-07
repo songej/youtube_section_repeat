@@ -11,6 +11,9 @@
   "popup_shortcuts_header_action": {
     "message": "Action"
   },
+  "popup_shortcut_action_focus": {
+    "message": "Enter Focus Mode"
+  },
   "popup_shortcut_action_start": {
     "message": "Start section"
   },
@@ -31,9 +34,6 @@
   },
   "popup_shortcut_action_clear_sections": {
     "message": "Clear all sections"
-  },
-  "popup_shortcut_action_focus": {
-    "message": "Enter Focus Mode"
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -122,9 +122,6 @@
   "toast_success_reconnected": {
     "message": "Successfully reconnected."
   },
-  "toast_success_initialized": {
-    "message": "Ready!"
-  },
   "toast_info_section_start_set": {
     "message": "Section start point set. Press 'E' to end."
   },
@@ -195,12 +192,6 @@
       "1": { "content": "$1" },
       "2": { "content": "$2" }
     }
-  },
-  "toast_warning_sync_failed": {
-    "message": "Cloud sync failed. Sections will be saved only on this device for now."
-  },
-  "toast_warning_quota_exceeded_pending": {
-    "message": "Storage is full. Your section will be saved once older data is cleared."
   },
   "toast_error_player_init_failed": {
     "message": "Initialization failed after multiple retries. Please reload the page."

@@ -405,15 +405,19 @@
         this.overlayEl.setAttribute('aria-label', label);
       }
     }
+    // [MODIFIED] Use DocumentFragment to batch DOM updates for better performance.
     _synchronizeSectionElements(sections, currentIdx) {
+      const fragment = document.createDocumentFragment();
       const sectionIndicesInDom = new Set();
+
       sections.forEach((section, index) => {
         let sectionEl = this.overlayEl.querySelector(`[data-section-index="${index}"]`);
         if (!sectionEl) {
           sectionEl = document.createElement('div');
           sectionEl.dataset.sectionIndex = index;
-          this.overlayEl.appendChild(sectionEl);
+          fragment.appendChild(sectionEl); // Append to fragment instead of directly to DOM
         }
+
         const isComplete = section.end != null;
         const isActive = currentIdx === index && isComplete;
         sectionEl.className = isComplete ? 'section' : 'incomplete-section';
@@ -423,6 +427,13 @@
         this._updateSectionElementStyle(sectionEl, section, index, isComplete, isActive);
         sectionIndicesInDom.add(index.toString());
       });
+
+      // Append all new elements at once
+      if (fragment.hasChildNodes()) {
+        this.overlayEl.appendChild(fragment);
+      }
+
+      // Remove elements that are no longer in the sections array
       Array.from(this.overlayEl.children).forEach(el => {
         const index = el.dataset.sectionIndex;
         if (index && !sectionIndicesInDom.has(index)) {
