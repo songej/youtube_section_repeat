@@ -5,8 +5,8 @@ permalink: /privacy/
 ---
 
 # Privacy Policy
-- Effective Date: 2025-09-01
-- Version: 1.2.6
+- Effective Date: 2025-09-07
+- Version: 1.2.7
 
 ## Our Promise
 - Data collection: None. Data sold/shared: None. Tracking: None.
@@ -56,9 +56,9 @@ We deliberately chose this privacy-first architecture. While syncing all your se
 ## 4. Permissions and Their Purpose
 The Extension requests the minimum permissions required to operate:
 
-- Host (`*://*.youtube.com/*`): Required to add its user interface (like section overlays on the progress bar) and enable keyboard shortcuts directly on the YouTube website. This permission is not used for tracking or reading your activity.
-- Storage: Required to use the Chrome Storage API for saving your sections and the privacy key locally on your device.
-- Alarms: Required to run periodic maintenance tasks, such as clearing out old, unused section data to manage storage space.
+- `host_permissions` (`*://*.youtube.com/*`): Required to add its user interface (like section overlays on the progress bar) and enable keyboard shortcuts directly on the YouTube website. This permission is not used for tracking or reading your activity.
+- `storage`: Required to use the Chrome Storage API for saving your sections and the privacy key locally on your device.
+- `alarms`: Required to run periodic maintenance tasks, such as clearing out old, unused section data to manage storage space.
 
 ## 5. Your Control Over Your Data
 You have full control over the data stored by this Extension.
