@@ -100,6 +100,7 @@
           timestamp: now
         });
       }
+      if (!hasShownSlowInitToast && keydownQueue.length > 0) {}
       return;
     }
     if (!State.CONSTANTS?.HOTKEYS || !State.controller || State.controller.isLive || helpers?.shouldIgnoreKeyEvent(e)) {
@@ -217,6 +218,19 @@
 
   function processKeydownQueue() {
     const now = performance.now();
+    const staleThresholdForToast = 500;
+    if (keydownQueue.length > 0 && !hasShownSlowInitToast && State.controller) {
+      const oldestEvent = keydownQueue[0];
+      if (now - oldestEvent.timestamp > staleThresholdForToast) {
+        State.controller.toast(
+          helpers.t('toast_warn_initialization_slow'),
+          State.CONSTANTS.TOAST_DURATION.MEDIUM,
+          'warning'
+        );
+        hasShownSlowInitToast = true;
+      }
+    }
+
     const staleThreshold = State.CONSTANTS?.KEY_QUEUE?.STALE_EVENT_THRESHOLD_MS || 2500;
     while (keydownQueue.length > 0) {
       const {
@@ -227,15 +241,6 @@
         SectionRepeat.logger?.warning('processKeydownQueue', 'Stale keydown event ignored.', {
           code: event.code
         });
-
-        if (!hasShownSlowInitToast && State.controller) {
-          State.controller.toast(
-            helpers.t('toast_warn_initialization_slow'),
-            State.CONSTANTS.TOAST_DURATION.MEDIUM,
-            'warning'
-          );
-          hasShownSlowInitToast = true;
-        }
         continue;
       }
       handleKeyDown(event);
@@ -291,9 +296,6 @@
       if (State.controller) {
         State.controller.cleanup();
       }
-      if (State.initManager?.keydownHandler) {
-        document.removeEventListener('keydown', State.initManager.keydownHandler);
-      }
       const toastQueue = State.controller?.toastQueue || new SectionRepeat.ToastQueue();
       toastQueue.show(t('toast_error_player_init_failed'), 999999, 'error', {
         isPermanent: true,
@@ -328,7 +330,7 @@
     State.elementCache?.clear();
     if (State.globalAriaAnnouncer) State.globalAriaAnnouncer.remove();
     SectionRepeat.TimerManager.clear(State.extensionHealthCheckTimer, 'interval');
-    // ✨ Keydown 리스너 제거 로직이 Controller의 cleanup으로 이동했으므로, 여기서 중복 제거할 필요 없음
+    window.removeEventListener('keydown', handleKeyDown);
     window.removeEventListener('beforeunload', SectionRepeat.handleBeforeUnload);
   };
   const initialize = () => {
@@ -353,6 +355,10 @@
         return false;
       });
     }
+
+    document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('beforeunload', SectionRepeat.handleBeforeUnload);
+
     setupMessageHandlers();
     createGlobalAriaAnnouncer();
     State.initManager.initialize();

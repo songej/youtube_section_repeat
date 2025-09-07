@@ -5,17 +5,8 @@
   "ext_description": {
     "message": "Repetición A-B y bucles múltiples para YouTube. Practica rápido con atajos de teclado."
   },
-  "action_error_title_with_name": {
-    "message": "$1: $2",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
-    }
+  "popup_note_inactive": {
+    "message": "Los atajos están activos cuando estás en una página de video de YouTube."
   },
   "popup_shortcuts_header_key": {
     "message": "Tecla"
@@ -23,11 +14,14 @@
   "popup_shortcuts_header_action": {
     "message": "Acción"
   },
+  "popup_shortcut_action_focus": {
+    "message": "Entrar en Modo Enfoque"
+  },
   "popup_shortcut_action_start": {
     "message": "Iniciar sección"
   },
   "popup_shortcut_action_end": {
-    "message": "Finalizar (Enlazar) sección"
+    "message": "Finalizar sección"
   },
   "popup_shortcut_action_toggle_repeat": {
     "message": "Activar/desactivar repetición"
@@ -39,16 +33,10 @@
     "message": "Sección siguiente"
   },
   "popup_shortcut_action_jump": {
-    "message": "Ir a sección"
+    "message": "Saltar a sección"
   },
   "popup_shortcut_action_clear_sections": {
     "message": "Borrar todas las secciones"
-  },
-  "popup_shortcut_action_focus": {
-    "message": "Entrar en Modo Enfoque"
-  },
-  "popup_note_inactive": {
-    "message": "Los atajos están activos cuando estás en una página de video de YouTube."
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -68,25 +56,14 @@
   "popup_shortcut_key_space": {
     "message": "Espacio"
   },
+  "popup_shortcut_key_home": {
+    "message": "Inicio"
+  },
+  "popup_shortcut_key_end": {
+    "message": "Fin"
+  },
   "popup_hotkey_error_placeholder": {
     "message": "-"
-  },
-  "popup_storage_warning_message": {
-    "message": "El almacenamiento está lleno en más del $1%. Los datos antiguos podrían eliminarse pronto.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      }
-    }
-  },
-  "popup_storage_purge_completed": {
-    "message": "Los datos antiguos se han eliminado correctamente."
-  },
-  "popup_storage_purge_failed": {
-    "message": "La eliminación falló. Por favor, inténtalo más tarde."
-  },
-  "popup_warning_session_only_mode_detailed": {
-    "message": "El modo solo sesión está activo porque falló un componente de seguridad. Las secciones no se guardarán. Reiniciar el navegador podría resolver esto."
   },
   "popup_error_setup_title": {
     "message": "Error de inicialización"
@@ -94,26 +71,31 @@
   "popup_error_setup_advice": {
     "message": "Por favor, inténtalo de nuevo. Si el problema persiste, recarga la página."
   },
-  "popup_error_setup_crypto_failed": {
-    "message": "No se pudo inicializar un componente de seguridad requerido."
-  },
-  "popup_error_setup_unknown": {
-    "message": "Ocurrió un error desconocido durante la configuración."
-  },
-  "popup_error_connection_failed": {
-    "message": "No se pudo conectar con la extensión. Por favor, recarga la página e inténtalo de nuevo."
-  },
-  "popup_error_connection_timeout": {
-    "message": "Tiempo de conexión agotado. Por favor, recarga la página e inténtalo de nuevo."
-  },
   "popup_button_retry_setup": {
     "message": "Reintentar configuración"
   },
   "popup_button_retrying": {
     "message": "Reintentando..."
   },
+  "popup_storage_warning_message": {
+    "message": "El almacenamiento está más del $1% lleno. Los datos antiguos podrían eliminarse pronto.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
   "popup_storage_purge_button": {
     "message": "Eliminar datos antiguos"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Esto eliminará permanentemente tus datos de sección más antiguos para hacer espacio. ¿Estás seguro?"
+  },
+  "dialog_button_cancel": {
+    "message": "Cancelar"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Confirmar eliminación"
   },
   "toast_success_section_added": {
     "message": "Sección #$1 añadida.",
@@ -124,7 +106,7 @@
     }
   },
   "toast_success_sections_cleared": {
-    "message": "Se han borrado todas las secciones de este video."
+    "message": "Todas las secciones de este video han sido borradas."
   },
   "toast_success_pending_save_applied": {
     "message": "Secciones guardadas de la sesión anterior aplicadas."
@@ -138,13 +120,13 @@
     }
   },
   "toast_success_reconnected": {
-    "message": "Reconectado con éxito."
-  },
-  "toast_action_reload": {
-    "message": "Recargar página"
+    "message": "Reconectado exitosamente."
   },
   "toast_info_section_start_set": {
-    "message": "Punto de inicio de sección establecido. Pulsa 'E' para finalizar."
+    "message": "Punto de inicio de sección establecido. Presiona 'E' para finalizar."
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "La sección incompleta se completó automáticamente al final del video."
   },
   "toast_info_repeat_stopped": {
     "message": "Repetición detenida."
@@ -161,7 +143,7 @@
     }
   },
   "toast_info_jumped_to_section": {
-    "message": "Saltado a la sección $1.",
+    "message": "Saltado a sección $1.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -179,17 +161,17 @@
       }
     }
   },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "La sección incompleta se completó automáticamente al final del video."
-  },
   "toast_info_legacy_data_cleared": {
-    "message": "Se han eliminado datos antiguos incompatibles para garantizar un funcionamiento fluido."
+    "message": "Los datos antiguos incompatibles han sido eliminados para un funcionamiento fluido."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "El video ha terminado. Repitiendo desde el principio."
   },
   "toast_info_sectioning_hint": {
-    "message": "Pulsa 'S' para iniciar una sección, 'E' para finalizarla."
+    "message": "Presiona 'S' para iniciar una sección, 'E' para finalizarla."
   },
   "toast_info_playlist_hint": {
-    "message": "Consejo: Pulsa 'W' para entrar en Modo Enfoque y salir de la lista de reproducción."
+    "message": "Consejo: Presiona 'W' para entrar en Modo Enfoque y salir de la lista de reproducción."
   },
   "toast_info_focus_mode_already": {
     "message": "Ya estás en Modo Enfoque."
@@ -197,11 +179,8 @@
   "toast_info_focus_mode_entering": {
     "message": "Entrando en Modo Enfoque... La página se recargará."
   },
-  "toast_info_autorepeat_video": {
-    "message": "El video ha terminado. Repitiendo desde el principio."
-  },
   "toast_warn_initialization_slow": {
-    "message": "La extensión aún se está cargando... Por favor, inténtalo de nuevo en un momento."
+    "message": "La extensión aún está cargando... Por favor, inténtalo de nuevo en un momento."
   },
   "toast_warning_live_stream_unsupported": {
     "message": "La repetición de secciones no está disponible para transmisiones en vivo."
@@ -210,7 +189,7 @@
     "message": "La repetición se detuvo debido a un error de navegación o de fondo."
   },
   "toast_warning_storage_level": {
-    "message": "El almacenamiento está al $1% de capacidad. Los datos antiguos podrían eliminarse.",
+    "message": "Almacenamiento al $1% lleno. Los datos antiguos podrían eliminarse.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -228,9 +207,6 @@
       }
     }
   },
-  "toast_error_player_init_failed": {
-    "message": "La inicialización falló después de varios intentos. Por favor, recarga la página."
-  },
   "toast_error_storage_critical": {
     "message": "Almacenamiento crítico ($1% lleno). Debes eliminar datos antiguos para guardar nuevas secciones.",
     "placeholders": {
@@ -243,13 +219,10 @@
     "message": "No se pudo entrar en Modo Enfoque. Por favor, inténtalo de nuevo."
   },
   "toast_error_action_locked": {
-    "message": "La acción falló porque otra operación está en progreso. Por favor, inténtalo de nuevo en un momento."
+    "message": "Acción fallida porque otra operación está en progreso. Por favor, inténtalo de nuevo en un momento."
   },
   "toast_error_final_save_failed": {
-    "message": "Error al guardar datos. Por favor, usa 'Eliminar datos antiguos' en el popup para liberar espacio."
-  },
-  "toast_reload_prompt": {
-    "message": "Se perdió el contexto de la extensión. Por favor, recarga la página para continuar."
+    "message": "Error al guardar datos. Usa 'Eliminar datos antiguos' en el popup para liberar espacio."
   },
   "aria_popup_shortcuts_table_label": {
     "message": "Lista de atajos de teclado. Usa las teclas de flecha para navegar por las filas."
@@ -277,10 +250,10 @@
     }
   },
   "aria_popup_storage_purge_button_label": {
-    "message": "Eliminar datos de secciones antiguas para liberar espacio de almacenamiento."
+    "message": "Eliminar datos de sección antiguos para liberar espacio de almacenamiento."
   },
   "aria_toast_container_label": {
-    "message": "Notificaciones de Repetición de Secciones"
+    "message": "Notificaciones de Repetir Secciones"
   },
   "aria_toast_close_button": {
     "message": "Cerrar notificación"
@@ -311,7 +284,7 @@
     }
   },
   "aria_overlay_desc_with_incomplete": {
-    "message": "Se han establecido un total de $1 secciones, de las cuales $2 están incompletas.",
+    "message": "Se han establecido un total de $1 secciones, $2 de las cuales están incompletas.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -322,7 +295,7 @@
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "Se han establecido un total de $1 secciones, de las cuales $2 están incompletas. Actualmente repitiendo la sección número $3.",
+    "message": "Se han establecido un total de $1 secciones, $2 de las cuales están incompletas. Actualmente repitiendo la sección número $3.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -335,19 +308,43 @@
       }
     }
   },
-  "dialog_button_cancel": {
-    "message": "Cancelar"
+  "critical_error_title": {
+    "message": "Repetir Secciones: Error crítico. Por favor, intenta reinstalar."
   },
-  "dialog_button_confirm_purge": {
-    "message": "Confirmar eliminación"
+  "popup_error_connection_failed": {
+    "message": "No se pudo conectar con la extensión. Por favor, recarga la página e inténtalo de nuevo."
   },
-  "dialog_purge_confirm_message": {
-    "message": "Esto eliminará permanentemente los datos de secciones más antiguos para hacer espacio. ¿Estás seguro?"
+  "popup_error_connection_timeout": {
+    "message": "Tiempo de conexión agotado. Por favor, recarga la página e inténtalo de nuevo."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Un componente de seguridad del navegador requerido no pudo inicializarse. Los datos de sección no se pueden guardar. Por favor, intenta 'Reintentar configuración'. Si el problema persiste, reiniciar el navegador puede ayudar."
+  },
+  "popup_error_setup_unknown": {
+    "message": "Ocurrió un error desconocido durante la configuración."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "El modo solo-sesión está activo porque falló un componente de seguridad. Las secciones no se guardarán. Reiniciar el navegador puede resolver esto."
+  },
+  "popup_storage_purge_completed": {
+    "message": "Los datos antiguos se han eliminado exitosamente."
+  },
+  "popup_storage_purge_failed": {
+    "message": "La eliminación falló. Por favor, inténtalo más tarde."
+  },
+  "toast_error_player_init_failed": {
+    "message": "La inicialización falló después de múltiples intentos. Por favor, recarga la página."
+  },
+  "toast_reload_prompt": {
+    "message": "Se perdió el contexto de la extensión. Por favor, recarga la página para continuar."
+  },
+  "toast_action_reload": {
+    "message": "Recargar página"
   },
   "dialog_critical_error_dom_changed": {
     "message": "La estructura de la página de YouTube cambió inesperadamente y la extensión perdió el control. Por favor, recarga la página para reiniciar la extensión."
   },
   "dialog_critical_error_guidance_with_reinstall": {
-    "message": "Un componente crítico no se pudo cargar, lo que impide que la extensión funcione correctamente. Este problema podría requerir reinstalar la extensión."
+    "message": "Un componente crítico no pudo cargarse, lo que impide que la extensión funcione correctamente. Es posible que necesites reinstalar la extensión."
   }
 }

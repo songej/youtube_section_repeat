@@ -6,6 +6,9 @@ permalink: /changelog/
 
 # Changelog
 
+## v1.2.7
+Improved internationalization for keyboard shortcut display in the popup menu. Enhanced robustness of UI component styling and locale file structure for better maintainability.
+
 ## v1.2.6
 Clarify privacy for ESB, minor fixes only.
 

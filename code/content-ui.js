@@ -1,5 +1,8 @@
-(function(SectionRepeat) {
+(function() {
   'use strict';
+  const SectionRepeat = window.SectionRepeat || {};
+  window.SectionRepeat = SectionRepeat;
+
   if (!SectionRepeat) {
     console.error('SectionRepeat namespace not found!');
     return;
@@ -16,14 +19,15 @@
       this.isProcessing = false;
       this.initShadowDOM();
     }
-    initShadowDOM() {
+    async initShadowDOM() {
       this.shadowHost = document.createElement('div');
       this.shadowHost.id = 'section-repeat-toast-host';
       this.shadowRoot = this.shadowHost.attachShadow({
         mode: 'open'
       });
       const styleEl = document.createElement('style');
-      const fallbackStyles = `
+
+      const styles = `
         :host {
           --sr-toast-bg-light: rgba(25, 25, 25, 0.92);
           --sr-toast-bg-dark: rgba(32, 33, 36, 0.95);
@@ -38,38 +42,39 @@
         .toast-container {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          gap: 10px;
+          align-items: flex-end; /* Align toasts to the right */
+          gap: 12px;
         }
         .toast {
           display: flex; align-items: center; gap: 10px; padding: 12px 20px;
+          width: fit-content;
           max-width: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
           font-family: inherit; font-size: 1.4rem; pointer-events: all;
           background-color: var(--sr-toast-bg-light);
           color: var(--sr-toast-text-color);
-          animation: slideIn 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: slideInFromRight 0.25s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
         }
         .toast.fade-out {
-          animation: slideOut 0.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+          animation: slideOutToRight 0.3s cubic-bezier(0.7, 0, 0.8, 0.1) forwards;
         }
-        @keyframes slideIn {
+        @keyframes slideInFromRight {
           from {
             opacity: 0;
-            transform: translateY(10px) scale(0.95);
+            transform: translateX(20px);
           }
           to {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateX(0);
           }
         }
-        @keyframes slideOut {
+        @keyframes slideOutToRight {
           from {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateX(0);
           }
           to {
             opacity: 0;
-            transform: translateY(5px) scale(0.98);
+            transform: translateX(20px);
           }
         }
         .toast.info .toast-icon { color: var(--sr-toast-icon-info); }
@@ -94,7 +99,8 @@
           .toast.fade-out { opacity: 0; }
         }
       `;
-      styleEl.textContent = fallbackStyles;
+
+      styleEl.textContent = styles;
       this.shadowRoot.appendChild(styleEl);
       this.containerEl = document.createElement('div');
       this.containerEl.className = 'toast-container';
@@ -121,18 +127,21 @@
       return icons[type] || icons.info;
     }
     show(message, duration = 3000, type = 'info', options = {}) {
-      this.addToQueue({
+      const toastData = {
         message,
         duration,
         type,
-        options
-      });
+        options,
+        id: Date.now() + Math.random()
+      };
+      this.addToQueue(toastData);
       this.processQueue();
+      return toastData.id;
     }
     addToQueue(toast) {
       const isDuplicate = typeof toast.message === 'string' &&
         (this.queue.some(t => t.message === toast.message) ||
-          Array.from(this.activeToasts.values()).some(t => t.message === toast.message));
+          Array.from(this.activeToasts.values()).some(t => t.data.message === toast.message));
       if (!isDuplicate) {
         this.queue.push(toast);
         const maxQueueSize = SectionRepeat.State?.CONSTANTS?.TOAST_QUEUE?.MAX_SIZE || 5;
@@ -166,45 +175,28 @@
       textEl.textContent = toast.message;
       toastEl.appendChild(iconEl);
       toastEl.appendChild(textEl);
-      const toastId = Date.now() + Math.random();
+      const toastId = toast.id;
       let removeTimer = null;
-      const isInteractiveOrPermanent = toast.options.isPermanent || toast.options.isInteractive;
+      let handleKeyDown = null;
       let focusTrap = null;
-      if (isInteractiveOrPermanent) {
-        const previouslyFocusedElement = document.activeElement;
-        const closeToastAndRestoreFocus = () => {
-          this.removeToast(toastEl, toastId);
-          focusTrap?.cleanup();
-          try {
-            if (previouslyFocusedElement && previouslyFocusedElement.isConnected && typeof previouslyFocusedElement.focus === 'function') {
-              previouslyFocusedElement.focus({
-                preventScroll: true
-              });
-            } else {
-              throw new Error("Previously focused element is not available or disconnected.");
-            }
-          } catch (e) {
-            try {
-              const player = SectionRepeat.helpers.qSel(SectionRepeat.State.CONSTANTS.SELECTORS.PLAYER);
-              if (player && player.isConnected) {
-                player.focus();
-              } else if (document.body && document.body.isConnected) {
-                document.body.focus();
-              }
-            } catch (fallbackError) {
-              const logger = SectionRepeat.logger;
-              logger?.error('closeToastAndRestoreFocus', 'Failed to execute fallback focus.', fallbackError);
-            }
-          }
+
+      const closeToastAndRestoreFocus = () => {
+        this.removeToast(toastEl, toastId);
+        focusTrap?.cleanup();
+        if (handleKeyDown) {
           toastEl.removeEventListener('keydown', handleKeyDown);
-        };
-        const handleKeyDown = (e) => {
+        }
+      };
+
+      if (toast.options.isPermanent || toast.options.isInteractive) {
+        handleKeyDown = (e) => {
           if (e.key === 'Escape') {
             closeToastAndRestoreFocus();
           }
         };
         toastEl.setAttribute('tabindex', '-1');
         toastEl.addEventListener('keydown', handleKeyDown);
+
         if (toast.options.isPermanent) {
           const closeBtn = document.createElement('button');
           closeBtn.className = 'sr-close-btn';
@@ -227,7 +219,7 @@
           toastEl.appendChild(btn);
         }
         if (toast.options.isInteractive || toast.options.isPermanent) {
-          focusTrap = new SectionRepeat.FocusTrap(toastEl);
+          focusTrap = new SectionRepeat.ModalFocusTrap(toastEl);
           focusTrap.init();
         }
       } else {
@@ -238,16 +230,44 @@
         });
       }
       this.containerEl.appendChild(toastEl);
-      this.activeToasts.set(toastId, toast);
+      this.activeToasts.set(toastId, {
+        data: toast,
+        el: toastEl,
+        keydownHandler: handleKeyDown
+      });
     }
+
     removeToast(toastEl, toastId) {
       if (!toastEl || !toastEl.parentNode) return;
-      toastEl.classList.add('fade-out');
-      SectionRepeat.TimerManager.set(() => {
-        if (toastEl.parentNode) toastEl.remove();
+
+      const activeToast = this.activeToasts.get(toastId);
+      if (activeToast && activeToast.keydownHandler) {
+        activeToast.el.removeEventListener('keydown', activeToast.keydownHandler);
+      }
+
+      let fallbackTimer;
+
+      const removeLogic = () => {
+        if (!toastEl.parentNode) return;
+
+        toastEl.removeEventListener('animationend', removeLogic);
+        SectionRepeat.TimerManager.clear(fallbackTimer);
+
+        toastEl.remove();
         this.activeToasts.delete(toastId);
         this.processQueue();
-      }, 200);
+      };
+
+      toastEl.addEventListener('animationend', removeLogic);
+      toastEl.classList.add('fade-out');
+
+      fallbackTimer = SectionRepeat.TimerManager.set(removeLogic, 400);
+    }
+    remove(toastId) {
+      const activeToast = this.activeToasts.get(toastId);
+      if (activeToast) {
+        this.removeToast(activeToast.el, toastId);
+      }
     }
     cleanup() {
       if (this.debounceTimer) {
@@ -260,4 +280,4 @@
       this.queue = [];
     }
   };
-})(window.SectionRepeat);
+})();

@@ -72,35 +72,61 @@
       this.sections = this.sections.filter(s => s.start != null);
       this.completedSections = this.sections.filter(s => s.end != null);
     }
+    async #updateMetadata(sectionCount) {
+      const {
+        helpers,
+        logger,
+        State
+      } = SectionRepeat;
+      if (!this.videoId) return;
+      try {
+        const hashedId = await helpers.hashVideoId(this.videoId);
+        if (!hashedId) return false;
+        await helpers.retryAsync(() => helpers.sendMessage({
+          type: State.CONSTANTS.MESSAGE_TYPES.UPDATE_METADATA,
+          payload: {
+            hashedId,
+            sectionCount
+          }
+        }), {
+          context: 'updateMetadata',
+          shouldRetry: (e) => !e.message?.includes('Extension context invalidated')
+        });
+        return true;
+      } catch (e) {
+        logger.error('updateMetadata', 'Failed to send metadata update after retries', e);
+        throw e;
+      }
+    }
     async loadData() {
       const {
         State,
         logger,
         helpers
       } = SectionRepeat;
-      if (this.abortCtrl.signal.aborted) return;
+      if (this.abortCtrl.signal.aborted) return [];
       if (!chrome?.storage?.local) {
         logger.warning('loadData', 'Chrome storage API not available');
         this.updateSections([]);
-        return;
+        return [];
       }
       try {
         const hashedId = await helpers.hashVideoId(this.videoId);
         if (this.abortCtrl.signal.aborted || !hashedId) {
           this.updateSections([]);
           if (!hashedId) logger.info('loadData', 'Aborting load due to unavailable hash. Session-only mode.');
-          return;
+          return [];
         }
         const storageKey = `${State.CONSTANTS.STORAGE_PREFIX}${hashedId}`;
         const localData = await chrome.storage.local.get(storageKey);
-        if (this.abortCtrl.signal.aborted) return;
+        if (this.abortCtrl.signal.aborted) return this.sections;
         const storedData = localData[storageKey];
         if (storedData) {
           if (!Array.isArray(storedData.sections)) {
             logger.warning('loadData', `Corrupted section data found (not an array) for video ${this.videoId}. Resetting sections.`);
             this.updateSections([]);
             await this.clearAllDataForCurrentVideo();
-            return;
+            return [];
           }
           if (storedData.v === State.CONSTANTS.DATA_SCHEMA_VERSION) {
             this.updateSections(storedData.sections);
@@ -132,6 +158,7 @@
           );
         }
       }
+      return this.sections;
     }
     async persist(immediate = false) {
       const {
@@ -142,7 +169,7 @@
       } = SectionRepeat;
       const persistLogic = async () => {
         if (this.abortCtrl.signal.aborted) return;
-        let hashedId, key, payloadToSave, sectionsToSave;
+        let hashedId, key, payloadToSave;
         try {
           if (!chrome?.storage?.local) throw new Error('Storage API not available');
           hashedId = await helpers.hashVideoId(this.videoId);
@@ -151,7 +178,7 @@
             return;
           }
           key = `${State.CONSTANTS.STORAGE_PREFIX}${hashedId}`;
-          sectionsToSave = [...this.sections];
+          let sectionsToSave = [...this.sections];
           const maxSections = State.CONSTANTS.SECTION_LIMITS.MAX_SECTIONS_PER_VIDEO;
           if (sectionsToSave.length > maxSections) {
             const incompleteSection = sectionsToSave.find(s => s.end == null);
@@ -170,17 +197,10 @@
             updatedAt: Date.now(),
             v: State.CONSTANTS.DATA_SCHEMA_VERSION
           };
-          await helpers.sendMessage({
-            type: State.CONSTANTS.MESSAGE_TYPES.SAVE_DATA_AND_METADATA,
-            payload: {
-              key: key,
-              data: payloadToSave,
-              metadata: {
-                hashedId: hashedId,
-                sectionCount: sectionsToSave.filter(s => s.end != null).length
-              }
-            }
+          await chrome.storage.local.set({
+            [key]: payloadToSave
           });
+          await this.#updateMetadata(sectionsToSave.filter(s => s.end != null).length);
         } catch (err) {
           if (err.message?.includes('QUOTA_EXCEEDED')) {
             logger.warning('persist', 'QUOTA_EXCEEDED. Saving as pending and requesting purge.');
@@ -387,28 +407,32 @@
     }
     _synchronizeSectionElements(sections, currentIdx) {
       const fragment = document.createDocumentFragment();
-
+      const sectionIndicesInDom = new Set();
       sections.forEach((section, index) => {
-        const sectionEl = document.createElement('div');
-        sectionEl.dataset.sectionIndex = index;
-
+        let sectionEl = this.overlayEl.querySelector(`[data-section-index="${index}"]`);
+        if (!sectionEl) {
+          sectionEl = document.createElement('div');
+          sectionEl.dataset.sectionIndex = index;
+          fragment.appendChild(sectionEl);
+        }
         const isComplete = section.end != null;
         const isActive = currentIdx === index && isComplete;
         sectionEl.className = isComplete ? 'section' : 'incomplete-section';
-
         if (isActive) {
           sectionEl.classList.add('is-active');
         }
-
         this._updateSectionElementStyle(sectionEl, section, index, isComplete, isActive);
-        fragment.appendChild(sectionEl);
+        sectionIndicesInDom.add(index.toString());
       });
-
-      // 기존 오버레이를 한 번에 비우고, 메모리에서 완성된 fragment를 단 한 번의 작업으로 추가합니다.
-      this.overlayEl.innerHTML = '';
-      this.overlayEl.appendChild(fragment);
-
-      this.incompleteSectionEl = this.overlayEl.querySelector('.incomplete-section');
+      if (fragment.hasChildNodes()) {
+        this.overlayEl.appendChild(fragment);
+      }
+      Array.from(this.overlayEl.children).forEach(el => {
+        const index = el.dataset.sectionIndex;
+        if (index && !sectionIndicesInDom.has(index)) {
+          el.remove();
+        }
+      });
     }
     _updateSectionElementStyle(sectionEl, section, index, isComplete, isActive) {
       const {
@@ -501,6 +525,7 @@
       this.abortCtrl = new AbortController();
       this.isPausedByVisibility = false;
       this.checkRepeatState = this.checkRepeatState.bind(this);
+      this.isNavigating = false;
     }
     _enterRepeatMode(index) {
       this.mode = SectionRepeat.State.CONSTANTS.MODES.REPEATING;
@@ -524,21 +549,18 @@
       }
     }
     async navigateSections(direction) {
+      if (this.isNavigating) return;
       const completedSections = this.dataManager.getCompletedSections();
       if (completedSections.length === 0) return;
-
-      let nextIdx = this.currentIdx;
-      if (nextIdx === -1) {
-        // 반복 중이 아닐 때: '다음'은 첫 구간으로, '이전'은 마지막 구간으로 이동
-        nextIdx = (direction === 'prev' ? completedSections.length - 1 : 0);
-      } else {
-        // 반복 중일 때: 현재 인덱스에서 이동
+      this.isNavigating = true;
+      try {
+        let nextIdx = this.currentIdx === -1 ? 0 : this.currentIdx;
         nextIdx += (direction === 'prev' ? -1 : 1);
         nextIdx = (nextIdx + completedSections.length) % completedSections.length;
+        await this.startRepeat(nextIdx, true);
+      } finally {
+        this.isNavigating = false;
       }
-
-      // startRepeat은 항상 반복을 '시작'하거나 '갱신'하므로, 모드를 확실하게 설정
-      await this.startRepeat(nextIdx, true);
     }
     jumpToSection(index) {
       const completedSections = this.dataManager.getCompletedSections();
@@ -848,11 +870,11 @@
       try {
         await State.initializationPromise;
         if (this.abortCtrl.signal.aborted) return;
-        await this.dataManager.loadData();
+        const initialSections = await this.dataManager.loadData();
         if (this.abortCtrl.signal.aborted) return;
         this.bindEvents();
         this.updateListenerState();
-        this.uiManager.updateOverlay(this.dataManager.getSections(), -1, true);
+        this.uiManager.updateOverlay(initialSections, -1, true);
         const loadedSectionCount = this.dataManager.getCompletedSections().length;
         if (loadedSectionCount > 0) {
           const msgKey = loadedSectionCount === 1 ? 'toast_info_loaded_singular' : 'toast_info_loaded_plural';
@@ -867,9 +889,6 @@
           this.repeatManager.startRepeat(0);
         }
         this.isHealthy = true;
-        // ✨ Keydown 리스너를 비디오 페이지 Controller 초기화 시점에 등록
-        this.keydownHandler = (e) => SectionRepeat.handleKeyDown(e);
-        document.addEventListener('keydown', this.keydownHandler);
       } catch (e) {
         this.isHealthy = false;
         logger.critical('init', 'Initialization promise failed', e);
@@ -1108,11 +1127,6 @@
     }
     cleanup() {
       this.abortCtrl.abort();
-      // ✨ Controller가 정리될 때 등록했던 Keydown 리스너를 제거
-      if (this.keydownHandler) {
-        document.removeEventListener('keydown', this.keydownHandler);
-        this.keydownHandler = null;
-      }
       this.uiManager?.cleanup();
       if (this.isTimeUpdateListenerActive) {
         this.videoEl.removeEventListener('timeupdate', this.timeUpdateHandler);
@@ -1124,7 +1138,6 @@
       SectionRepeat.logger.debug('cleanup', 'Controller and all managers cleaned up');
     }
   };
-  const GLOBAL_LISTENERS_INITIALIZED = Symbol.for('sr_global_listeners_initialized_v2');
   SectionRepeat.NavigationManager = class NavigationManager {
     constructor() {
       this.initPromise = null;
@@ -1148,10 +1161,10 @@
         this.runInitialization(event);
       }, State.CONSTANTS.TIMING.DEBOUNCE.MUTATION);
     }
+    _handlePotentialVideoChange() {
+      this._requestReinitialization();
+    }
     init() {
-      if (window[GLOBAL_LISTENERS_INITIALIZED]) {
-        return;
-      }
       const YOUTUBE_EVENTS = SectionRepeat.State.CONSTANTS.YOUTUBE_EVENTS;
       this.visibilityChangeHandler = () => {
         this.isBackgroundTab = document.hidden;
@@ -1161,7 +1174,8 @@
         }
       };
       document.addEventListener('visibilitychange', this.visibilityChangeHandler);
-      this.addEventListener(document, YOUTUBE_EVENTS.PAGE_DATA_UPDATED, () => this._requestReinitialization());
+      this.addEventListener(document, YOUTUBE_EVENTS.PAGE_DATA_UPDATED, () => this._handlePotentialVideoChange());
+      this.addEventListener(document, YOUTUBE_EVENTS.PLAYER_UPDATED, () => this._handlePotentialVideoChange());
       this.addEventListener(document.body, YOUTUBE_EVENTS.NAVIGATE_START, () => {
         SectionRepeat.State?.elementCache?.invalidate();
         if (SectionRepeat.State.controller) {
@@ -1176,7 +1190,6 @@
       this.addEventListener(document.body, YOUTUBE_EVENTS.NAVIGATE_FINISH, (e) => {
         this._requestReinitialization(e);
       });
-      this.addEventListener(document, YOUTUBE_EVENTS.PLAYER_UPDATED, () => this._requestReinitialization());
       this.addEventListener(document, YOUTUBE_EVENTS.PLAYLIST_DATA_UPDATED, () => this.handlePlaylistChange());
       this.addEventListener(document, YOUTUBE_EVENTS.YT_ACTION, (e) => {
         if (e.detail?.actionName === 'yt-playlist-set-selected-action' || e.detail?.actionName === 'yt-service-request-completed-action') {
@@ -1189,7 +1202,6 @@
         this._requestReinitialization();
         this.setupPlayerObserver();
       });
-      window[GLOBAL_LISTENERS_INITIALIZED] = true;
     }
     runSafetyCheck() {
       const {
@@ -1471,7 +1483,6 @@
         }
       });
       this.eventListeners = [];
-      window[GLOBAL_LISTENERS_INITIALIZED] = false;
     }
   };
   SectionRepeat.InitializationManager = class InitializationManager {
@@ -1524,9 +1535,6 @@
       const cacheTTL = State.CONSTANTS?.DOM_CACHE?.TTL || 30000;
       State.elementCache = new SectionRepeat.LRUCache(cacheSize, cacheTTL);
       State.unifiedObserver = new SectionRepeat.UnifiedObserverManager();
-      // ✨ Keydown 리스너를 전역이 아닌, Controller 단위로 관리하도록 로직 이동
-      this.beforeUnloadHandler = () => SectionRepeat.handleBeforeUnload();
-      window.addEventListener('beforeunload', this.beforeUnloadHandler);
       State.navigationManager = new SectionRepeat.NavigationManager();
       State.navigationManager.init();
       TimerManager.set(() => {

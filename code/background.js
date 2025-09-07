@@ -25,21 +25,9 @@ try {
   });
   if (chrome.action) {
     chrome.action.disable();
-    let extName, errorTitle, title;
-    try {
-      // API가 정상일 경우를 위해 메시지 로드를 시도합니다.
-      extName = chrome.i18n.getMessage('ext_name');
-      errorTitle = chrome.i18n.getMessage('popup_error_setup_title');
-      title = chrome.i18n.getMessage('action_error_title_with_name', [extName, errorTitle]);
-    } catch (i18nError) {
-      // i18n API 호출 실패 시, 2차 오류를 방지하고 영문으로 대체합니다.
-      console.error('[Section Repeat] CRITICAL: Failed to get i18n messages during critical failure.', i18nError);
-      extName = 'Section Repeat';
-      errorTitle = 'Initialization Failed';
-      title = `${extName}: ${errorTitle}`;
-    }
+    const criticalErrorTitle = chrome.i18n.getMessage('critical_error_title') || 'Section Repeat: Critical error. Please try reinstalling.';
     chrome.action.setTitle({
-      title
+      title: criticalErrorTitle
     });
   }
 }
@@ -170,7 +158,7 @@ async function processStateUpdateQueue() {
         error: taskError
       });
       const retryCount = (task.retries || 0) + 1;
-      if (retryCount <= CONST.TIMING.RETRY.STATE_UPDATE_ATTEMPTS) {
+      if (retryCount <= 3) {
         task.retries = retryCount;
         queue.unshift(task);
         await setQueue(queue);
@@ -179,7 +167,11 @@ async function processStateUpdateQueue() {
         logger.critical('processStateUpdateQueue', 'Task failed after max retries and was discarded.', {
           task
         });
-        const criticalTasks = ['REPEAT_STATE_CHANGED', 'STILL_REPEATING', 'NAVIGATED_AWAY'];
+        const criticalTasks = [
+          CONST.INTERNAL_TASK_TYPES.REPEAT_STATE_CHANGED,
+          CONST.INTERNAL_TASK_TYPES.STILL_REPEATING,
+          CONST.INTERNAL_TASK_TYPES.NAVIGATED_AWAY
+        ];
         if (criticalTasks.includes(task.type)) {
           try {
             const {
@@ -223,7 +215,7 @@ async function runTask(task, currentStates) {
   } = task;
   const newStates = new Map(currentStates);
   switch (type) {
-    case 'CONTENT_SCRIPT_INIT_STARTED':
+    case CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_INIT_STARTED:
       {
         const {
           tabId
@@ -233,7 +225,7 @@ async function runTask(task, currentStates) {
         newStates.set(tabId.toString(), state);
         return newStates;
       }
-    case 'CONTENT_SCRIPT_READY':
+    case CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_READY:
       {
         const {
           tabId
@@ -245,7 +237,7 @@ async function runTask(task, currentStates) {
         newStates.set(tabId.toString(), state);
         return newStates;
       }
-    case 'REPEAT_STATE_CHANGED':
+    case CONST.INTERNAL_TASK_TYPES.REPEAT_STATE_CHANGED:
       {
         const {
           tabId,
@@ -270,7 +262,7 @@ async function runTask(task, currentStates) {
         }
         return newStates;
       }
-    case 'TAB_REMOVED':
+    case CONST.INTERNAL_TASK_TYPES.TAB_REMOVED:
       {
         const {
           tabId
@@ -282,7 +274,7 @@ async function runTask(task, currentStates) {
         }
         return null;
       }
-    case 'STILL_REPEATING':
+    case CONST.INTERNAL_TASK_TYPES.STILL_REPEATING:
       {
         const {
           tabId
@@ -299,7 +291,7 @@ async function runTask(task, currentStates) {
           .catch(e => logger.debug('runTask.still_repeating', `Tab ${tabId} not found for force stop.`));
         return null;
       }
-    case 'NAVIGATED_AWAY':
+    case CONST.INTERNAL_TASK_TYPES.NAVIGATED_AWAY:
       {
         const {
           tabId
@@ -311,7 +303,7 @@ async function runTask(task, currentStates) {
         }
         return null;
       }
-    case 'SET_FOCUS_MODE':
+    case CONST.INTERNAL_TASK_TYPES.SET_FOCUS_MODE:
       {
         const {
           tabId,
@@ -322,7 +314,7 @@ async function runTask(task, currentStates) {
         newStates.set(tabId.toString(), state);
         return newStates;
       }
-    case 'RECONCILE_TAB_STATES':
+    case CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES:
       {
         const tabIdPromises = Array.from(newStates.keys()).map(tabIdStr => {
           return chrome.tabs.get(parseInt(tabIdStr, 10))
@@ -346,7 +338,7 @@ async function runTask(task, currentStates) {
         }
         return changed ? newStates : null;
       }
-    case 'CLEAR_STATE_IF_NOT_VIDEO_PAGE':
+    case CONST.INTERNAL_TASK_TYPES.CLEAR_STATE_IF_NOT_VIDEO_PAGE:
       {
         const {
           tabId
@@ -515,11 +507,7 @@ async function purgeOldSections(userInitiated = false) {
     return true;
   } catch (e) {
     if (e.message.includes('Lock acquisition timed out')) {
-      if (userInitiated) {
-        logger.warning('purgeOldSections', 'Lock busy for user-initiated purge.');
-        throw new Error('lock_busy');
-      }
-      logger.debug('purgeOldSections', 'Could not acquire purge lock for background task, scheduling retry.');
+      logger.debug('purgeOldSections', 'Could not acquire purge lock, scheduling retry.');
       chrome.alarms.create(CONST.ALARM_NAMES.RETRY_PURGE, {
         delayInMinutes: CONST.TIMING.TIMEOUT.PURGE_RETRY_DELAY_MIN
       });
@@ -808,7 +796,7 @@ chrome.runtime.onInstalled.addListener(async ({
   try {
     await cleanupStaleLocksOnStartup();
     await enqueueStateUpdate({
-      type: 'RECONCILE_TAB_STATES'
+      type: CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES
     });
     try {
       chrome.alarms.create(CONST.ALARM_NAMES.PURGE_OLD_SECTIONS, {
@@ -882,7 +870,7 @@ chrome.runtime.onStartup.addListener(async () => {
   await cleanupStaleLocksOnStartup();
   await attemptSyncMigration();
   await enqueueStateUpdate({
-    type: 'RECONCILE_TAB_STATES'
+    type: CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES
   });
   logger.info('onStartup', 'Extension started');
   await purgeOldSections().catch(e => logger.error('onStartup.purgeOldSections', e));
@@ -899,7 +887,7 @@ async function clearTabStateAfterGracePeriod(tabId) {
   }
   if (stillNotVideoPage) {
     await enqueueStateUpdate({
-      type: 'CLEAR_STATE_IF_NOT_VIDEO_PAGE',
+      type: CONST.INTERNAL_TASK_TYPES.CLEAR_STATE_IF_NOT_VIDEO_PAGE,
       payload: {
         tabId
       }
@@ -1000,7 +988,7 @@ async function handleTabRemoved(tabId) {
   chrome.alarms.clear(`${CONST.ALARM_NAMES.CLEANUP_TAB_PREFIX}${tabId}`);
   await chrome.storage.session.remove(`tab_status_${tabId}`);
   await enqueueStateUpdate({
-    type: 'TAB_REMOVED',
+    type: CONST.INTERNAL_TASK_TYPES.TAB_REMOVED,
     payload: {
       tabId
     }
@@ -1063,7 +1051,7 @@ const sendInitialPayload = async (tabId, retryCount = 0) => {
       tabId
     });
     await enqueueStateUpdate({
-      type: 'CONTENT_SCRIPT_READY',
+      type: CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_READY,
       payload: {
         tabId
       }
@@ -1098,7 +1086,7 @@ function handleRepeatStateChanged(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'REPEAT_STATE_CHANGED',
+    type: CONST.INTERNAL_TASK_TYPES.REPEAT_STATE_CHANGED,
     payload: {
       tabId,
       isRepeating: !!message.payload,
@@ -1111,7 +1099,7 @@ function handleStillRepeating(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'STILL_REPEATING',
+    type: CONST.INTERNAL_TASK_TYPES.STILL_REPEATING,
     payload: {
       tabId
     }
@@ -1122,7 +1110,7 @@ function handleNavigatedAwayFromVideo(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'NAVIGATED_AWAY',
+    type: CONST.INTERNAL_TASK_TYPES.NAVIGATED_AWAY,
     payload: {
       tabId
     }
@@ -1133,7 +1121,7 @@ function handleSetFocusMode(message, sender) {
   const tabId = sender.tab?.id;
   if (!tabId) return;
   enqueueStateUpdate({
-    type: 'SET_FOCUS_MODE',
+    type: CONST.INTERNAL_TASK_TYPES.SET_FOCUS_MODE,
     payload: {
       tabId,
       isFocus: message.payload.isFocus,
@@ -1164,9 +1152,9 @@ async function handleContentScriptReady(message, sender) {
   logger.debug('CONTENT_SCRIPT_READY', 'Content script initialized, sending initial payload...', {
     tabId
   });
-  sendInitialPayload(tabId);
-  await enqueueStateUpdate({
-    type: 'CONTENT_SCRIPT_INIT_STARTED',
+  await sendInitialPayload(tabId);
+  enqueueStateUpdate({
+    type: CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_INIT_STARTED,
     payload: {
       tabId
     }
@@ -1226,66 +1214,33 @@ async function handleGetUserSalt() {
     salt: userSalt
   };
 }
-async function handleHashVideoId(message) {
-  const userSalt = await getUserSaltWithRetry();
-  if (!userSalt) throw new Error('Salt not available');
-  const {
-    videoId
-  } = message.payload;
-  const saltString = Array.isArray(userSalt) ? userSalt.map(b => b.toString(16).padStart(2, '0')).join('') : userSalt;
-  const data = new TextEncoder().encode(videoId + saltString);
-  try {
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashedId = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return {
-      hashedId
-    };
-  } catch (e) {
-    logger.critical('handleHashVideoId', 'SubtleCrypto API failed.', e);
-    // content-script가 오류를 인지하고 대응할 수 있도록 에러를 던짐
-    throw new Error('Hashing failed due to crypto API error.');
-  }
-}
-async function handleSaveDataAndMetadata({
+async function handleUpdateMetadata({
   payload
 }) {
   const {
-    key,
-    data,
-    metadata
-  } = payload;
-  const {
     hashedId,
     sectionCount
-  } = metadata;
+  } = payload;
   let lockId;
-
   try {
     lockId = await lockManager.acquire(CONST.LOCK_KEYS.METADATA_ACCESS);
-
-    const {
-      [CONST.STORAGE_KEYS.METADATA]: currentMetadata = {}
-    } = await chrome.storage.local.get(CONST.STORAGE_KEYS.METADATA);
     const storageKey = `${CONST.STORAGE_PREFIX}${hashedId}`;
-
+    const {
+      [CONST.STORAGE_KEYS.METADATA]: metadata = {}
+    } = await chrome.storage.local.get(CONST.STORAGE_KEYS.METADATA);
     if (sectionCount > 0) {
-      currentMetadata[storageKey] = {
+      metadata[storageKey] = {
         updatedAt: Date.now(),
         sectionCount
       };
     } else {
-      delete currentMetadata[storageKey];
+      delete metadata[storageKey];
     }
-
     await chrome.storage.local.set({
-      [key]: data,
-      [CONST.STORAGE_KEYS.METADATA]: currentMetadata
+      [CONST.STORAGE_KEYS.METADATA]: metadata
     });
-
   } catch (e) {
-    logger.error('handleSaveDataAndMetadata', 'Failed to save data and metadata atomically.', e);
-    throw e;
+    logger.error('handleUpdateMetadata', 'Failed to update metadata', e);
   } finally {
     if (lockId) {
       await lockManager.release(CONST.LOCK_KEYS.METADATA_ACCESS, lockId);
@@ -1294,8 +1249,10 @@ async function handleSaveDataAndMetadata({
   return {};
 }
 const messageHandlers = {
-  [CONST?.MESSAGE_TYPES?.SAVE_DATA_AND_METADATA]: handleSaveDataAndMetadata,
-  [CONST?.MESSAGE_TYPES?.HASH_VIDEO_ID]: handleHashVideoId,
+  [CONST?.MESSAGE_TYPES?.UPDATE_METADATA]: (msg) => {
+    handleUpdateMetadata(msg);
+    return {};
+  },
   [CONST?.MESSAGE_TYPES?.CONTENT_SCRIPT_READY]: handleContentScriptReady,
   [CONST?.MESSAGE_TYPES?.REATTEMPT_SETUP]: handleReattemptSetup,
   [CONST?.MESSAGE_TYPES?.GET_TAB_STATE]: handleGetTabState,
@@ -1377,7 +1334,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         await chrome.tabs.get(sender.tab.id);
       } catch (e) {
         await enqueueStateUpdate({
-          type: 'RECONCILE_TAB_STATES'
+          type: CONST.INTERNAL_TASK_TYPES.RECONCILE_TAB_STATES
         });
         sendResponse({
           success: false,

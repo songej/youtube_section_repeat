@@ -1,5 +1,7 @@
-(function(SectionRepeat) {
+(function() {
   'use strict';
+  const SectionRepeat = window.SectionRepeat || {};
+  window.SectionRepeat = SectionRepeat;
 
   class CryptoError extends Error {
     constructor(message) {
@@ -407,6 +409,16 @@
       }
     }
   };
+
+  async function hashStringWithSalt(input, salt) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input + salt);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const result = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return result;
+  }
+
   SectionRepeat.helpers = {
     async sendMessage(message, retries) {
       const State = SectionRepeat.State;
@@ -454,7 +466,7 @@
         const context = this;
         if (!inThrottle) {
           inThrottle = true;
-          setTimeout(() => (inThrottle = false), limit);
+          SectionRepeat.TimerManager.set(() => (inThrottle = false), limit);
           lastResult = func.apply(context, args);
         }
         return lastResult;
@@ -583,21 +595,13 @@
       }
     },
     async hashVideoId(videoId) {
-      try {
-        const response = await this.sendMessage({
-          type: SectionRepeat.State.CONSTANTS.MESSAGE_TYPES.HASH_VIDEO_ID,
-          payload: {
-            videoId
-          }
-        });
-
-        if (response?.success && response.hashedId) {
-          return response.hashedId;
-        }
-        throw new Error(response?.error || 'Hashing failed in background.');
-      } catch (e) {
-        throw new SectionRepeat.CryptoError('Failed to get hashed video ID from background.');
+      const {
+        State
+      } = SectionRepeat;
+      if (!State.userSalt) {
+        throw new SectionRepeat.CryptoError('User salt not available for hashing.');
       }
+      return hashStringWithSalt(videoId, State.userSalt);
     }
   };
-})(window.SectionRepeat);
+})();

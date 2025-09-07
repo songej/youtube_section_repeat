@@ -5,17 +5,8 @@
   "ext_description": {
     "message": "Repetição A-B e loops múltiplos para YouTube. Pratique mais rápido com atalhos de teclado."
   },
-  "action_error_title_with_name": {
-    "message": "$1: $2",
-    "description": "Tooltip for the extension icon when a critical error occurs. $1 is the extension name, $2 is the error title.",
-    "placeholders": {
-      "1": {
-        "content": "$1"
-      },
-      "2": {
-        "content": "$2"
-      }
-    }
+  "popup_note_inactive": {
+    "message": "Os atalhos ficam ativos quando você está em uma página de vídeo do YouTube."
   },
   "popup_shortcuts_header_key": {
     "message": "Tecla"
@@ -23,11 +14,14 @@
   "popup_shortcuts_header_action": {
     "message": "Ação"
   },
+  "popup_shortcut_action_focus": {
+    "message": "Entrar no Modo Foco"
+  },
   "popup_shortcut_action_start": {
     "message": "Iniciar trecho"
   },
   "popup_shortcut_action_end": {
-    "message": "Terminar (Conectar) trecho"
+    "message": "Finalizar trecho"
   },
   "popup_shortcut_action_toggle_repeat": {
     "message": "Ligar/desligar repetição"
@@ -43,12 +37,6 @@
   },
   "popup_shortcut_action_clear_sections": {
     "message": "Limpar todos os trechos"
-  },
-  "popup_shortcut_action_focus": {
-    "message": "Entrar no Modo Foco"
-  },
-  "popup_note_inactive": {
-    "message": "Os atalhos ficam ativos quando você está em uma página de vídeo do YouTube."
   },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
@@ -68,8 +56,26 @@
   "popup_shortcut_key_space": {
     "message": "Espaço"
   },
+  "popup_shortcut_key_home": {
+    "message": "Home"
+  },
+  "popup_shortcut_key_end": {
+    "message": "End"
+  },
   "popup_hotkey_error_placeholder": {
     "message": "-"
+  },
+  "popup_error_setup_title": {
+    "message": "Falha na Inicialização"
+  },
+  "popup_error_setup_advice": {
+    "message": "Por favor, tente novamente. Se o problema persistir, recarregue a página."
+  },
+  "popup_button_retry_setup": {
+    "message": "Tentar Configuração Novamente"
+  },
+  "popup_button_retrying": {
+    "message": "Tentando novamente..."
   },
   "popup_storage_warning_message": {
     "message": "O armazenamento está mais de $1% cheio. Dados antigos podem ser deletados em breve.",
@@ -79,41 +85,17 @@
       }
     }
   },
-  "popup_storage_purge_completed": {
-    "message": "Dados antigos foram removidos com sucesso."
-  },
-  "popup_storage_purge_failed": {
-    "message": "A limpeza falhou. Por favor, tente novamente mais tarde."
-  },
-  "popup_warning_session_only_mode_detailed": {
-    "message": "Modo apenas-sessão está ativo porque um componente de segurança falhou. Trechos não serão salvos. Reiniciar seu navegador pode resolver isso."
-  },
-  "popup_error_setup_title": {
-    "message": "Falha na Inicialização"
-  },
-  "popup_error_setup_advice": {
-    "message": "Por favor, tente novamente. Se o problema persistir, tente recarregar a página."
-  },
-  "popup_error_setup_crypto_failed": {
-    "message": "Não foi possível inicializar um componente de segurança necessário."
-  },
-  "popup_error_setup_unknown": {
-    "message": "Ocorreu um erro desconhecido durante a configuração."
-  },
-  "popup_error_connection_failed": {
-    "message": "Não foi possível conectar à extensão. Por favor, recarregue a página e tente novamente."
-  },
-  "popup_error_connection_timeout": {
-    "message": "Tempo de conexão esgotado. Por favor, recarregue a página e tente novamente."
-  },
-  "popup_button_retry_setup": {
-    "message": "Tentar Configuração Novamente"
-  },
-  "popup_button_retrying": {
-    "message": "Tentando novamente..."
-  },
   "popup_storage_purge_button": {
     "message": "Limpar Dados Antigos"
+  },
+  "dialog_purge_confirm_message": {
+    "message": "Isso vai deletar permanentemente seus dados de trecho mais antigos para liberar espaço. Tem certeza?"
+  },
+  "dialog_button_cancel": {
+    "message": "Cancelar"
+  },
+  "dialog_button_confirm_purge": {
+    "message": "Confirmar Limpeza"
   },
   "toast_success_section_added": {
     "message": "Trecho #$1 adicionado.",
@@ -140,11 +122,11 @@
   "toast_success_reconnected": {
     "message": "Reconectado com sucesso."
   },
-  "toast_action_reload": {
-    "message": "Recarregar Página"
-  },
   "toast_info_section_start_set": {
-    "message": "Ponto inicial do trecho definido. Aperte 'E' para terminar."
+    "message": "Ponto de início do trecho definido. Aperte 'E' para finalizar."
+  },
+  "toast_info_incomplete_section_autocompleted": {
+    "message": "Trecho incompleto foi automaticamente completado no final do vídeo."
   },
   "toast_info_repeat_stopped": {
     "message": "Repetição parada."
@@ -179,14 +161,14 @@
       }
     }
   },
-  "toast_info_incomplete_section_autocompleted": {
-    "message": "Trecho incompleto foi automaticamente completado no final do vídeo."
-  },
   "toast_info_legacy_data_cleared": {
-    "message": "Dados antigos incompatíveis foram limpos para garantir operação suave."
+    "message": "Dados antigos incompatíveis foram limpos para operação suave."
+  },
+  "toast_info_autorepeat_video": {
+    "message": "O vídeo terminou. Repetindo do início."
   },
   "toast_info_sectioning_hint": {
-    "message": "Aperte 'S' para iniciar um trecho, 'E' para terminar."
+    "message": "Aperte 'S' para iniciar um trecho, 'E' para finalizar."
   },
   "toast_info_playlist_hint": {
     "message": "Dica: Aperte 'W' para entrar no Modo Foco e sair da playlist."
@@ -197,9 +179,6 @@
   "toast_info_focus_mode_entering": {
     "message": "Entrando no Modo Foco... A página será recarregada."
   },
-  "toast_info_autorepeat_video": {
-    "message": "O vídeo terminou. Repetindo desde o início."
-  },
   "toast_warn_initialization_slow": {
     "message": "A extensão ainda está carregando... Por favor, tente novamente em um momento."
   },
@@ -207,10 +186,10 @@
     "message": "Repetir Trechos não está disponível para transmissões ao vivo."
   },
   "toast_warning_repeat_stopped_unexpectedly": {
-    "message": "A repetição foi parada devido a um erro de navegação ou de fundo."
+    "message": "A repetição foi parada devido a um erro de navegação ou background."
   },
   "toast_warning_storage_level": {
-    "message": "Armazenamento está $1% cheio. Dados antigos podem ser removidos.",
+    "message": "Armazenamento está $1% cheio. Dados antigos podem ser limpos.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -218,7 +197,7 @@
     }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "Limite de $1 trechos atingido. Removidos $2 trecho(s) mais antigo(s) para fazer espaço.",
+    "message": "Limite de $1 trechos atingido. Removidos $2 trecho(s) mais antigo(s) para liberar espaço.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -228,11 +207,8 @@
       }
     }
   },
-  "toast_error_player_init_failed": {
-    "message": "Inicialização falhou após várias tentativas. Por favor, recarregue a página."
-  },
   "toast_error_storage_critical": {
-    "message": "Armazenamento Crítico ($1% cheio). Dados antigos devem ser removidos para salvar novos trechos.",
+    "message": "Armazenamento Crítico ($1% cheio). Dados antigos devem ser limpos para salvar novos trechos.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -243,13 +219,10 @@
     "message": "Não foi possível entrar no Modo Foco. Por favor, tente novamente."
   },
   "toast_error_action_locked": {
-    "message": "Ação falhou porque outra operação está em andamento. Por favor, tente novamente em um momento."
+    "message": "Ação falhou porque outra operação está em progresso. Por favor, tente novamente em um momento."
   },
   "toast_error_final_save_failed": {
-    "message": "Falha ao salvar dados. Por favor, use 'Limpar Dados Antigos' no popup para liberar espaço."
-  },
-  "toast_reload_prompt": {
-    "message": "O contexto da extensão foi perdido. Por favor, recarregue a página para continuar."
+    "message": "Falha ao salvar dados. Use 'Limpar Dados Antigos' no popup para liberar espaço."
   },
   "aria_popup_shortcuts_table_label": {
     "message": "Lista de atalhos de teclado. Use as setas para navegar pelas linhas."
@@ -277,7 +250,7 @@
     }
   },
   "aria_popup_storage_purge_button_label": {
-    "message": "Deletar dados de trechos antigos para liberar espaço de armazenamento."
+    "message": "Deletar dados de trecho antigos para liberar espaço de armazenamento."
   },
   "aria_toast_container_label": {
     "message": "Notificações de Repetir Trechos"
@@ -311,7 +284,7 @@
     }
   },
   "aria_overlay_desc_with_incomplete": {
-    "message": "Um total de $1 trechos foram definidos, dos quais $2 estão incompletos.",
+    "message": "Um total de $1 trechos foram definidos, $2 dos quais estão incompletos.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -322,7 +295,7 @@
     }
   },
   "aria_overlay_desc_full_state": {
-    "message": "Um total de $1 trechos foram definidos, dos quais $2 estão incompletos. Atualmente repetindo o trecho número $3.",
+    "message": "Um total de $1 trechos foram definidos, $2 dos quais estão incompletos. Atualmente repetindo o trecho número $3.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -335,19 +308,43 @@
       }
     }
   },
-  "dialog_button_cancel": {
-    "message": "Cancelar"
+  "critical_error_title": {
+    "message": "Repetir Trechos: Erro crítico. Por favor, tente reinstalar."
   },
-  "dialog_button_confirm_purge": {
-    "message": "Confirmar Limpeza"
+  "popup_error_connection_failed": {
+    "message": "Não foi possível conectar à extensão. Por favor, recarregue a página e tente novamente."
   },
-  "dialog_purge_confirm_message": {
-    "message": "Isso deletará permanentemente seus dados de trechos mais antigos para fazer espaço. Tem certeza?"
+  "popup_error_connection_timeout": {
+    "message": "Tempo de conexão esgotado. Por favor, recarregue a página e tente novamente."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "Um componente de segurança do navegador necessário falhou ao inicializar. Dados de trecho não podem ser salvos. Por favor, tente 'Tentar Configuração Novamente'. Se o problema persistir, reiniciar o navegador pode ajudar."
+  },
+  "popup_error_setup_unknown": {
+    "message": "Um erro desconhecido ocorreu durante a configuração."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Modo apenas-sessão está ativo porque um componente de segurança falhou. Trechos não serão salvos. Reiniciar o navegador pode resolver isso."
+  },
+  "popup_storage_purge_completed": {
+    "message": "Dados antigos foram limpos com sucesso."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Limpeza falhou. Por favor, tente novamente mais tarde."
+  },
+  "toast_error_player_init_failed": {
+    "message": "Inicialização falhou após múltiplas tentativas. Por favor, recarregue a página."
+  },
+  "toast_reload_prompt": {
+    "message": "O contexto da extensão foi perdido. Por favor, recarregue a página para continuar."
+  },
+  "toast_action_reload": {
+    "message": "Recarregar Página"
   },
   "dialog_critical_error_dom_changed": {
     "message": "A estrutura da página do YouTube mudou inesperadamente e a extensão perdeu o controle. Por favor, recarregue a página para reiniciar a extensão."
   },
   "dialog_critical_error_guidance_with_reinstall": {
-    "message": "Um componente crítico falhou ao carregar, impedindo que a extensão funcione corretamente. Esse problema pode exigir reinstalar a extensão."
+    "message": "Um componente crítico falhou ao carregar, o que impede a extensão de funcionar corretamente. Você pode precisar reinstalar a extensão."
   }
 }
