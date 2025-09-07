@@ -7,31 +7,31 @@ permalink: /changelog/
 # Changelog
 
 ## v1.2.7
-Improved internationalization for keyboard shortcut display in the popup menu. Enhanced robustness of UI component styling and locale file structure for better maintainability.
+- More accurate shortcut labels by keyboard layout, clearer fatal-error guidance, support for youtube-nocookie, tighter loop timing, refreshed UI palette/styles.
 
 ## v1.2.6
-Clarify privacy for ESB, minor fixes only.
+- Incognito split mode, removed unnecessary web resources to reduce warnings, safer init.
 
 ## v1.2.5
-Stability and accessibility improvements; safer init; background messaging refactor.
+- Task-based background messaging, auto-recovery from bad URL states, UI/accessibility tweaks.
 
 ## v1.2.4
-Lock/retry reliability tweaks and minor UI polish.
+- Stronger lock/retry logic, session/storage limit warnings, minor polish.
 
 ## v1.2.3
-Improved setup resilience and legacy data cleanup.
+- Better init failure detection, legacy data cleanup, safer storage reads.
 
 ## v1.2.2
-Hotkey handling and per-tab state updates for faster, safer popup state.
+- Faster hotkey handling and per-tab state cache for more responsive popup/action button.
 
 ## v1.2.1
-Install/update behavior adjustments and i18n cleanup.
+- Tuned install/update behavior; i18n cleanup.
 
 ## v1.2.0
-Rename: YouTube Slice Loop → YouTube Section Repeat; internal/docs updates.
+- Rename: YouTube Slice Loop → YouTube Section Repeat; internal/docs/locale cleanup.
 
-## v1.0.0
-Initial release: repeat YouTube sections (incl. chaining), keyboard shortcuts; works on watch/Shorts/embed; 14 locales.
+## v1.1.0
+- Initial release: section repeat (incl. chaining), shortcuts, watch/Shorts/embed support, 14 locales.
 
 ---
 [← Back to Home](/)
