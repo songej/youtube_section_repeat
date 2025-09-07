@@ -94,9 +94,8 @@ The Extension is intended for a general audience and does not knowingly collect 
 We may update this Privacy Policy from time to time. When we do, we will update the "Effective Date" at the top of this policy and document the changes in the project's official release notes.
 
 ## 10. Contact Us
-If you have any questions about this Privacy Policy, please contact:
-- Name: Eunjeong Song
-- Email: songej.dev@gmail.com
+If you have any questions about this Privacy Policy, please contact: 
+[SectionRepeat Contact Form](https://tally.so/r/mDLBkj)
 
 > YouTube™ and Chrome™ are trademarks of Google LLC. Use of these trademarks does not imply affiliation or endorsement.
 
