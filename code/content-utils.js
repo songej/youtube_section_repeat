@@ -1,6 +1,5 @@
-(function() { // [Fix] Race Condition 방지를 위해 IIFE 패턴 변경
+(function() {
   'use strict';
-  // [Fix] 다른 스크립트보다 먼저 실행될 경우를 대비해 SectionRepeat 네임스페이스를 방어적으로 생성
   const SectionRepeat = window.SectionRepeat || {};
   window.SectionRepeat = SectionRepeat;
 
@@ -411,19 +410,14 @@
     }
   };
 
-  const HASH_CACHE = new SectionRepeat.LRUCache(100);
+  // [MODIFIED] Removed LRU cache for hashing as it provides negligible performance benefits
+  // and adds unnecessary complexity. Direct hashing is fast enough.
   async function hashStringWithSalt(input, salt) {
-      const cacheKey = `${input}-${salt}`;
-      const cachedResult = HASH_CACHE.get(cacheKey);
-      if (cachedResult) {
-          return cachedResult;
-      }
       const encoder = new TextEncoder();
       const data = encoder.encode(input + salt);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const result = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      HASH_CACHE.set(cacheKey, result);
       return result;
   }
 
@@ -611,3 +605,4 @@
     }
   };
 })();
+

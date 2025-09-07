@@ -5,6 +5,9 @@
   "ext_description": {
     "message": "A-B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts."
   },
+  "critical_error_title": {
+    "message": "Section Repeat: Critical error. Please try reinstalling."
+  },
   "popup_shortcuts_header_key": {
     "message": "Key"
   },
@@ -53,6 +56,12 @@
   "popup_shortcut_key_space": {
     "message": "Space"
   },
+  "popup_shortcut_key_home": {
+    "message": "Home"
+  },
+  "popup_shortcut_key_end": {
+    "message": "End"
+  },
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
@@ -64,9 +73,7 @@
   },
   "popup_storage_warning_message": {
     "message": "Storage is over $1% full. Older data may be deleted soon.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "popup_storage_purge_button": {
     "message": "Purge Old Data"
@@ -103,9 +110,7 @@
   },
   "toast_success_section_added": {
     "message": "Section #$1 added.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "toast_success_sections_cleared": {
     "message": "All sections for this video have been cleared."
@@ -115,9 +120,7 @@
   },
   "toast_success_storage_cleaned": {
     "message": "Storage cleaned. Current usage: $1%.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "toast_success_reconnected": {
     "message": "Successfully reconnected."
@@ -133,25 +136,18 @@
   },
   "toast_info_repeating_navigation": {
     "message": "Repeating section $1 of $2.",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+    "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
   },
   "toast_info_jumped_to_section": {
     "message": "Jumped to section $1.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "toast_info_loaded_singular": {
     "message": "Loaded 1 saved section for this video."
   },
   "toast_info_loaded_plural": {
     "message": "Loaded $1 saved sections for this video.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "toast_info_legacy_data_cleared": {
     "message": "Incompatible old data has been cleared to ensure smooth operation."
@@ -182,25 +178,18 @@
   },
   "toast_warning_storage_level": {
     "message": "Storage is $1% full. Old data might be purged.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "toast_warning_sections_auto_purged": {
     "message": "Section limit of $1 reached. Removed $2 oldest section(s) to make space.",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+    "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
   },
   "toast_error_player_init_failed": {
     "message": "Initialization failed after multiple retries. Please reload the page."
   },
   "toast_error_storage_critical": {
     "message": "Storage Critical ($1% full). Old data must be purged to save new sections.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "toast_error_focus_mode_failed": {
     "message": "Could not enter Focus Mode. Please try again."
@@ -237,17 +226,11 @@
   },
   "aria_popup_shortcut_row_label": {
     "message": "Key: $1, Action: $2",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+    "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
   },
   "aria_popup_shortcut_row_activated": {
     "message": "Shortcut activated. Key: $1, Action: $2",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+    "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
   },
   "aria_popup_storage_purge_button_label": {
     "message": "Delete older section data to free up storage space."
@@ -266,37 +249,19 @@
   },
   "aria_overlay_desc_plural": {
     "message": "$1 sections have been set on the progress bar.",
-    "placeholders": {
-      "1": { "content": "$1" }
-    }
+    "placeholders": { "1": { "content": "$1" } }
   },
   "aria_overlay_desc_with_repeating": {
     "message": "A total of $1 sections have been set. Currently repeating section number $2.",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+    "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
   },
   "aria_overlay_desc_with_incomplete": {
     "message": "A total of $1 sections have been set, $2 of which are incomplete.",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+    "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
   },
   "aria_overlay_desc_full_state": {
     "message": "A total of $1 sections have been set, $2 of which are incomplete. Currently repeating section number $3.",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" },
-      "3": { "content": "$3" }
-    }
-  },
-  "action_error_title_with_name": {
-    "message": "$1: $2",
-    "placeholders": {
-      "1": { "content": "$1" },
-      "2": { "content": "$2" }
-    }
+    "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" }, "3": { "content": "$3" } }
   }
 }
+

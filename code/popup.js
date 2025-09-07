@@ -56,12 +56,15 @@ class GridFocusManager {
 }
 
 function formatKeyCode(code) {
+  // [MODIFIED] Expanded key mappings for better localization coverage.
   const keyMappings = {
     'ArrowUp': chrome.i18n.getMessage('popup_shortcut_key_arrow_up'),
     'ArrowDown': chrome.i18n.getMessage('popup_shortcut_key_arrow_down'),
     'ArrowLeft': chrome.i18n.getMessage('popup_shortcut_key_arrow_left'),
     'ArrowRight': chrome.i18n.getMessage('popup_shortcut_key_arrow_right'),
     'Space': chrome.i18n.getMessage('popup_shortcut_key_space'),
+    'Home': chrome.i18n.getMessage('popup_shortcut_key_home'),
+    'End': chrome.i18n.getMessage('popup_shortcut_key_end'),
   };
 
   if (keyMappings[code]) {
@@ -189,39 +192,33 @@ class PopupManager {
     errorContainer.appendChild(document.createTextNode(message));
     errorContainer.classList.remove('hidden');
 
-    let timeoutId = null;
     let handleKeydown;
 
     const closeAndCleanup = () => {
       errorContainer.classList.add('hidden');
-      if (timeoutId) clearTimeout(timeoutId);
       if (handleKeydown) document.removeEventListener('keydown', handleKeydown);
 
       if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
         previouslyFocusedElement.focus();
       }
     };
-
-    if (!isCritical) {
-      const displayTime = this.CONSTS?.TIMING?.TIMEOUT?.POPUP_ERROR_DISPLAY || 5000;
-      timeoutId = setTimeout(closeAndCleanup, displayTime);
-    }
-
+    
     handleKeydown = (e) => {
       if (e.key === KEY_CODES.ESCAPE) {
         closeAndCleanup();
       }
     };
-
+    
     const closeButton = document.createElement('button');
     closeButton.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
     closeButton.className = 'sr-close-btn popup-error-close-btn';
     closeButton.setAttribute('aria-label', chrome.i18n.getMessage('aria_toast_close_button'));
     closeButton.onclick = closeAndCleanup;
-
     errorContainer.appendChild(closeButton);
+    
+    // [MODIFIED] Removed automatic timeout for all dismissable errors to prevent focus loss issues.
+    // All errors with a close button now require manual dismissal.
     document.addEventListener('keydown', handleKeydown);
-
     closeButton.focus();
   }
   checkStorageStatus(storageInfo) {
@@ -290,7 +287,7 @@ class PopupManager {
           type: this.CONSTS.MESSAGE_TYPES.FORCE_PURGE
         });
         if (response?.success && response.purged) {
-          this.showPopupError(chrome.i18n.getMessage('popup_storage_purge_completed'), false);
+          this.showPopupError(chrome.i18n.getMessage('popup_storage_purge_completed'));
         } else {
           throw new Error(response?.error || 'Purge failed in background.');
         }
@@ -641,3 +638,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.body.appendChild(errorUi);
   }
 });
+

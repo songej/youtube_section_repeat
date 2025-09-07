@@ -100,9 +100,6 @@
           timestamp: now
         });
       }
-      // [MODIFIED] Proactively provide feedback if initialization is slow and the user presses a key.
-      // The toast is shown as soon as the controller is ready via processKeydownQueue.
-      // This check helps trigger the toast even for non-stale, simply delayed, key presses.
       if (!hasShownSlowInitToast && keydownQueue.length > 0) {
         // We can't show a toast here directly as UI may not be ready.
         // Instead, processKeydownQueue will check and show the toast once initialized.
@@ -223,18 +220,22 @@
   }
 
   function processKeydownQueue() {
-    // [MODIFIED] If the queue has items when processed, it implies a loading delay.
-    // Proactively inform the user to improve their experience.
+    const now = performance.now();
+    // [MODIFIED] Show the "initialization slow" toast only if the delay is noticeable (e.g., > 500ms).
+    // This prevents showing the warning for minor, imperceptible delays.
+    const staleThresholdForToast = 500; // 500ms
     if (keydownQueue.length > 0 && !hasShownSlowInitToast && State.controller) {
-      State.controller.toast(
-        helpers.t('toast_warn_initialization_slow'),
-        State.CONSTANTS.TOAST_DURATION.MEDIUM,
-        'warning'
-      );
-      hasShownSlowInitToast = true;
+      const oldestEvent = keydownQueue[0];
+      if (now - oldestEvent.timestamp > staleThresholdForToast) {
+        State.controller.toast(
+          helpers.t('toast_warn_initialization_slow'),
+          State.CONSTANTS.TOAST_DURATION.MEDIUM,
+          'warning'
+        );
+        hasShownSlowInitToast = true;
+      }
     }
 
-    const now = performance.now();
     const staleThreshold = State.CONSTANTS?.KEY_QUEUE?.STALE_EVENT_THRESHOLD_MS || 2500;
     while (keydownQueue.length > 0) {
       const {
@@ -360,9 +361,7 @@
       });
     }
 
-    // [수정] 단축키 핸들러를 즉시 등록
     document.addEventListener('keydown', handleKeyDown);
-    // [수정] 페이지 이탈 핸들러도 함께 등록
     window.addEventListener('beforeunload', SectionRepeat.handleBeforeUnload);
 
     setupMessageHandlers();
@@ -375,3 +374,4 @@
     initialize();
   }
 })();
+

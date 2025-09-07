@@ -25,10 +25,10 @@ try {
   });
   if (chrome.action) {
     chrome.action.disable();
-    // Use a hardcoded English fallback title for critical errors to ensure stability,
-    // as the i18n API might not be available at this stage.
+    // [MODIFIED] Use i18n with a safe fallback for the most critical error message.
+    const criticalErrorTitle = chrome.i18n.getMessage('critical_error_title') || 'Section Repeat: Critical error. Please try reinstalling.';
     chrome.action.setTitle({
-      title: 'Section Repeat: Critical error. Please try reinstalling.'
+      title: criticalErrorTitle
     });
   }
 }
@@ -995,8 +995,6 @@ async function handleTabRemoved(tabId) {
     }
   });
 }
-// Ensure the function is async and awaits the call to handleTabRemoved
-// to guarantee state cleanup is processed in order before other logic proceeds.
 async function handleTabReplaced(addedTabId, removedTabId) {
   await handleTabRemoved(removedTabId);
 }
@@ -1156,10 +1154,8 @@ async function handleContentScriptReady(message, sender) {
     tabId
   });
 
-  // Payload sending is prioritized to unblock the content script immediately.
   await sendInitialPayload(tabId);
 
-  // State update is enqueued asynchronously after the payload is sent.
   enqueueStateUpdate({
     type: CONST.INTERNAL_TASK_TYPES.CONTENT_SCRIPT_INIT_STARTED,
     payload: {

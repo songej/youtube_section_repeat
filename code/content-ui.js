@@ -1,6 +1,5 @@
-(function() { // [Fix] Race Condition 방지를 위해 IIFE 패턴 변경
+(function() {
   'use strict';
-  // [Fix] 다른 스크립트보다 먼저 실행될 경우를 대비해 SectionRepeat 네임스페이스를 방어적으로 생성
   const SectionRepeat = window.SectionRepeat || {};
   window.SectionRepeat = SectionRepeat;
 
@@ -20,8 +19,6 @@
       this.isProcessing = false;
       this.initShadowDOM();
     }
-    // [MODIFIED] 안정성 향상을 위해 fetch 대신 CSS 내용을 JS에 직접 내장합니다.
-    // 이는 네트워크 오류, 애드블록커 등으로 인해 스타일 로드에 실패하는 경우를 원천적으로 방지합니다.
     async initShadowDOM() {
       this.shadowHost = document.createElement('div');
       this.shadowHost.id = 'section-repeat-toast-host';
@@ -30,6 +27,7 @@
       });
       const styleEl = document.createElement('style');
 
+      // [MODIFIED] Updated styles to position the toast in the top-right corner.
       const styles = `
         :host {
           --sr-toast-bg-light: rgba(25, 25, 25, 0.92);
@@ -45,38 +43,39 @@
         .toast-container {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          gap: 10px;
+          align-items: flex-end; /* Align toasts to the right */
+          gap: 12px;
         }
         .toast {
           display: flex; align-items: center; gap: 10px; padding: 12px 20px;
+          width: fit-content;
           max-width: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
           font-family: inherit; font-size: 1.4rem; pointer-events: all;
           background-color: var(--sr-toast-bg-light);
           color: var(--sr-toast-text-color);
-          animation: slideIn 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: slideInFromRight 0.25s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
         }
         .toast.fade-out {
-          animation: slideOut 0.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+          animation: slideOutToRight 0.3s cubic-bezier(0.7, 0, 0.8, 0.1) forwards;
         }
-        @keyframes slideIn {
+        @keyframes slideInFromRight {
           from {
             opacity: 0;
-            transform: translateY(10px) scale(0.95);
+            transform: translateX(20px);
           }
           to {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateX(0);
           }
         }
-        @keyframes slideOut {
+        @keyframes slideOutToRight {
           from {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateX(0);
           }
           to {
             opacity: 0;
-            transform: translateY(5px) scale(0.98);
+            transform: translateX(20px);
           }
         }
         .toast.info .toast-icon { color: var(--sr-toast-icon-info); }
@@ -238,9 +237,7 @@
         keydownHandler: handleKeyDown
       });
     }
-    // [MODIFIED] 유지보수성 및 안정성 향상을 위해 `setTimeout` 대신 `animationend` 이벤트를 사용합니다.
-    // CSS 애니메이션 지속 시간이 변경되어도 JS 코드를 수정할 필요가 없습니다.
-    // 드물게 animationend 이벤트가 발생하지 않는 경우를 대비해 안전장치로 fallback 타이머를 함께 사용합니다.
+
     removeToast(toastEl, toastId) {
       if (!toastEl || !toastEl.parentNode) return;
 
@@ -252,11 +249,10 @@
       let fallbackTimer;
 
       const removeLogic = () => {
-        // 중복 실행 방지
         if (!toastEl.parentNode) return;
 
         toastEl.removeEventListener('animationend', removeLogic);
-        SectionRepeat.TimerManager.clear(fallbackTimer); // 안전장치 타이머 제거
+        SectionRepeat.TimerManager.clear(fallbackTimer);
 
         toastEl.remove();
         this.activeToasts.delete(toastId);
@@ -266,8 +262,7 @@
       toastEl.addEventListener('animationend', removeLogic);
       toastEl.classList.add('fade-out');
 
-      // 애니메이션 이벤트가 실행되지 않을 경우를 대비한 안전장치
-      fallbackTimer = SectionRepeat.TimerManager.set(removeLogic, 300); // 애니메이션 시간(200ms)보다 약간 길게 설정
+      fallbackTimer = SectionRepeat.TimerManager.set(removeLogic, 400); // Animation is 300ms
     }
     remove(toastId) {
       const activeToast = this.activeToasts.get(toastId);
@@ -287,3 +282,4 @@
     }
   };
 })();
+
