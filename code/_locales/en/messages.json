@@ -1,5 +1,4 @@
 {
-  "//": "1. General Extension Info",
   "ext_name": {
     "message": "Section Repeat for YouTube™"
   },
@@ -10,7 +9,6 @@
     "message": "Section Repeat: Critical error. Please try reinstalling."
   },
 
-  "//": "2. Popup UI - General & Main Shortcuts",
   "popup_note_inactive": {
     "message": "Hotkeys are active when you are on a YouTube video page."
   },
@@ -45,7 +43,6 @@
     "message": "Clear all sections"
   },
 
-  "//": "3. Popup UI - Shortcut Keys Display",
   "popup_hotkey_error_placeholder": {
     "message": "-"
   },
@@ -81,7 +78,6 @@
   "popup_shortcut_key_d": { "message": "D" },
   "popup_shortcut_key_q": { "message": "Q" },
 
-  "//": "4. Popup UI - Errors, Warnings & Dialogs",
   "popup_warning_session_only_mode_detailed": {
     "message": "Session-only mode is active because a security component failed. Sections will not be saved. Restarting your browser may resolve this."
   },
@@ -137,7 +133,6 @@
     "message": "Confirm Purge"
   },
   
-  "//": "5. Toast Notifications",
   "toast_success_section_added": {
     "message": "Section #$1 added.", "placeholders": { "1": { "content": "$1" } }
   },
@@ -229,7 +224,6 @@
     "message": "Reload Page"
   },
   
-  "//": "6. ARIA & Accessibility",
   "aria_popup_shortcuts_table_label": {
     "message": "Keyboard shortcuts list. Use arrow keys to navigate rows."
   },
