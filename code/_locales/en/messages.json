@@ -5,10 +5,6 @@
   "ext_description": {
     "message": "A-B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts."
   },
-  "critical_error_title": {
-    "message": "Section Repeat: Critical error. Please try reinstalling."
-  },
-
   "popup_note_inactive": {
     "message": "Hotkeys are active when you are on a YouTube video page."
   },
@@ -42,10 +38,6 @@
   "popup_shortcut_action_clear_sections": {
     "message": "Clear all sections"
   },
-
-  "popup_hotkey_error_placeholder": {
-    "message": "-"
-  },
   "popup_shortcut_key_jump_range": {
     "message": "1-9"
   },
@@ -70,28 +62,8 @@
   "popup_shortcut_key_end": {
     "message": "End"
   },
-  "popup_shortcut_key_w": { "message": "W" },
-  "popup_shortcut_key_s": { "message": "S" },
-  "popup_shortcut_key_e": { "message": "E" },
-  "popup_shortcut_key_r": { "message": "R" },
-  "popup_shortcut_key_a": { "message": "A" },
-  "popup_shortcut_key_d": { "message": "D" },
-  "popup_shortcut_key_q": { "message": "Q" },
-
-  "popup_warning_session_only_mode_detailed": {
-    "message": "Session-only mode is active because a security component failed. Sections will not be saved. Restarting your browser may resolve this."
-  },
-  "popup_storage_warning_message": {
-    "message": "Storage is over $1% full. Older data may be deleted soon.", "placeholders": { "1": { "content": "$1" } }
-  },
-  "popup_storage_purge_button": {
-    "message": "Purge Old Data"
-  },
-  "popup_storage_purge_completed": {
-    "message": "Older data has been successfully purged."
-  },
-  "popup_storage_purge_failed": {
-    "message": "Purge failed. Please try again later."
+  "popup_hotkey_error_placeholder": {
+    "message": "-"
   },
   "popup_error_setup_title": {
     "message": "Initialization Failed"
@@ -99,32 +71,25 @@
   "popup_error_setup_advice": {
     "message": "Please try again. If the problem persists, try reloading the page."
   },
-  "popup_error_setup_crypto_failed": {
-    "message": "A required browser security component failed to initialize. Section data cannot be saved. Please try 'Retry Setup'. If the problem persists, restarting your browser may help."
-  },
-  "popup_error_setup_unknown": {
-    "message": "An unknown error occurred during setup."
-  },
-  "popup_error_connection_failed": {
-    "message": "Couldn't connect to the extension. Please reload the page and try again."
-  },
-  "popup_error_connection_timeout": {
-    "message": "Connection timed out. Please reload the page and try again."
-  },
   "popup_button_retry_setup": {
     "message": "Retry Setup"
   },
   "popup_button_retrying": {
     "message": "Retrying..."
   },
+  "popup_storage_warning_message": {
+    "message": "Storage is over $1% full. Older data may be deleted soon.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_storage_purge_button": {
+    "message": "Purge Old Data"
+  },
   "dialog_purge_confirm_message": {
     "message": "This will permanently delete your oldest section data to make space. Are you sure?"
-  },
-  "dialog_critical_error_dom_changed": {
-    "message": "The YouTube page structure changed unexpectedly, and the extension lost control. Please reload the page to restart the extension."
-  },
-  "dialog_critical_error_guidance_with_reinstall": {
-    "message": "A critical component failed to load, which prevents the extension from working correctly. This issue may require you to reinstall the extension."
   },
   "dialog_button_cancel": {
     "message": "Cancel"
@@ -132,9 +97,13 @@
   "dialog_button_confirm_purge": {
     "message": "Confirm Purge"
   },
-  
   "toast_success_section_added": {
-    "message": "Section #$1 added.", "placeholders": { "1": { "content": "$1" } }
+    "message": "Section #$1 added.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
   "toast_success_sections_cleared": {
     "message": "All sections for this video have been cleared."
@@ -143,7 +112,12 @@
     "message": "Saved sections from previous session."
   },
   "toast_success_storage_cleaned": {
-    "message": "Storage cleaned. Current usage: $1%.", "placeholders": { "1": { "content": "$1" } }
+    "message": "Storage cleaned. Current usage: $1%.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
   "toast_success_reconnected": {
     "message": "Successfully reconnected."
@@ -158,16 +132,34 @@
     "message": "Repeat stopped."
   },
   "toast_info_repeating_navigation": {
-    "message": "Repeating section $1 of $2.", "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
+    "message": "Repeating section $1 of $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
   },
   "toast_info_jumped_to_section": {
-    "message": "Jumped to section $1.", "placeholders": { "1": { "content": "$1" } }
+    "message": "Jumped to section $1.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
   "toast_info_loaded_singular": {
     "message": "Loaded 1 saved section for this video."
   },
   "toast_info_loaded_plural": {
-    "message": "Loaded $1 saved sections for this video.", "placeholders": { "1": { "content": "$1" } }
+    "message": "Loaded $1 saved sections for this video.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
   "toast_info_legacy_data_cleared": {
     "message": "Incompatible old data has been cleared to ensure smooth operation."
@@ -197,16 +189,31 @@
     "message": "Repeat was stopped due to a navigation or background error."
   },
   "toast_warning_storage_level": {
-    "message": "Storage is $1% full. Old data might be purged.", "placeholders": { "1": { "content": "$1" } }
+    "message": "Storage is $1% full. Old data might be purged.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
   "toast_warning_sections_auto_purged": {
-    "message": "Section limit of $1 reached. Removed $2 oldest section(s) to make space.", "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
-  },
-  "toast_error_player_init_failed": {
-    "message": "Initialization failed after multiple retries. Please reload the page."
+    "message": "Section limit of $1 reached. Removed $2 oldest section(s) to make space.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
   },
   "toast_error_storage_critical": {
-    "message": "Storage Critical ($1% full). Old data must be purged to save new sections.", "placeholders": { "1": { "content": "$1" } }
+    "message": "Storage Critical ($1% full). Old data must be purged to save new sections.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
   "toast_error_focus_mode_failed": {
     "message": "Could not enter Focus Mode. Please try again."
@@ -217,21 +224,30 @@
   "toast_error_final_save_failed": {
     "message": "Failed to save data. Please use 'Purge Old Data' in the popup to free up space."
   },
-  "toast_reload_prompt": {
-    "message": "The extension context was lost. Please reload the page to continue."
-  },
-  "toast_action_reload": {
-    "message": "Reload Page"
-  },
-  
   "aria_popup_shortcuts_table_label": {
     "message": "Keyboard shortcuts list. Use arrow keys to navigate rows."
   },
   "aria_popup_shortcut_row_label": {
-    "message": "Key: $1, Action: $2", "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
+    "message": "Key: $1, Action: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
   },
   "aria_popup_shortcut_row_activated": {
-    "message": "Shortcut activated. Key: $1, Action: $2", "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
+    "message": "Shortcut activated. Key: $1, Action: $2",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
   },
   "aria_popup_storage_purge_button_label": {
     "message": "Delete older section data to free up storage space."
@@ -249,15 +265,86 @@
     "message": "1 section has been set on the progress bar."
   },
   "aria_overlay_desc_plural": {
-    "message": "$1 sections have been set on the progress bar.", "placeholders": { "1": { "content": "$1" } }
+    "message": "$1 sections have been set on the progress bar.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
   },
   "aria_overlay_desc_with_repeating": {
-    "message": "A total of $1 sections have been set. Currently repeating section number $2.", "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
+    "message": "A total of $1 sections have been set. Currently repeating section number $2.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
   },
   "aria_overlay_desc_with_incomplete": {
-    "message": "A total of $1 sections have been set, $2 of which are incomplete.", "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" } }
+    "message": "A total of $1 sections have been set, $2 of which are incomplete.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
   },
   "aria_overlay_desc_full_state": {
-    "message": "A total of $1 sections have been set, $2 of which are incomplete. Currently repeating section number $3.", "placeholders": { "1": { "content": "$1" }, "2": { "content": "$2" }, "3": { "content": "$3" } }
+    "message": "A total of $1 sections have been set, $2 of which are incomplete. Currently repeating section number $3.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      },
+      "3": {
+        "content": "$3"
+      }
+    }
+  },
+  "critical_error_title": {
+    "message": "Section Repeat: Critical error. Please try reinstalling."
+  },
+  "popup_error_connection_failed": {
+    "message": "Couldn't connect to the extension. Please reload the page and try again."
+  },
+  "popup_error_connection_timeout": {
+    "message": "Connection timed out. Please reload the page and try again."
+  },
+  "popup_error_setup_crypto_failed": {
+    "message": "A required browser security component failed to initialize. Section data cannot be saved. Please try 'Retry Setup'. If the problem persists, restarting your browser may help."
+  },
+  "popup_error_setup_unknown": {
+    "message": "An unknown error occurred during setup."
+  },
+  "popup_warning_session_only_mode_detailed": {
+    "message": "Session-only mode is active because a security component failed. Sections will not be saved. Restarting your browser may resolve this."
+  },
+  "popup_storage_purge_completed": {
+    "message": "Older data has been successfully purged."
+  },
+  "popup_storage_purge_failed": {
+    "message": "Purge failed. Please try again later."
+  },
+  "toast_error_player_init_failed": {
+    "message": "Initialization failed after multiple retries. Please reload the page."
+  },
+  "toast_reload_prompt": {
+    "message": "The extension context was lost. Please reload the page to continue."
+  },
+  "toast_action_reload": {
+    "message": "Reload Page"
+  },
+  "dialog_critical_error_dom_changed": {
+    "message": "The YouTube page structure changed unexpectedly, and the extension lost control. Please reload the page to restart the extension."
+  },
+  "dialog_critical_error_guidance_with_reinstall": {
+    "message": "A critical component failed to load, which prevents the extension from working correctly. This issue may require you to reinstall the extension."
   }
 }

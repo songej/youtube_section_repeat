@@ -1168,6 +1168,14 @@
         this.runInitialization(event);
       }, State.CONSTANTS.TIMING.DEBOUNCE.MUTATION);
     }
+    // [ADDED] A dedicated handler for events that might signal a video change.
+    _handlePotentialVideoChange() {
+      // This handler is triggered by various YouTube SPA events (`yt-page-data-updated`, `yt-player-updated`)
+      // that often indicate a video change without a full page navigation.
+      // It acts as a robust safety net to ensure the controller is always synchronized
+      // with the currently displayed video, complementing the main navigation event listeners.
+      this._requestReinitialization();
+    }
     init() {
       const YOUTUBE_EVENTS = SectionRepeat.State.CONSTANTS.YOUTUBE_EVENTS;
       this.visibilityChangeHandler = () => {
@@ -1178,7 +1186,11 @@
         }
       };
       document.addEventListener('visibilitychange', this.visibilityChangeHandler);
-      this.addEventListener(document, YOUTUBE_EVENTS.PAGE_DATA_UPDATED, () => this._requestReinitialization());
+
+      // [MODIFIED] Use the new dedicated handler for clarity and robustness.
+      this.addEventListener(document, YOUTUBE_EVENTS.PAGE_DATA_UPDATED, () => this._handlePotentialVideoChange());
+      this.addEventListener(document, YOUTUBE_EVENTS.PLAYER_UPDATED, () => this._handlePotentialVideoChange());
+
       this.addEventListener(document.body, YOUTUBE_EVENTS.NAVIGATE_START, () => {
         SectionRepeat.State?.elementCache?.invalidate();
         if (SectionRepeat.State.controller) {
@@ -1191,9 +1203,9 @@
         this.lastVideoSrc = null;
       });
       this.addEventListener(document.body, YOUTUBE_EVENTS.NAVIGATE_FINISH, (e) => {
+        // NAVIGATE_FINISH is a primary navigation event, so it calls the reinitialization request directly.
         this._requestReinitialization(e);
       });
-      this.addEventListener(document, YOUTUBE_EVENTS.PLAYER_UPDATED, () => this._requestReinitialization());
       this.addEventListener(document, YOUTUBE_EVENTS.PLAYLIST_DATA_UPDATED, () => this.handlePlaylistChange());
       this.addEventListener(document, YOUTUBE_EVENTS.YT_ACTION, (e) => {
         if (e.detail?.actionName === 'yt-playlist-set-selected-action' || e.detail?.actionName === 'yt-service-request-completed-action') {

@@ -1,10 +1,7 @@
 :root {
-  /* Fonts */
   --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: Consolas, 'Courier New', monospace;
   --font-weight-medium: 500;
-
-  /* Colors */
   --brand: #d93025;
   --bg-primary: #fff;
   --bg-secondary: #f1f3f4;
@@ -19,8 +16,6 @@
   --warning-text: #5d4003;
   --pulse-bg-start: #eee;
   --pulse-bg-end: #e0e0e0;
-
-  /* Sizing & Spacing */
   --font-size-sm: 0.8rem;
   --font-size-md: 0.9rem;
   --line-height-tight: 1.3;
@@ -31,18 +26,14 @@
   --spacing-lg: 16px;
   --radius-sm: 4px;
   --radius-md: 8px;
-
-  /* Effects */
   --shadow-dialog: 0 4px 12px rgba(0, 0, 0, 0.2);
-
-  /* Z-Indexes */
+  --transition-fast: all 0.2s ease-in-out;
   --z-overlay: 15;
   --z-overlay-ontop: 25;
   --sr-z-index-toast: calc(var(--ytd-z-index-popup, 9999) + 1);
   --sr-z-index-dialog: calc(var(--sr-z-index-toast) + 1);
 }
 
-/* === GLOBAL & UTILITY STYLES === */
 body {
   min-width: 280px;
   max-width: 320px;
@@ -61,9 +52,8 @@ code {
   font-size: var(--font-size-md);
   background-color: var(--bg-secondary);
   border-radius: var(--radius-sm);
-  /* [MODIFIED] Added border in light mode to match dark mode, preventing layout shifts. */
   border: 1px solid var(--border-color);
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: var(--transition-fast);
 }
 
 .hidden {
@@ -82,7 +72,6 @@ code {
   border: 0;
 }
 
-/* === POPUP UI: GENERAL === */
 h3 {
   margin: 0 0 var(--spacing-md);
   font-weight: var(--font-weight-medium);
@@ -108,7 +97,7 @@ h3:focus-visible {
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: filter 0.2s;
+  transition: var(--transition-fast);
 }
 
 .button-primary:hover {
@@ -136,7 +125,7 @@ h3:focus-visible {
   border-radius: 50%;
   opacity: 0.7;
   cursor: pointer;
-  transition: opacity 0.2s, background-color 0.2s;
+  transition: var(--transition-fast);
 }
 
 .sr-close-btn:hover {
@@ -148,7 +137,6 @@ h3:focus-visible {
   height: 16px;
 }
 
-/* === POPUP UI: LOADING & STATES === */
 body.loading :is(#main-ui, #inactive-ui) {
   visibility: hidden;
   opacity: 0;
@@ -171,7 +159,7 @@ body.loading::after {
   border: 3px solid rgba(0, 0, 0, 0.1);
   border-top-color: var(--brand);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.8s ease-in-out infinite;
 }
 
 #inactive-ui {
@@ -190,7 +178,6 @@ body.loading::after {
   text-align: center;
 }
 
-/* === POPUP UI: SHORTCUTS GRID === */
 #shortcuts-grid {
   display: flex;
   flex-direction: column;
@@ -262,7 +249,6 @@ body.loading::after {
   animation: shimmer 1.5s infinite linear;
 }
 
-/* === POPUP UI: WARNINGS & ERRORS === */
 #storage-status-container {
   display: flex;
   flex-direction: column;
@@ -303,7 +289,6 @@ body.loading::after {
   color: var(--text-secondary);
 }
 
-/* === POPUP UI: DIALOG (MODAL) === */
 .dialog-overlay {
   position: fixed;
   inset: 0;
@@ -350,7 +335,7 @@ body.loading::after {
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background-color 0.2s, filter 0.2s;
+  transition: var(--transition-fast);
 }
 
 .dialog-btn.cancel {
@@ -376,7 +361,6 @@ body.loading::after {
   outline-offset: 2px;
 }
 
-/* === CONTENT SCRIPT UI: SECTION OVERLAY === */
 .yt-section-overlay {
   position: absolute;
   inset: 0;
@@ -423,7 +407,6 @@ body.loading::after {
   z-index: var(--z-overlay-ontop) !important;
 }
 
-/* === CONTENT SCRIPT UI: TOAST NOTIFICATIONS === */
 #section-repeat-toast-host {
   position: fixed !important;
   top: 24px !important;
@@ -439,7 +422,6 @@ ytd-watch-flexy[theater] #section-repeat-toast-host {
   right: 24px !important;
 }
 
-/* === ANIMATIONS === */
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -467,7 +449,6 @@ ytd-watch-flexy[theater] #section-repeat-toast-host {
   }
 }
 
-/* === MEDIA QUERIES === */
 @media (prefers-color-scheme: dark) {
   :root {
     --brand: #ea4335;
@@ -500,7 +481,6 @@ ytd-watch-flexy[theater] #section-repeat-toast-host {
 
   code {
     color: var(--text-code-dark);
-    /* [MODIFIED] No change needed here, as the base 'code' style now includes the border. */
   }
 
   .popup-error-close-btn:hover,
