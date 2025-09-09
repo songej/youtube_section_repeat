@@ -5,7 +5,8 @@ description: A-B repeat and multi-section loops for YouTube. Practice faster wit
 image: /assets/images/og-image.webp
 permalink: /
 redirect_from:
-  - /index.html
+  - /readme
+  - /readme.html
 ---
 
 # Section Repeat for YouTube™
