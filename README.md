@@ -16,14 +16,14 @@ This extension is built on three core principles:
 - ⚡️ Performance-Oriented: Built with modern Manifest V3 standards and VanillaJS, the extension is designed for minimal impact on browser resources. It is lightweight and fast, with no external frameworks.
 - ⌨️ Keyboard-Centric: All core functions are designed to be controlled entirely without a mouse, allowing you to stay focused on your practice without interrupting your workflow.
 
-### 3. Key Features
+## 3. Key Features
 
 - 🎯 Precision Slicing: Define multiple, high-precision video sections with a single key press.
-- ⌨️ Keyboard-Centric Workflow: All core functions are mapped to intuitive hotkeys for maximum efficiency, allowing you to maintain your workflow without a mouse.
+- ⌨️ Keyboard-Centric Workflow: All core functions are mapped to intuitive shortcuts for maximum efficiency, allowing you to maintain your workflow without a mouse.
 - 🔁 Seamless Navigation & Repeat: Instantly navigate between sections and toggle repeat mode with simple key presses.
 - ✨ Intelligent Automation:
   - Auto-Looping: When a video with defined sections ends, repeat mode automatically starts from the first section.
-  - Focus Mode: A dedicated hotkey reloads a video from a playlist into a standalone player, preventing auto-play from interrupting your practice sessions.
+  - Focus Mode: A dedicated shortcut reloads a video from a playlist into a standalone player, preventing auto-play from interrupting your practice sessions.
   - Error Prevention: Incomplete sections are automatically completed or discarded, ensuring a seamless transition into repeat mode without data errors.
 
 ## 4. Getting Started
@@ -49,19 +49,19 @@ This extension is built on three core principles:
 2. Chain sections: press `E` again to add the next section.
 3. Repeat & Navigate: press `R` to toggle repeat; press `A` or `D` to move between sections.
 
-### 4. Shortcuts
+### Shortcuts
 
-All core functions of the extension are controlled by the hotkeys below.
+All core functions of the extension are controlled by the shortcuts below.
 
 | Key | Action | Description |
 | :--- | :--- | :--- |
 | S | Start section | Sets the start-time for a new section. |
-| E | End (Chain) section | Completes the current section. Press again to start the next section where the last one ended (chaining). |
+| E | End section | Completes the current section. Press again to start the next section where the last one ended. |
 | R | Toggle Repeat | Starts or stops repeating through the defined sections. |
 | A / D | Previous / Next section | Moves to the previous (`A`) or next (`D`) section and begins repeating automatically. |
 | 1-9 | Jump to section | Instantly jumps to a specific section (1 through 9). |
 | W | Enter Focus Mode | In a playlist, reloads the video in a standalone view to prevent auto-advancing. |
-| Q | Clear all sections | Deactivates all extension functions and clears all sections for the current video. |       |
+| Q | Clear all sections | Deactivates all extension functions and clears all sections for the current video. |
 
 ## 5. Technical Architecture
 
@@ -92,4 +92,4 @@ All core functions of the extension are controlled by the hotkeys below.
   - Changelog: [View release notes](https://sectionrepeat.com/changelog)
   - License: This project is licensed under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/). This means the software may be freely used, copied, modified, and distributed for noncommercial purposes only. For commercial use, please contact the author.
   - Disclaimer: Section Repeat for YouTube™ is an independent project and is not officially associated with YouTube or Google LLC. "YouTube" is a trademark of Google LLC.
-- Acknowledgements: Icon by [khulqi Rosyid](https://www.iconfinder.com/khulqi-rosyid) from IconFinder ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
+- Acknowledgements: Icon by [khulqi Rosyid](https://www.iconfinder.com/iconfinder/khulqi-rosyid) from IconFinder ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
