@@ -4,9 +4,6 @@ title: A-B repeat and multi-section loops for YouTube.
 description: A-B repeat and multi-section loops for YouTube. Practice faster with keyboard shortcuts.
 image: /assets/images/og-image.webp
 permalink: /
-redirect_from:
-  - /readme
-  - /readme.html
 ---
 
 # Section Repeat for YouTube™

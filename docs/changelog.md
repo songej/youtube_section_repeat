@@ -2,9 +2,6 @@
 layout: default
 title: Changelog
 permalink: /changelog/
-redirect_from:
-  - /changelog
-  - /changelog.html
 ---
 
 # Changelog
