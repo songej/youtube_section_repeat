@@ -16,7 +16,7 @@ This extension is built on three core principles:
 - ⚡️ Performance-Oriented: Built with modern Manifest V3 standards and VanillaJS, the extension is designed for minimal impact on browser resources. It is lightweight and fast, with no external frameworks.
 - ⌨️ Keyboard-Centric: All core functions are designed to be controlled entirely without a mouse, allowing you to stay focused on your practice without interrupting your workflow.
 
-### 3. Key Features
+## 3. Key Features
 
 - 🎯 Precision Slicing: Define multiple, high-precision video sections with a single key press.
 - ⌨️ Keyboard-Centric Workflow: All core functions are mapped to intuitive shortcuts for maximum efficiency, allowing you to maintain your workflow without a mouse.
@@ -49,7 +49,7 @@ This extension is built on three core principles:
 2. Chain sections: press `E` again to add the next section.
 3. Repeat & Navigate: press `R` to toggle repeat; press `A` or `D` to move between sections.
 
-### 4. Shortcuts
+### Shortcuts
 
 All core functions of the extension are controlled by the shortcuts below.
 
