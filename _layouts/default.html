@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff0000">
+  <meta name="color-scheme" content="light dark">
+
+  {%- assign meta_title = page.title | default: site.title -%}
+  {%- if page.url == '/' -%}
+    {%- assign full_title = meta_title -%}
+  {%- else -%}
+    {%- capture full_title -%}{{ meta_title }} · {{ site.title }}{%- endcapture -%}
+  {%- endif -%}
+  {%- assign meta_description = page.description | default: site.description -%}
+  {%- assign meta_image = page.image | default: site.image -%}
+
+  <title>{{ full_title | escape }}</title>
+  <meta name="description" content="{{ meta_description | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.title | escape }}">
+  <meta property="og:title" content="{{ full_title | escape }}">
+  <meta property="og:description" content="{{ meta_description | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:image" content="{{ meta_image | absolute_url }}">
+  <meta property="og:image:secure_url" content="{{ meta_image | absolute_url }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Section Repeat for YouTube">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ full_title | escape }}">
+  <meta name="twitter:description" content="{{ meta_description | escape }}">
+  <meta name="twitter:image" content="{{ meta_image | absolute_url }}">
+
+  {% include head-custom.html %}
+  {%- assign ver = site.github.build_revision | default: site.time | date: '%s' -%}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: ver | relative_url }}">
+</head>
+{%- assign _url = page.url | replace: 'index.html','' | replace: '.html','/' -%}
+<body class="color-bg-default color-fg-default">
+  <a href="#content" class="sr-only sr-only-focusable">Skip to content</a>
+  <header class="site-shell site-header" role="banner">
+    <nav class="site-nav" aria-label="Primary">
+      <a class="site-brand" href="{{ '/' | relative_url }}" {% if _url == '/' %}aria-current="page"{% endif %}>
+        {{ site.title }}
+      </a>
+      <div class="site-nav-links">
+        <a href="{{ site.store_url }}" target="_blank" rel="noopener noreferrer">Chrome Web Store</a>
+        <a href="{{ '/privacy/' | relative_url }}" {% if _url == '/privacy/' %}aria-current="page"{% endif %}>Privacy</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="content" class="site-shell markdown-body">
+    {{ content }}
+  </main>
+
+  <footer class="site-shell site-footer" role="contentinfo">
+    <small>
+      © {{ site.time | date: "%Y" }} {{ site.title }} · Built by
+      <a href="{{ site.author.url }}">{{ site.author.name }}</a> · v{{ site.version }}
+    </small>
+  </footer>
+</body>
+</html>
