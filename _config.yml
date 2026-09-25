@@ -1,0 +1,27 @@
+title: Section Repeat for YouTube
+description: "Repeat any part of a YouTube video from your keyboard: mark sections with S and E, loop them with R. A free Chrome extension for music, dance and language practice."
+url: https://sectionrepeat.com
+baseurl: ""
+lang: en
+timezone: Asia/Seoul
+permalink: pretty
+
+# The extension version this site describes. Change it here only; every page
+# reads it from here. Update changelog.md (and privacy.md if data handling
+# changed) in the same commit.
+version: "1.9.30"
+
+store_url: https://chromewebstore.google.com/detail/section-repeat-for-youtub/pppgnfkfeciopablcbkjdohiknebahkc
+contact_url: https://tally.so/r/mDLBkj
+image: /assets/images/og-image.png
+
+author:
+  name: Eunjeong Song
+  url: https://songej.com
+  linkedin: https://www.linkedin.com/in/songej
+
+plugins:
+  - jekyll-sitemap
+
+exclude:
+  - README.md
