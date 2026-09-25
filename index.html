@@ -1,0 +1,56 @@
+---
+layout: default
+title: "Section Repeat for YouTube™ – A-B repeat from your keyboard"
+permalink: /
+---
+<section class="hero" aria-labelledby="hero-title">
+  <h1 id="hero-title">Repeat any part of a YouTube video from your keyboard.</h1>
+  <p class="lead">Press <kbd>S</kbd> where a passage starts and <kbd>E</kbd> where it ends, then <kbd>R</kbd> to loop it. Mark as many sections as you like and step through them with <kbd>A</kbd> and <kbd>D</kbd>.</p>
+  <p class="get">
+    <a class="button" href="{{ site.store_url }}">Add to Chrome</a>
+    <span class="get-note">Free on the Chrome Web Store</span>
+  </p>
+
+  <div class="demo" aria-hidden="true">
+    <div class="bar">
+      <span class="sec" style="--from: 7%; --to: 22%"></span>
+      <span class="sec is-active" style="--from: 36%; --to: 62%"><span class="head"></span></span>
+      <span class="sec" style="--from: 76%; --to: 88%"></span>
+    </div>
+    <kbd class="cue above" style="--at: 36%">S</kbd>
+    <kbd class="cue above" style="--at: 62%">E</kbd>
+    <kbd class="cue below" style="--at: 49%">R</kbd>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="shortcuts">
+  <h2 id="shortcuts">Shortcuts</h2>
+  <dl class="keys">
+    <div><dt><kbd>S</kbd></dt><dd>Start a section</dd></div>
+    <div><dt><kbd>E</kbd></dt><dd>End it. Press again later to add the next section from where the last one ended.</dd></div>
+    <div><dt><kbd>R</kbd></dt><dd>Turn repeat on or off</dd></div>
+    <div><dt><kbd>A</kbd> <kbd>D</kbd></dt><dd>Go to the previous or next section</dd></div>
+    <div><dt><kbd>1</kbd> – <kbd>9</kbd></dt><dd>Jump to a section by its number</dd></div>
+    <div><dt><kbd>X</kbd></dt><dd>Delete the section that’s playing</dd></div>
+    <div><dt><kbd>Z</kbd></dt><dd>Undo the last delete</dd></div>
+    <div><dt><kbd>Q</kbd> <kbd>Q</kbd></dt><dd>Press twice to clear every section on this video</dd></div>
+    <div><dt><kbd>W</kbd></dt><dd>Leave the playlist and stay on this video (Focus Mode)</dd></div>
+  </dl>
+  <p class="note">Letters are shown for a QWERTY keyboard. On other layouts the shortcuts stay on the same keys, and the extension shows each one the way your keyboard labels it.</p>
+</section>
+
+<section class="block" aria-labelledby="details">
+  <h2 id="details">Good to know</h2>
+  <ul class="facts">
+    <li>Works on YouTube video pages in Chrome 102 or later. Shorts and live streams aren’t supported.</li>
+    <li>Sections are saved for each video and come back when you open it again.</li>
+    <li>Open the extension from Chrome’s toolbar to see the sections on the video you’re watching, jump to one or delete it, and to export or import your sections as a file.</li>
+    <li>In an incognito window, sections last only until you leave the page.</li>
+    <li>The extension is available in 25 languages.</li>
+  </ul>
+</section>
+
+<section class="block" aria-labelledby="privacy">
+  <h2 id="privacy">Privacy</h2>
+  <p>Your sections are stored in your browser and never sent anywhere. There’s no account and no analytics, and the extension runs only on YouTube. <a href="{{ '/privacy/' | relative_url }}">Read the privacy policy</a>.</p>
+</section>

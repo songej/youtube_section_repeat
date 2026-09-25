@@ -1,0 +1,516 @@
+/*
+ * sectionrepeat.com
+ *
+ * Plain CSS, served as-is: no theme, no Sass, no third-party requests.
+ * Red is used only where the extension itself uses it - section marks on the
+ * progress bar - and for the one install button. Everything else is ink on
+ * paper.
+ */
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --paper: #ffffff;
+  --ink: #0f0f0f;
+  --muted: #5f5f5f;
+  --rule: #e5e5e5;
+  --track: #e5e5e5;
+  --mark: #ff0000;
+  --mark-soft: #ffc4c4;
+  --button: #cc0000;
+  --button-hover: #a80000;
+  --key-face: #ffffff;
+  --key-edge: #cfcfcf;
+  --key-base: #a9a9a9;
+  --underline: #b5b5b5;
+
+  --text: 1.125rem;
+  --measure: 40rem;
+  --wide: 60rem;
+  --gutter: 1.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f0f0f;
+    --ink: #f1f1f1;
+    --muted: #aaaaaa;
+    --rule: #2e2e2e;
+    --track: #3a3a3a;
+    --mark-soft: #6e2424;
+    --key-face: #1f1f1f;
+    --key-edge: #474747;
+    --key-base: #606060;
+    --underline: #6a6a6a;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: var(--text);
+  line-height: 1.6;
+  font-kerning: normal;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* A key is drawn as a key, everywhere on the site. */
+kbd {
+  display: inline-block;
+  min-width: 1.8em;
+  padding: 0.08em 0.42em 0.02em;
+  border: 1px solid var(--key-edge);
+  border-bottom: 0.18em solid var(--key-base);
+  border-radius: 0.32em;
+  background: var(--key-face);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  vertical-align: 0.06em;
+  white-space: nowrap;
+}
+
+code {
+  padding: 0.1em 0.35em;
+  border-radius: 0.3em;
+  background: var(--rule);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.84em;
+}
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--wide) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 10;
+  padding: 0.5rem 0.9rem;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+/* Header */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-block: 1.25rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.brand img {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.45rem;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--ink);
+}
+
+.site-nav a[aria-current="page"] {
+  text-decoration-line: underline;
+  text-decoration-color: currentColor;
+}
+
+/* Home: hero */
+
+.hero {
+  padding-top: clamp(2.5rem, 7vw, 5.5rem);
+}
+
+.hero h1 {
+  max-width: 15ch;
+  margin: 0;
+  font-size: clamp(2.5rem, 1.2rem + 5vw, 4.5rem);
+  font-weight: 780;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 36rem;
+  margin: 1.75rem 0 0;
+  font-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.3125rem);
+  line-height: 1.55;
+}
+
+.get {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin: 2.25rem 0 0;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  background: var(--button);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--button-hover);
+}
+
+.get-note {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/*
+ * The progress bar: the one picture on the page, and the thing the extension
+ * actually draws. S and E sit on the edges of the section they made; the
+ * playhead runs to E and jumps back to S, which is what R does.
+ */
+.demo {
+  position: relative;
+  height: 9rem;
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+}
+
+.bar {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 0.5rem;
+  margin-top: -0.25rem;
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.sec {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--from);
+  width: calc(var(--to) - var(--from));
+  background: var(--mark-soft);
+}
+
+.sec.is-active {
+  background: var(--mark);
+}
+
+.head {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: -0.5625rem 0 0 -0.5625rem;
+  border-radius: 50%;
+  background: var(--mark);
+  box-shadow: 0 0 0 0.1875rem var(--paper);
+  animation: loop 3.2s linear infinite;
+}
+
+@keyframes loop {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
+.cue {
+  position: absolute;
+  left: var(--at);
+  font-size: 1.25rem;
+  transform: translateX(-50%);
+}
+
+.cue.above {
+  top: 0;
+}
+
+.cue.below {
+  bottom: 0;
+}
+
+.cue::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 1.1rem;
+  background: var(--key-base);
+}
+
+.cue.above::after {
+  top: calc(100% + 0.3rem);
+}
+
+.cue.below::after {
+  bottom: calc(100% + 0.25rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .head {
+    left: 30%;
+    animation: none;
+  }
+}
+
+/* Home: sections below the hero */
+
+.block {
+  max-width: var(--measure);
+  margin-top: clamp(3.5rem, 8vw, 5rem);
+}
+
+.block h2,
+.prose h2 {
+  margin: 0 0 1.25rem;
+  font-size: 1.625rem;
+  font-weight: 720;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.block p {
+  margin: 0;
+}
+
+.keys {
+  margin: 0;
+}
+
+.keys > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding-block: 0.7rem;
+  border-top: 1px solid var(--rule);
+}
+
+.keys > div:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.keys dt,
+.keys dd {
+  margin: 0;
+}
+
+.keys kbd {
+  font-size: 0.95em;
+}
+
+.note {
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.block .note {
+  margin-top: 1.25rem;
+}
+
+.facts {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.facts li {
+  padding-left: 0.2em;
+}
+
+.facts li + li {
+  margin-top: 0.6rem;
+}
+
+.facts li::marker {
+  color: var(--muted);
+}
+
+/* Text pages: privacy policy, release notes */
+
+.prose > * {
+  max-width: var(--measure);
+}
+
+.prose h1 {
+  margin: clamp(2rem, 6vw, 4rem) 0 1.5rem;
+  font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3rem);
+  font-weight: 780;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.prose h2 {
+  margin-top: 3rem;
+}
+
+.prose h3 {
+  margin: 2rem 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.prose p,
+.prose ul {
+  margin: 0 0 1rem;
+}
+
+.prose ul {
+  padding-left: 1.2em;
+}
+
+.prose li + li {
+  margin-top: 0.35rem;
+}
+
+.prose li::marker {
+  color: var(--muted);
+}
+
+/* Footer */
+
+.site-footer {
+  margin-top: clamp(5rem, 11vw, 8rem);
+  padding-block: 1.75rem 3rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+}
+
+.footer-row + .footer-row {
+  margin-top: 0.5rem;
+}
+
+.site-footer .fine {
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 40rem) {
+  :root {
+    --text: 1.0625rem;
+  }
+
+  .demo {
+    height: 8rem;
+  }
+
+  .cue {
+    font-size: 1.0625rem;
+  }
+
+  .cue::after {
+    height: 0.85rem;
+  }
+
+  .keys > div {
+    grid-template-columns: 5.75rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .site-nav {
+    gap: 0.25rem 1rem;
+    font-size: 0.9375rem;
+  }
+}
